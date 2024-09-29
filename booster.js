@@ -31,7 +31,7 @@ submitBtn.addEventListener('click', () => {
     const oldboost = parseFloat(localStorage.getItem('cash')) || 0; // Initialize oldboost to 0 if it's null
 const balanceText = document.getElementById("balance").textContent;
 const balance = balanceText.replace(/[^0-9]/g, '');  // This will remove any non-numeric characters.// Check the amount before proceeding
-    if (amount >= 2 && amount >= balance ) {
+    if (amount >= 2 && amount <= balance) {
         let googleFormsData = [
             {
                 url: surl,
