@@ -14,7 +14,7 @@ const container = document.querySelector('.container');
 // Get saved values from local storage, or set defaults
 let score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
 let booster = localStorage.getItem('booster') ? parseFloat(localStorage.getItem('booster')) : 1;
-     lvl = booster * 100;
+    const lvl = booster * 100;
 const levelUpThreshold = 1000 + lvl; // Points per level
 let lastTapTime = 0;
 
