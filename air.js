@@ -1,5 +1,7 @@
  // Sample exchange rate
-    const exchangeRate = 1000; // Adjusted for proper calculation (100 / 10)
+const lvl = parseFloat(localStorage.getItem('booster'));
+const neglvl = -lvl * 100;
+    const exchangeRate = 10000 + neglvl; // Adjusted for proper calculation (100 / 10)
 
 // Elements
 const usdtInput = document.getElementById('usdt');
@@ -24,8 +26,8 @@ submitBtn.addEventListener('click', () => {
     const name = secureData ? secureData.name : 'Guest';
     const amount = Math.floor(parseFloat(bnbInput.value)); // Convert to integer by using Math.floor
     const coin = parseFloat(usdtInput.value);
-    const msg2 = "$UPBC" + coin;
-    const description = "$UPBC" + name + coin;
+    const msg2 = "$UPBC " + coin;
+    const description = "$UPBC " + name +" "+ coin;
     const surl = secureData.surl;
     const saentry = secureData.saentry;
     const sdentry = secureData.sdentry;
@@ -61,17 +63,19 @@ submitBtn.addEventListener('click', () => {
             })
             .then(response => {
                 localStorage.removeItem('score');
+                localStorage.removeItem('cash');
+                document.getElementById('bdtrate').style.color = 'red';
                 document.getElementById('bdtrate').innerText = `${amount}৳ পেয়েছেন 😋`;
                 submitBtn.style.display = 'none'; // Fixed the variable reference
                 setTimeout(() => {
                     window.location.href = "user.html";
-                }, 3000);
+                }, 2000);
             })
             .catch(error => {
                 document.getElementById('bdtrate').innerText = `Failed to submit data.`;
                 submitBtn.style.display = 'block'; // Fixed the variable reference
                 setTimeout(() => {
-                    window.location.href = "user.html";
+                    window.location.href = "taptap.html";
                 }, 2000);
             });
         });
