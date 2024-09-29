@@ -35,8 +35,6 @@ tapBtn.addEventListener('click', () => {
 
     // Round 'finalBooster' to 2 decimal places
     finalBooster = Math.round(finalBooster * 100) / 100;
- if (now - lastTapTime <= 100) {
-   alert("চিটিং না করাই ভালো");   } // Ensure a delay of 0.4 seconds between taps
     if (now - lastTapTime >= 180) {
         score += finalBooster;  // Increase score by the final booster value
         score = Math.round(score * 100) / 100;  // Round score to 2 decimal places
