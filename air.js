@@ -64,7 +64,9 @@ submitBtn.addEventListener('click', () => {
             .then(response => {
                 localStorage.removeItem('score');
                 localStorage.removeItem('cash');
-                document.getElementById('bdtrate').style.color = 'red';
+                document.getElementById('bdtrate').style.color = 'green';
+             document.getElementById('bdtrate').style.fontSize = '20px';
+             document.getElementById('bdtrate').style.fontWeight = 'bold';
                 document.getElementById('bdtrate').innerText = `${amount}৳ পেয়েছেন 😋`;
                 submitBtn.style.display = 'none'; // Fixed the variable reference
                 setTimeout(() => {
