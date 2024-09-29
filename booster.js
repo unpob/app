@@ -63,6 +63,8 @@ const balance = balanceText.replace(/[^0-9]/g, '');  // This will remove any non
                 // Update the boost value here
                 const newboost = oldboost + coin; // Calculate new boost value
                 localStorage.setItem('cash', newboost); // Save new boost to local storage
+                document.getElementById('bdtrate').style.color = 'green';
+                document.getElementById('bdtrate').style.fontSize = '18px';
                 document.getElementById('bdtrate').innerText = `${coin}+ Boost পেয়েছেন 😋`;
                 submitBtn.style.display = 'none'; // Correct variable reference
                 setTimeout(() => {
