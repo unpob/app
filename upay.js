@@ -187,7 +187,9 @@ function searchInSheet() {
                     audioElement2.play().catch(error => console.error('Audio playback failed:', error));
                     audioPlayed = true;
                 }
-
+setTimeout(function() {
+                    window.location.href = "user.html";
+                }, 3000);
                 // Prevent form submission and re-show the send button
                 sendButton.style.display = 'block';
 return;
