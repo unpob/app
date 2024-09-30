@@ -93,7 +93,7 @@ imageInput.addEventListener('change', function() {
                     const phoneRegex = /\b(018\d{8})\b/;
                     const phoneMatch = cleanedText.match(phoneRegex);
 
-                    const amountRegex = /(Moral Adnan|Ratul Vaiya|Ratul vya|Ratul vaia|UP Bank|Unknown|unknown|oroifafoe)\s+(\d{1,5}\.\d{2})/;
+                    const amountRegex = /(Moral Adnan|Ratul Vaiya|Ratul vya|Ratul vaia|UP Bank|Unknown|weifafee|oroifafoe)\s+(\d{1,5}\.\d{2})/;
                     const amountMatch = cleanedText.match(amountRegex);
 
                     const transactionIdRegex = /([A-Z0-9]{9})\s+\d{12}/;
