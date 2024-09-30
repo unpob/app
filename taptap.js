@@ -12,7 +12,7 @@ const levelDisplay = document.getElementById('level');
 const container = document.querySelector('.container');
 
 // Get saved values from local storage, or set defaults
-let score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
+let score = document.getElementById('score').textContent;
 let boostert = document.getElementById('level').textContent;
 const booster = boostert.replace(/[^0-9]/g, '');
 const lvl = booster * 500;
