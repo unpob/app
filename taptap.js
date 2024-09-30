@@ -14,9 +14,10 @@ const container = document.querySelector('.container');
 // Get saved values from local storage, or set defaults
 let score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
 let booster = localStorage.getItem('booster') ? parseFloat(localStorage.getItem('booster')) : 1;
-    const lvl = booster * 100;
+const lvl = booster * 100;
 const levelUpThreshold = 1000 + lvl; // Points per level
 let lastTapTime = 0;
+let taptime = 200; // Initial tap time
 
 // Initialize display
 scoreDisplay.innerText = score;
@@ -24,7 +25,7 @@ updateLevelAndProgress();
 
 tapBtn.addEventListener('click', () => {
     const now = new Date().getTime();
-    
+
     // Retrieve 'booster' and 'cash' from localStorage, default to 0 if not present
     let booster = localStorage.getItem('booster') ? parseFloat(localStorage.getItem('booster')) : 1;
     let cash = localStorage.getItem('cash') ? parseFloat(localStorage.getItem('cash')) : 0;
@@ -35,7 +36,16 @@ tapBtn.addEventListener('click', () => {
 
     // Round 'finalBooster' to 2 decimal places
     finalBooster = Math.round(finalBooster * 100) / 100;
-    if (now - lastTapTime >= 180) {
+
+    if (now - lastTapTime < 120) {
+        // If taps are too quick (within 100ms), increase the tap time to 250ms
+        taptime = 450;
+    } else if (now - lastTapTime >= 140 && now - lastTapTime <= 200) {
+        // If the tap is between 100ms and 180ms, reset the taptime to 200ms
+        taptime = 200;
+    }
+
+    if (now - lastTapTime >= taptime) {
         score += finalBooster;  // Increase score by the final booster value
         score = Math.round(score * 100) / 100;  // Round score to 2 decimal places
 
@@ -82,10 +92,9 @@ window.addEventListener('load', () => {
 
     const secureData = JSON.parse(localStorage.getItem("secureData"));
     const name = secureData ? secureData.name : 'Guest';
- btntext = "Boost";
-document.getElementById("btntxt").innerText = btntext;
-    
+    btntext = "Boost";
+    document.getElementById("btntxt").innerText = btntext;
+
     document.getElementById("name").innerText = name;
     updateLevelAndProgress();
-}); 
-
+});
