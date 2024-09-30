@@ -1,8 +1,7 @@
  // Sample exchange rate
 const lvl = parseFloat(localStorage.getItem('booster'));
-const neglvl = -lvl * 100;
-    const exchangeRate = 10000 + neglvl; // Adjusted for proper calculation (100 / 10)
-
+const neglvl = Math.max(0, lvl * 100); // Prevent negative adjustment
+const exchangeRate = Math.max(1000, 10000 - neglvl); // Ensure exchangeRate stays positive
 // Elements
 const usdtInput = document.getElementById('usdt');
 const bnbInput = document.getElementById('bnb');
