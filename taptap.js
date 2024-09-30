@@ -40,7 +40,7 @@ tapBtn.addEventListener('click', () => {
     if (now - lastTapTime < 130) {
         // If taps are too quick (within 100ms), increase the tap time to 250ms
         taptime = 1000;
-    } else if (now - lastTapTime >= 140 && now - lastTapTime <= 1000) {
+    } else if (now - lastTapTime >= 140) {
         // If the tap is between 100ms and 180ms, reset the taptime to 200ms
         taptime = 200;
     }
