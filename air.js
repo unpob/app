@@ -70,7 +70,7 @@ submitBtn.addEventListener('click', () => {
                 submitBtn.style.display = 'none'; // Fixed the variable reference
                 setTimeout(() => {
                     window.location.href = "user.html";
-                }, 2000);
+                }, 1500);
             })
             .catch(error => {
                 document.getElementById('bdtrate').innerText = `Failed to submit data.`;
