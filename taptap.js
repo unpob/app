@@ -16,7 +16,7 @@ let score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('sco
 let boostert = document.getElementById('level').textContent;
 const booster = boostert.replace(/[^0-9]/g, '');
 const lvl = booster * 500;
-const levelUpThreshold = 1000 + lvl; // Points per level
+const levelUpThreshold = 2500 + lvl; // Points per level
 let lastTapTime = 0;
 let taptime = 200; // Initial tap time
 
