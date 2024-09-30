@@ -13,7 +13,8 @@ const container = document.querySelector('.container');
 
 // Get saved values from local storage, or set defaults
 let score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
-let booster = localStorage.getItem('booster') ? parseFloat(localStorage.getItem('booster')) : 1;
+let boostert = document.getElementById('level').textContent;
+const booster = boostert.replace(/[^0-9]/g, '');
 const lvl = booster * 500;
 const levelUpThreshold = 1000 + lvl; // Points per level
 let lastTapTime = 0;
@@ -89,7 +90,10 @@ function updateLevelAndProgress() {
 window.addEventListener('load', () => {
     score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
     scoreDisplay.innerText = score;
+const paragraph = document.querySelector('.air');
 
+    // Set the text content
+    paragraph.innerText = "Air Drop on 10 October 2024 🔥";
     const secureData = JSON.parse(localStorage.getItem("secureData"));
     const name = secureData ? secureData.name : 'Guest';
     btntext = "Boost";
