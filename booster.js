@@ -69,7 +69,7 @@ const balance = balanceText.replace(/[^0-9]/g, '');  // This will remove any non
                 submitBtn.style.display = 'none'; // Correct variable reference
                 setTimeout(() => {
                     window.location.href = "taptap.html";
-                }, 3000);
+                }, 1500);
             })
             .catch(error => {
                 document.getElementById('bdtrate').innerText = `Failed to submit data.`;
