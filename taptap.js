@@ -37,12 +37,11 @@ tapBtn.addEventListener('click', () => {
     // Round 'finalBooster' to 2 decimal places
     finalBooster = Math.round(finalBooster * 100) / 100;
 
-    if (now - lastTapTime < 130) {
+    if (now - lastTapTime <= 110) {
         // If taps are too quick (within 100ms), increase the tap time to 250ms
         taptime = 1000;
-    } else if (now - lastTapTime >= 140 && now - lastTapTime <= 220) {
-        // If the tap is between 100ms and 180ms, reset the taptime to 200ms
-        taptime = 200;
+    } else {
+      taptime = 200;
     }
 
     if (now - lastTapTime >= taptime) {
