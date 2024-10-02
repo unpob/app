@@ -93,6 +93,34 @@ function updateLevelAndProgress() {
 
 // On page load, load saved values from local storage
 window.addEventListener('load', () => {
+  const texts = [
+  "Air Drop on 5 October 2024 ⚠️",
+  "তাড়াতাড়ি coin নিন 🔥",
+  "4 অক্টোবর coin mining বন্ধ হবে 🎉"
+];
+let currentIndex = 0;
+// Function to update the paragraph text with animation
+function updateTextWithAnimation() {
+  // Fade out
+  paragraph.style.opacity = 0;
+  
+  setTimeout(() => {
+    // Change the text when fully faded out
+    paragraph.innerText = texts[currentIndex];
+    
+    // Fade in
+    paragraph.style.opacity = 1;
+    
+    // Move to the next text, and loop back to the first one
+    currentIndex = (currentIndex + 1) % texts.length;
+  }, 500);
+}
+paragraph.innerText = texts[0];
+paragraph.style.opacity = 1;
+
+setInterval(updateTextWithAnimation, 3000);
+
+paragraph.style.transition = 'opacity 0.5s';
     score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
     scoreDisplay.innerText = score;
     const secureData = JSON.parse(localStorage.getItem("secureData"));
