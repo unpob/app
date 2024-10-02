@@ -25,47 +25,45 @@ scoreDisplay.innerText = score;
 updateLevelAndProgress();
 
 tapBtn.addEventListener('click', () => {
-    const now = new Date().getTime();
-
-    // Retrieve 'booster' and 'cash' from localStorage, default to 0 if not present
+    // Check if booster is 150
     let booster = localStorage.getItem('booster') ? parseFloat(localStorage.getItem('booster')) : 1;
+
+    if (booster >= 150) {
+        alert("Max level হয়ে গেছে 💯 Air Drop এর জন্য অপেক্ষা করুন💥");
+        tapBtn.disabled = true; // Disable the tap button
+        return; // Prevent further execution
+    }
+
+    const now = new Date().getTime();
     let cash = localStorage.getItem('cash') ? parseFloat(localStorage.getItem('cash')) : 0;
 
-    // Ensure 'lbost' is a valid number and calculate the final booster value
     let lbost = booster / 10 || 0.01;
     let finalBooster = (lbost + cash) || lbost;
 
-    // Round 'finalBooster' to 2 decimal places
     finalBooster = Math.round(finalBooster * 100) / 100;
 
     if (now - lastTapTime < 120) {
-        // If taps are too quick (within 100ms), increase the tap time to 900ms
         taptime = 900;
     } else if (now - lastTapTime >= 120 && now - lastTapTime <= 280) {
-        // If the tap is between 100ms and 280ms, set taptime to 200ms
         taptime = 200;
     }
 
     if (now - lastTapTime >= taptime) {
-        score += finalBooster;  // Increase score by the final booster value
-        score = Math.round(score * 100) / 100;  // Round score to 2 decimal places
+        score += finalBooster;
+        score = Math.round(score * 100) / 100;
 
-        // Show +booster animation
         const plusOne = document.createElement('div');
         plusOne.classList.add('plus-one');
         plusOne.textContent = `+${finalBooster}`;
         container.appendChild(plusOne);
 
-        // Remove the animation after it's done
         setTimeout(() => {
             plusOne.remove();
         }, 800);
 
-        // Update display and level progress
         scoreDisplay.innerText = score;
         updateLevelAndProgress();
 
-        // Save the score in local storage
         localStorage.setItem('score', score);
 
         lastTapTime = now;
