@@ -37,16 +37,13 @@ tapBtn.addEventListener('click', () => {
 
     finalBooster = Math.round(finalBooster * 100) / 100;
 
-    // Adjust tap time based on the speed of the tap
-    let taptime;
-  if ((now - lastTapTime) < 140) {
-        taptime = 900; // Slow down score upgrade if tapped too fast
+    if (now - lastTapTime < 140) {
+        taptime = 900;
     } else {
-        taptime = 200; // Normal tap time
+        taptime = 200;
     }
-const taptap = taptime;
-    // Ensure that we are waiting for the full `taptime` before updating the score
-    if (now - lastTapTime >= taptap) {
+
+    if (now - lastTapTime >= taptime) {
         score = parseFloat(score) + finalBooster;
         score = Math.round(score * 100) / 100;
 
@@ -63,11 +60,11 @@ const taptap = taptime;
         updateLevelAndProgress();
 
         localStorage.setItem('score', score);
-        
-        // Update last tap time after scoring
-        lastTapTime = now; 
+
+        lastTapTime = now;
     }
 });
+
 // Update the level and progress based on total score
 function updateLevelAndProgress() {
     const baseThreshold = 1500;
@@ -93,9 +90,9 @@ function updateLevelAndProgress() {
 
 // On page load, load saved values from local storage
 window.addEventListener('load', () => {
-  const paragraph = document.querySelector('.air');
+    const paragraph = document.querySelector('.air');
   const texts = [
-  "Air Drop on 10 October 2024 ⚠️",
+  "Air Drop on 10 October 2024 👻",
   "তাড়াতাড়ি coin নিন 🔥",
   "7 অক্টোবর coin mining বন্ধ হবে 🎉"
 ];
@@ -114,15 +111,16 @@ function updateTextWithAnimation() {
     
     // Move to the next text, and loop back to the first one
     currentIndex = (currentIndex + 1) % texts.length;
-  }, 500);
+  }, 500); // Wait for 500ms (duration of fade out) before changing text
 }
+// Set the initial text and opacity
 paragraph.innerText = texts[0];
 paragraph.style.opacity = 1;
-
+// Change text every 5 seconds
 setInterval(updateTextWithAnimation, 3000);
-
+// Optional: Set the initial fade duration
 paragraph.style.transition = 'opacity 0.5s';
-    score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
+  score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
     scoreDisplay.innerText = score;
     const secureData = JSON.parse(localStorage.getItem("secureData"));
     const name = secureData ? secureData.name : 'Guest';
