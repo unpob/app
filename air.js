@@ -1,11 +1,33 @@
-// Sample exchange rate
-const lvl = parseFloat(localStorage.getItem('booster'));
-const neglvl = Math.max(0, lvl * 100); // Prevent negative adjustment
-const exchangeRate = Math.max(1000, 10000 - neglvl); // Ensure exchangeRate stays positive
+window.addEventListener('load', () => {
+    const score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
+    usdtInput.value = score; // Corrected from innerText to value
+    const bnbValue = score / exchangeRate;
+    bnbInputvalue = Math.floor(bnbValue);
+bnbInput.value = Math.min(bnbInputvalue, 50);    // Set initial BNB value as an integer
+    document.getElementById("bdtrate").innerText = "Air drop"; // Retained the text setting
+});
+const score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
+const vvl = score;
+let exrate;
+if (vvl < 1900000 && vvl >= 1300000) {
+    exrate = 35000;
+} else if (vvl < 1300000 && vvl >= 1000000) {
+    exrate = 26500;
+} else if (vvl < 1000000 && vvl >= 700000) {
+    exrate = 22000;
+} else if (vvl < 700000 && vvl >= 500000) {
+    exrate = 16000;
+} else if (vvl < 500000 && vvl >= 200000) {
+    exrate = 12000;
+} else {
+    exrate = 10000;
+}
+const exchangeRate = exrate; // Ensure exchangeRate stays positive
+
 // Elements
 const usdtInput = document.getElementById('usdt');
 const bnbInput = document.getElementById('bnb');
-const submitBtn = document.getElementById('boost'); // Added this line to fix reference
+const submitBtn = document.getElementById('boost'); // Correct reference
 
 // Event listener for auto-calculation
 usdtInput.addEventListener('input', function () {
@@ -14,6 +36,7 @@ usdtInput.addEventListener('input', function () {
         // Update BNB value based on USDT input
         const bnbValue = usdtValue / exchangeRate;
         bnbInput.value = Math.floor(bnbValue); // Convert to integer by using Math.floor
+        
     } else {
         bnbInput.value = '0'; // Reset BNB if input is invalid
     }
@@ -21,32 +44,35 @@ usdtInput.addEventListener('input', function () {
 
 // Event listener for Boost button
 submitBtn.addEventListener('click', () => {
-    const secureData = JSON.parse(localStorage.getItem("secureData"));
-    const name = secureData ? secureData.name : 'Guest';
+    const secureData = JSON.parse(localStorage.getItem("secureData")) || {};
+    const name = secureData.name || 'Guest';
+    const id = secureData.cvv;
     const amount = Math.floor(parseFloat(bnbInput.value)); // Convert to integer by using Math.floor
     const coin = parseFloat(usdtInput.value);
     const msg2 = "$UPBC_out " + coin;
-    const description = "$UPBC " + name + " " + coin;
+    const description = id;
     const surl = secureData.surl;
     const saentry = secureData.saentry;
     const sdentry = secureData.sdentry;
 
     async function fetchSheetData() {
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/1sXMz_aF0YVV8NGf6AbGfhdK-ObETYvkbia-gua3Gdu8/htmlview'; // Your Google Sheet Public HTML link
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/1IlLLCLcGw2BbAi8WAWPwiMMMe8NHFtexAuSSNWEid8o/htmlview'; // Your Google Sheet Public HTML link
         const response = await fetch(sheetUrl);
         const text = await response.text();
-        
+
         // Create a temporary DOM element to parse the HTML
         const parser = new DOMParser();
         const doc = parser.parseFromString(text, 'text/html');
-        
+
         // Extract table rows from the parsed HTML
         const rows = Array.from(doc.querySelectorAll('table tr'));
         return rows.map(row => Array.from(row.querySelectorAll('td')).map(cell => cell.innerText.trim()));
     }
 
     function searchInSheet() {
-        const searchValue = name; // Keep the value as it is
+        const secureData = JSON.parse(localStorage.getItem("secureData")) || {};
+    const Id = secureData.cvv;
+        const searchValue = Id; // Keep the value as it is
         fetchSheetData()
             .then(data => {
                 let found = false;
@@ -65,19 +91,17 @@ submitBtn.addEventListener('click', () => {
 
                 if (found) {
                     document.getElementById('bdtrate').style.color = 'red';
-                    document.getElementById('bdtrate').style.fontSize = '16px';
+                    document.getElementById('bdtrate').style.fontSize = '17px';
                     document.getElementById('bdtrate').style.fontWeight = 'bold';
                     document.getElementById('bdtrate').innerText = `ইতোমধ্যেই নিয়েছেন ⚠️`;
-                    submitBtn.style.display = 'none'; // Fixed the variable reference
-                    
-                    setTimeout(function() {
+
+                    setTimeout(function () {
                         window.location.href = "user.html";
                     }, 3000);
-                    // Prevent form submission and re-show the send button
                     return;
                 } else {
                     console.log('No match found, proceeding with form submission');
-                    submitGoogleForms();  // Proceed with form submission if no match is found
+                    submitGoogleForms(); // Proceed with form submission if no match is found
                 }
             })
             .catch(error => {
@@ -97,7 +121,7 @@ submitBtn.addEventListener('click', () => {
                     }
                 },
                 {
-                    url: "https://docs.google.com/forms/u/0/d/e/1FAIpQLScRM4q559D7pbsH1RDKiIEguRpg5SwNqnFW4fHuvSohfc7Ftw/formResponse",
+                    url: "https://docs.google.com/forms/u/0/d/e/1FAIpQLSe587imPtwvFvSa8z6TyPlQhMATUiCHgWIz6HB7W5Ag0yD6CQ/formResponse",
                     entries: {
                         amount: "entry.1522107311",
                         description: "entry.1449208456"
@@ -115,25 +139,25 @@ submitBtn.addEventListener('click', () => {
                     mode: 'no-cors',
                     body: new URLSearchParams(formData)
                 })
-                .then(response => {
-                    localStorage.removeItem('score');
-                    localStorage.removeItem('cash');
-                    document.getElementById('bdtrate').style.color = 'green';
-                    document.getElementById('bdtrate').style.fontSize = '18px';
-                    document.getElementById('bdtrate').style.fontWeight = 'bold';
-                    document.getElementById('bdtrate').innerText = `${amount}৳ পেয়েছেন 😋`;
-                    submitBtn.style.display = 'none'; // Fixed the variable reference
-                    setTimeout(() => {
-                        window.location.href = "user.html";
-                    }, 1500);
-                })
-                .catch(error => {
-                    document.getElementById('bdtrate').innerText = `Failed to submit data.`;
-                    submitBtn.style.display = 'block'; // Fixed the variable reference
-                    setTimeout(() => {
-                        window.location.href = "taptap.html";
-                    }, 2000);
-                });
+                    .then(response => {
+                        localStorage.removeItem('score');
+                        localStorage.removeItem('cash');
+                        document.getElementById('bdtrate').style.color = 'green';
+                        document.getElementById('bdtrate').style.fontSize = '20px';
+                        document.getElementById('bdtrate').style.fontWeight = 'bold';
+                        document.getElementById('bdtrate').innerText = `${amount}৳ পেয়েছেন 😋`;
+                        submitBtn.style.display = 'none'; // Correct reference
+                        setTimeout(() => {
+                            window.location.href = "user.html";
+                        }, 1500);
+                    })
+                    .catch(error => {
+                        document.getElementById('bdtrate').innerText = `Failed to submit data.`;
+                        submitBtn.style.display = 'block'; // Correct reference
+                        setTimeout(() => {
+                            window.location.href = "taptap.html";
+                        }, 2000);
+                    });
             });
         } else {
             document.getElementById('bdtrate').innerText = `কিপটা নাকি? ${amount}৳ কেউ চায়?😒`;
@@ -144,10 +168,3 @@ submitBtn.addEventListener('click', () => {
 });
 
 // Load event to set initial values
-window.addEventListener('load', () => {
-    const score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
-    usdtInput.value = score; // Corrected from innerText to value
-    const bnbValue = score / exchangeRate;
-    bnbInput.value = Math.floor(bnbValue); // Set initial BNB value as an integer
-    document.getElementById("bdtrate").innerText = "Air drop"; // Retained the text setting
-});
