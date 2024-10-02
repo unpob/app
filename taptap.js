@@ -93,6 +93,7 @@ function updateLevelAndProgress() {
 
 // On page load, load saved values from local storage
 window.addEventListener('load', () => {
+  const paragraph = document.querySelector('.air');
   const texts = [
   "Air Drop on 10 October 2024 ⚠️",
   "তাড়াতাড়ি coin নিন 🔥",
