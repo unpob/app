@@ -39,7 +39,7 @@ tapBtn.addEventListener('click', () => {
 
     if (now - lastTapTime < 120) {
         taptime = 900;
-    } else if (now - lastTapTime >= 120 && now - lastTapTime <= 280) {
+    } else {
         taptime = 200;
     }
 
