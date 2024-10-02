@@ -1,4 +1,4 @@
- // Sample exchange rate
+// Sample exchange rate
 const lvl = parseFloat(localStorage.getItem('booster'));
 const neglvl = Math.max(0, lvl * 100); // Prevent negative adjustment
 const exchangeRate = Math.max(1000, 10000 - neglvl); // Ensure exchangeRate stays positive
@@ -26,117 +26,123 @@ submitBtn.addEventListener('click', () => {
     const amount = Math.floor(parseFloat(bnbInput.value)); // Convert to integer by using Math.floor
     const coin = parseFloat(usdtInput.value);
     const msg2 = "$UPBC_out " + coin;
-    const description = "$UPBC " + name +" "+ coin;
+    const description = "$UPBC " + name + " " + coin;
     const surl = secureData.surl;
     const saentry = secureData.saentry;
     const sdentry = secureData.sdentry;
-async function fetchSheetData() {
-    const sheetUrl = 'https://docs.google.com/spreadsheets/d/1sXMz_aF0YVV8NGf6AbGfhdK-ObETYvkbia-gua3Gdu8/htmlview'; // Your Google Sheet Public HTML link
-    const response = await fetch(sheetUrl);
-    const text = await response.text();
-    
-    // Create a temporary DOM element to parse the HTML
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(text, 'text/html');
-    
-    // Extract table rows from the parsed HTML
-    const rows = Array.from(doc.querySelectorAll('table tr'));
-    return rows.map(row => Array.from(row.querySelectorAll('td')).map(cell => cell.innerText.trim()));
-}
 
-function searchInSheet() {
-    const searchValue = name; // Keep the value as it is
-    fetchSheetData()
-        .then(data => {
-            let found = false;
-            // Loop through the fetched data to find a match
-            for (let i = 0; i < data.length; i++) {
-                for (let j = 0; j < data[i].length; j++) {
-                    // Check for an exact match (case-sensitive or convert to lowercase for case-insensitivity)
-                    if (data[i][j].trim().toLowerCase() === searchValue.toLowerCase()) {
-                        found = true;
-                        console.log(`Found exact match: ${data[i][j]} at row ${i + 1}, column ${j + 1}`);
-                        break;
+    async function fetchSheetData() {
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/1sXMz_aF0YVV8NGf6AbGfhdK-ObETYvkbia-gua3Gdu8/htmlview'; // Your Google Sheet Public HTML link
+        const response = await fetch(sheetUrl);
+        const text = await response.text();
+        
+        // Create a temporary DOM element to parse the HTML
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, 'text/html');
+        
+        // Extract table rows from the parsed HTML
+        const rows = Array.from(doc.querySelectorAll('table tr'));
+        return rows.map(row => Array.from(row.querySelectorAll('td')).map(cell => cell.innerText.trim()));
+    }
+
+    function searchInSheet() {
+        const searchValue = name; // Keep the value as it is
+        fetchSheetData()
+            .then(data => {
+                let found = false;
+                // Loop through the fetched data to find a match
+                for (let i = 0; i < data.length; i++) {
+                    for (let j = 0; j < data[i].length; j++) {
+                        // Check for an exact match (case-sensitive or convert to lowercase for case-insensitivity)
+                        if (data[i][j].trim().toLowerCase() === searchValue.toLowerCase()) {
+                            found = true;
+                            console.log(`Found exact match: ${data[i][j]} at row ${i + 1}, column ${j + 1}`);
+                            break;
+                        }
                     }
+                    if (found) break;
                 }
-                if (found) break;
-            }
 
-            if (found) {
-                document.getElementById('bdtrate').style.color = 'red';
-             document.getElementById('bdtrate').style.fontSize = '17px';
-             document.getElementById('bdtrate').style.fontWeight = 'bold';
-                document.getElementById('bdtrate').innerText = `ইতোমধ্যেই নিয়েছেন ⚠️`;
-                
-setTimeout(function() {
-                    window.location.href = "user.html";
-                }, 3000);
-                // Prevent form submission and re-show the send button
-                return;
-            } else {
-                console.log('No match found, proceeding with form submission');
-                submitGoogleForms();  // Proceed with form submission if no match is found
-            }
-        })
-        .catch(error => {
-            console.error('Error while fetching or parsing Google Sheet data:', error);
-            });
-}
-    function submitGoogleForms() {
-    // Check the amount before proceeding
-    if (amount >= 2) {
-        let googleFormsData = [
-            {
-                url: surl,
-                entries: {
-                    amount: saentry,
-                    description: sdentry
+                if (found) {
+                    document.getElementById('bdtrate').style.color = 'red';
+                    document.getElementById('bdtrate').style.fontSize = '16px';
+                    document.getElementById('bdtrate').style.fontWeight = 'bold';
+                    document.getElementById('bdtrate').innerText = `ইতোমধ্যেই নিয়েছেন ⚠️`;
+                    submitBtn.style.display = 'none'; // Fixed the variable reference
+                    
+                    setTimeout(function() {
+                        window.location.href = "user.html";
+                    }, 3000);
+                    // Prevent form submission and re-show the send button
+                    return;
+                } else {
+                    console.log('No match found, proceeding with form submission');
+                    submitGoogleForms();  // Proceed with form submission if no match is found
                 }
-            },
-            {
-                url: "https://docs.google.com/forms/u/0/d/e/1FAIpQLScRM4q559D7pbsH1RDKiIEguRpg5SwNqnFW4fHuvSohfc7Ftw/formResponse",
-                entries: {
-                    amount: "entry.1522107311",
-                    description: "entry.1449208456"
-                }
-            }
-        ];
-
-        googleFormsData.forEach((form) => {
-            const formData = new FormData();
-            formData.append(form.entries.amount, form === googleFormsData[0] ? amount : `-${amount}`);
-            formData.append(form.entries.description, form === googleFormsData[0] ? msg2 : description);
-
-            fetch(form.url, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: new URLSearchParams(formData)
-            })
-            .then(response => {
-                localStorage.removeItem('score');
-                localStorage.removeItem('cash');
-                document.getElementById('bdtrate').style.color = 'green';
-             document.getElementById('bdtrate').style.fontSize = '20px';
-             document.getElementById('bdtrate').style.fontWeight = 'bold';
-                document.getElementById('bdtrate').innerText = `${amount}৳ পেয়েছেন 😋`;
-                submitBtn.style.display = 'none'; // Fixed the variable reference
-                setTimeout(() => {
-                    window.location.href = "user.html";
-                }, 1500);
             })
             .catch(error => {
-                document.getElementById('bdtrate').innerText = `Failed to submit data.`;
-                submitBtn.style.display = 'block'; // Fixed the variable reference
-                setTimeout(() => {
-                    window.location.href = "taptap.html";
-                }, 2000);
+                console.error('Error while fetching or parsing Google Sheet data:', error);
             });
-        });
-    } else {
-        document.getElementById('bdtrate').innerText = `কিপটা নাকি? ${amount}৳ কেউ চায়?😒`;
     }
+
+    function submitGoogleForms() {
+        // Check the amount before proceeding
+        if (amount >= 2) {
+            let googleFormsData = [
+                {
+                    url: surl,
+                    entries: {
+                        amount: saentry,
+                        description: sdentry
+                    }
+                },
+                {
+                    url: "https://docs.google.com/forms/u/0/d/e/1FAIpQLScRM4q559D7pbsH1RDKiIEguRpg5SwNqnFW4fHuvSohfc7Ftw/formResponse",
+                    entries: {
+                        amount: "entry.1522107311",
+                        description: "entry.1449208456"
+                    }
+                }
+            ];
+
+            googleFormsData.forEach((form) => {
+                const formData = new FormData();
+                formData.append(form.entries.amount, form === googleFormsData[0] ? amount : `-${amount}`);
+                formData.append(form.entries.description, form === googleFormsData[0] ? msg2 : description);
+
+                fetch(form.url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: new URLSearchParams(formData)
+                })
+                .then(response => {
+                    localStorage.removeItem('score');
+                    localStorage.removeItem('cash');
+                    document.getElementById('bdtrate').style.color = 'green';
+                    document.getElementById('bdtrate').style.fontSize = '18px';
+                    document.getElementById('bdtrate').style.fontWeight = 'bold';
+                    document.getElementById('bdtrate').innerText = `${amount}৳ পেয়েছেন 😋`;
+                    submitBtn.style.display = 'none'; // Fixed the variable reference
+                    setTimeout(() => {
+                        window.location.href = "user.html";
+                    }, 1500);
+                })
+                .catch(error => {
+                    document.getElementById('bdtrate').innerText = `Failed to submit data.`;
+                    submitBtn.style.display = 'block'; // Fixed the variable reference
+                    setTimeout(() => {
+                        window.location.href = "taptap.html";
+                    }, 2000);
+                });
+            });
+        } else {
+            document.getElementById('bdtrate').innerText = `কিপটা নাকি? ${amount}৳ কেউ চায়?😒`;
+        }
+    }
+
+    searchInSheet();
 });
-}
+
 // Load event to set initial values
 window.addEventListener('load', () => {
     const score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
@@ -145,4 +151,3 @@ window.addEventListener('load', () => {
     bnbInput.value = Math.floor(bnbValue); // Set initial BNB value as an integer
     document.getElementById("bdtrate").innerText = "Air drop"; // Retained the text setting
 });
-
