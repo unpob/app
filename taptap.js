@@ -37,13 +37,16 @@ tapBtn.addEventListener('click', () => {
 
     finalBooster = Math.round(finalBooster * 100) / 100;
 
-    if (now - lastTapTime < 120) {
-        taptime = 900;
+    // Adjust tap time based on the speed of the tap
+    let taptime;
+  if ((now - lastTapTime) < 140) {
+        taptime = 900; // Slow down score upgrade if tapped too fast
     } else {
-        taptime = 200;
+        taptime = 200; // Normal tap time
     }
-
-    if (now - lastTapTime >= taptime) {
+const taptap = taptime;
+    // Ensure that we are waiting for the full `taptime` before updating the score
+    if (now - lastTapTime >= taptap) {
         score = parseFloat(score) + finalBooster;
         score = Math.round(score * 100) / 100;
 
@@ -60,11 +63,11 @@ tapBtn.addEventListener('click', () => {
         updateLevelAndProgress();
 
         localStorage.setItem('score', score);
-
-        lastTapTime = now;
+        
+        // Update last tap time after scoring
+        lastTapTime = now; 
     }
 });
-
 // Update the level and progress based on total score
 function updateLevelAndProgress() {
     const baseThreshold = 1500;
