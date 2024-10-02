@@ -94,9 +94,9 @@ function updateLevelAndProgress() {
 // On page load, load saved values from local storage
 window.addEventListener('load', () => {
   const texts = [
-  "Air Drop on 5 October 2024 ⚠️",
+  "Air Drop on 10 October 2024 ⚠️",
   "তাড়াতাড়ি coin নিন 🔥",
-  "4 অক্টোবর coin mining বন্ধ হবে 🎉"
+  "7 অক্টোবর coin mining বন্ধ হবে 🎉"
 ];
 let currentIndex = 0;
 // Function to update the paragraph text with animation
