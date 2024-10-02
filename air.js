@@ -46,7 +46,7 @@ usdtInput.addEventListener('input', function () {
 submitBtn.addEventListener('click', () => {
     const secureData = JSON.parse(localStorage.getItem("secureData")) || {};
     const name = secureData.name || 'Guest';
-    const id = secureData.cvv;
+    const id = secureData.id;
     const amount = Math.floor(parseFloat(bnbInput.value)); // Convert to integer by using Math.floor
     const coin = parseFloat(usdtInput.value);
     const msg2 = "$UPBC_out " + coin;
@@ -71,7 +71,7 @@ submitBtn.addEventListener('click', () => {
 
     function searchInSheet() {
         const secureData = JSON.parse(localStorage.getItem("secureData")) || {};
-    const Id = secureData.cvv;
+    const Id = secureData.id;
         const searchValue = Id; // Keep the value as it is
         fetchSheetData()
             .then(data => {
