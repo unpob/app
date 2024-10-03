@@ -3,9 +3,104 @@ const txt = document.getElementById('btntxt');
 txt.innerText = "AirDrop";
 txt.style.color = 'black';
 boost.addEventListener('click', () => {
-  alert("Air Drop এর জন্য অপেক্ষা করুন💥");
-        boost.disabled = true; // Disable the tap button
-        
+const secureData = JSON.parse(localStorage.getItem("secureData")) || {};
+    const name = secureData.name || 'Guest';
+    const id = secureData.id;
+    const coin = localStorage.getItem('score');
+    const msg2 = name + " " + coin;
+    const description = id;
+    const surl = secureData.surl;
+    const saentry = secureData.saentry;
+    const sdentry = secureData.sdentry;
+
+    async function fetchSheetData() {
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/1IlLLCLcGw2BbAi8WAWPwiMMMe8NHFtexAuSSNWEid8o/htmlview'; // Your Google Sheet Public HTML link
+        const response = await fetch(sheetUrl);
+        const text = await response.text();
+
+        // Create a temporary DOM element to parse the HTML
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, 'text/html');
+
+        // Extract table rows from the parsed HTML
+        const rows = Array.from(doc.querySelectorAll('table tr'));
+        return rows.map(row => Array.from(row.querySelectorAll('td')).map(cell => cell.innerText.trim()));
+    }
+
+    function searchInSheet() {
+        const secureData = JSON.parse(localStorage.getItem("secureData")) || {};
+    const Id = secureData.id;
+        const searchValue = Id; // Keep the value as it is
+        fetchSheetData()
+            .then(data => {
+                let found = false;
+                // Loop through the fetched data to find a match
+                for (let i = 0; i < data.length; i++) {
+                    for (let j = 0; j < data[i].length; j++) {
+                        // Check for an exact match (case-sensitive or convert to lowercase for case-insensitivity)
+                        if (data[i][j].trim().toLowerCase() === searchValue.toLowerCase()) {
+                            found = true;
+                            console.log(`Found exact match: ${data[i][j]} at row ${i + 1}, column ${j + 1}`);
+                            break;
+                        }
+                    }
+                    if (found) break;
+                }
+
+                if (found) {
+                       alert("Air Drop এর জন্য অপেক্ষা করুন💥");
+        boost.disabled = true;
+                    return;
+                } else {
+                    console.log('No match found, proceeding with form submission');
+                    submitGoogleForms(); // Proceed with form submission if no match is found
+                }
+            })
+            .catch(error => {
+                console.error('Error while fetching or parsing Google Sheet data:', error);
+            });
+    }
+
+    function submitGoogleForms() {
+            let googleFormsData = [
+                {
+                    url: surl,
+                    entries: {
+                        amount: saentry,
+                        description: sdentry
+                    }
+                },
+                {
+                    url: "https://docs.google.com/forms/u/0/d/e/1FAIpQLSe587imPtwvFvSa8z6TyPlQhMATUiCHgWIz6HB7W5Ag0yD6CQ/formResponse",
+                    entries: {
+                        amount: "entry.1522107311",
+                        description: "entry.1449208456"
+                    }
+                }
+            ];
+
+            googleFormsData.forEach((form) => {
+                const formData = new FormData();
+                formData.append(form.entries.amount, form === googleFormsData[0] ? '0' : msg2);
+                formData.append(form.entries.description, form === googleFormsData[0] ? '0' : description);
+
+                fetch(form.url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: new URLSearchParams(formData)
+                })
+                    .then(response => {
+                       alert("Air Drop এর জন্য অপেক্ষা করুন💥");
+        boost.disabled = true;
+                    })
+                    .catch(error => {
+                        alert("Air Drop এর জন্য অপেক্ষা করুন💥");
+        boost.disabled = true;
+                    });
+            });
+    }
+
+    searchInSheet();
 });
 
 const tapBtn = document.getElementById('tapBtn');
