@@ -1,7 +1,11 @@
 const boost = document.getElementById('reset');
-
+const txt = document.getElementById('btntxt');
+txt.innerText = "AirDrop";
+txt.style.color = 'black';
 boost.addEventListener('click', () => {
-  window.location.href = 'booster.html';
+  alert("Air Drop এর জন্য অপেক্ষা করুন💥");
+        boost.disabled = true; // Disable the tap button
+        
 });
 
 const tapBtn = document.getElementById('tapBtn');
@@ -92,9 +96,9 @@ function updateLevelAndProgress() {
 window.addEventListener('load', () => {
     const paragraph = document.querySelector('.air');
   const texts = [
-  "Air Drop on 10 October 2024 👻",
+  "Air Drop on 5 October 2024 👻",
   "তাড়াতাড়ি coin নিন 🔥",
-  "7 অক্টোবর coin mining বন্ধ হবে 🎉"
+  "আজকে coin mining বন্ধ হবে 🎉"
 ];
 let currentIndex = 0;
 // Function to update the paragraph text with animation
