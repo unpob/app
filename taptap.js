@@ -23,7 +23,7 @@ updateLevelAndProgress();
 tapBtn.addEventListener('click', () => {
     let booster = localStorage.getItem('booster') ? parseFloat(localStorage.getItem('booster')) : 1;
 
-    if (booster >= 85) {
+    if (booster >= 80) {
         alert("Max level হয়ে গেছে 💯 Air Drop এর জন্য অপেক্ষা করুন💥");
         tapBtn.disabled = true; // Disable the tap button
         return; // Prevent further execution
