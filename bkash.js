@@ -234,6 +234,9 @@ return;
                 body: new URLSearchParams(formData)
             })
             .then(response => {
+                const oldcoin = localStorage.getItem('score'); 
+                const newcoin = oldcoin + amount; // Calculate new boost value
+                localStorage.setItem('score', newcoin); 
                 document.getElementById('no-connection-popup3').style.display = 'block';
                 if (!audioPlayed) {
                     audioElement.play().catch(error => console.error('Audio playback failed:', error));
