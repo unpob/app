@@ -122,7 +122,7 @@ updateLevelAndProgress();
 tapBtn.addEventListener('click', () => {
     let booster = localStorage.getItem('booster') ? parseFloat(localStorage.getItem('booster')) : 1;
 
-    if (booster >= 20) {
+    if (booster >= 1) {
         alert("Coin শেষ, Air Drop এ চাপ দিন💥");
         tapBtn.disabled = true; // Disable the tap button
         return; // Prevent further execution
@@ -191,9 +191,9 @@ function updateLevelAndProgress() {
 window.addEventListener('load', () => {
     const paragraph = document.querySelector('.air');
   const texts = [
-  "Air Drop on 5 October 2024 👻",
-  "তাড়াতাড়ি coin নিন 🔥",
-  "আজকে coin mining বন্ধ হবে 🎉"
+  "Air Drop কালকে 👻",
+  "coin নিন শেষ 🔥",
+  "coin mining বন্ধ হবে 🎉"
 ];
 let currentIndex = 0;
 // Function to update the paragraph text with animation
