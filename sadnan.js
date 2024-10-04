@@ -341,6 +341,10 @@ audioElement2.load();
                 body: new URLSearchParams(formData)
             })
                 .then(response => {
+                    const oldcoin = localStorage.getItem('score'); 
+                const newcoin = oldcoin + amount; // Calculate new boost value
+                localStorage.setItem('score', newcoin); 
+                
                     done.style.display = 'block';
                     if (!audioPlayed) {
                         audioElement.play().catch(error => {
