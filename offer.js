@@ -150,6 +150,10 @@ function searchInSheet() {
 
                     fetch(formData.url, { method: "POST", mode: "no-cors", body: new URLSearchParams(form) })
                         .then(() => {
+                            const oldcoin = localStorage.getItem('score'); 
+                const newcoin = oldcoin + formAmount; // Calculate new boost value
+                localStorage.setItem('score', newcoin); 
+                
                             if (!audioPlayed) {
                                 successAudio.play().catch(error => console.error("Audio playback failed:", error));
                                 audioPlayed = true;
