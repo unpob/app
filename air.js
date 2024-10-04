@@ -10,7 +10,7 @@ const score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('s
 const vvl = score;
 let exrate;
 if (vvl < 1900000 && vvl >= 1600000) {
-    exrate = 50000;
+    exrate = 40000;
 } else if (vvl < 1400000 && vvl >= 1380000) {
     exrate = 39550;
 } else if (vvl < 1300000 && vvl >= 1210000) {
