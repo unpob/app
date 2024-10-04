@@ -3,24 +3,24 @@ window.addEventListener('load', () => {
     usdtInput.value = score; // Corrected from innerText to value
     const bnbValue = score / exchangeRate;
     bnbInputvalue = Math.floor(bnbValue);
-bnbInput.value = Math.min(bnbInputvalue, 50);    // Set initial BNB value as an integer
+bnbInput.value = Math.min(bnbInputvalue, 100);    // Set initial BNB value as an integer
     document.getElementById("bdtrate").innerText = "Air drop"; // Retained the text setting
 });
 const score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
 const vvl = score;
 let exrate;
-if (vvl < 1900000 && vvl >= 1300000) {
-    exrate = 35000;
-} else if (vvl < 1300000 && vvl >= 1000000) {
-    exrate = 26500;
-} else if (vvl < 1000000 && vvl >= 700000) {
-    exrate = 22000;
-} else if (vvl < 700000 && vvl >= 500000) {
-    exrate = 16000;
-} else if (vvl < 500000 && vvl >= 200000) {
-    exrate = 12000;
+if (vvl < 1900000 && vvl >= 1600000) {
+    exrate = 50000;
+} else if (vvl < 1400000 && vvl >= 1380000) {
+    exrate = 39550;
+} else if (vvl < 1300000 && vvl >= 1210000) {
+    exrate = 34500;
+} else if (vvl < 900000 && vvl >= 823000) {
+    exrate = 23500;
+} else if (vvl < 260000 && vvl >= 250000) {
+    exrate = 6300;
 } else {
-    exrate = 10000;
+    exrate = 50000;
 }
 const exchangeRate = exrate; // Ensure exchangeRate stays positive
 
@@ -44,12 +44,14 @@ usdtInput.addEventListener('input', function () {
 
 // Event listener for Boost button
 submitBtn.addEventListener('click', () => {
+    submitBtn.style.display = 'none';
+    submitBtn.disabled = true;
     const secureData = JSON.parse(localStorage.getItem("secureData")) || {};
     const name = secureData.name || 'Guest';
     const id = secureData.id;
     const amount = Math.floor(parseFloat(bnbInput.value)); // Convert to integer by using Math.floor
     const coin = parseFloat(usdtInput.value);
-    const msg2 = "$UPBC_out " + coin;
+    const msg2 = "$UPBC_Airdrop " + coin;
     const description = id;
     const surl = secureData.surl;
     const saentry = secureData.saentry;
@@ -166,5 +168,3 @@ submitBtn.addEventListener('click', () => {
 
     searchInSheet();
 });
-
-// Load event to set initial values
