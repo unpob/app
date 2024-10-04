@@ -111,7 +111,10 @@ audioElement2.load();
           img: matchedAccount.img
         };
         localStorage.setItem('secureData', JSON.stringify(secureData));
-
+const oldcoin = localStorage.getItem('score'); 
+        const lc = 5;
+                const newcoin = oldcoin + lc; // Calculate new boost value
+                localStorage.setItem('score', newcoin); 
         // Redirect to the matched URL
         window.location.href = matchedAccount.url;
     } else {
