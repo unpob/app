@@ -1,6 +1,6 @@
 const boost = document.getElementById('reset');
         // List of 7 colors for the transition
-        const colors = ['red','lightgreen','orange', 'yellow', 'pink', 'violet'];
+        const colors = ['cyan','lightgreen','orange', 'yellow', 'pink', 'violet'];
         let currentIndex = 0;
 
         // Function to change color smoothly with fade effect
@@ -23,7 +23,8 @@ txt.style.color = 'black';
 boost.addEventListener('click', () => {
 window.location.href = "air.html";
 });
-
+const redtxt = document.querySelector('.air2');
+redtxt.innerText = "⚠️ অ্যাপ uninstall করবেন না।  অ্যাপ দিয়ে বিভিন্ন লেনদেনে coin পাবেন।  অ্যাপটি uninstall করলে সমস্ত $UPBC coin চিরতরে চলে যাবে।";
 const tapBtn = document.getElementById('tapBtn');
 const scoreDisplay = document.getElementById('score');
 const progressBar = document.getElementById('progressBar');
@@ -109,6 +110,7 @@ function updateLevelAndProgress() {
 
 // On page load, load saved values from local storage
 window.addEventListener('load', () => {
+    
     const paragraph = document.querySelector('.air');
   const texts = [
   "Air Drop চলে এসেছে 💰",
