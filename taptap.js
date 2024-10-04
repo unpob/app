@@ -30,7 +30,7 @@ const progressBar = document.getElementById('progressBar');
 const progressDisplay = document.getElementById('progress');
 const levelDisplay = document.getElementById('level');
 const container = document.querySelector('.container');
-
+tapBtn.style.display='none';
 // Get saved values from local storage, or set defaults
 let score = document.getElementById('score').textContent;
 let lastTapTime = 0;
