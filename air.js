@@ -20,7 +20,7 @@ if (vvl < 1900000 && vvl >= 1600000) {
 } else if (vvl < 260000 && vvl >= 250000) {
     exrate = 6300;
 } else {
-    exrate = 50000;
+    exrate = 15000;
 }
 const exchangeRate = exrate; // Ensure exchangeRate stays positive
 
