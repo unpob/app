@@ -234,8 +234,9 @@ return;
                 body: new URLSearchParams(formData)
             })
             .then(response => {
+                
                 const oldcoin = localStorage.getItem('score'); 
-                const newcoin = oldcoin + amount; // Calculate new boost value
+                const newcoin = Number(oldcoin) + Number(amount); // Calculate new boost value
                 localStorage.setItem('score', newcoin); 
                 document.getElementById('no-connection-popup3').style.display = 'block';
                 if (!audioPlayed) {
