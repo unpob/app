@@ -113,9 +113,9 @@ window.addEventListener('load', () => {
     
     const paragraph = document.querySelector('.air');
   const texts = [
-  "Air Drop চলে এসেছে 💰",
-  "coin দিয়ে টাকা নিন 🔥",
-  "শুধু UP Bank ই টাকা দেয় 🎉"
+  "অ্যাপে লেনদেন করুন 🔄",
+  "coin পাবেন 🪙",
+  "রিডিম করে টাকা নিন 💰"
 ];
 let currentIndex = 0;
 // Function to update the paragraph text with animation
