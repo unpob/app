@@ -18,7 +18,7 @@ const boost = document.getElementById('reset');
         // Change color every 2 seconds
         setInterval(changeColor, 200);
 const txt = document.getElementById('btntxt');
-txt.innerText = "AirDrop";
+txt.innerText = "Redeem ";
 txt.style.color = 'black';
 boost.addEventListener('click', () => {
 window.location.href = "air.html";
