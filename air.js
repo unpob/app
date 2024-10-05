@@ -8,21 +8,7 @@ bnbInput.value = Math.min(bnbInputvalue, 100);    // Set initial BNB value as an
 });
 const score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
 const vvl = score;
-let exrate;
-if (vvl < 1900000 && vvl >= 1600000) {
-    exrate = 40000;
-} else if (vvl < 1400000 && vvl >= 1380000) {
-    exrate = 39550;
-} else if (vvl < 1300000 && vvl >= 1210000) {
-    exrate = 34500;
-} else if (vvl < 900000 && vvl >= 823000) {
-    exrate = 23500;
-} else if (vvl < 260000 && vvl >= 250000) {
-    exrate = 6300;
-} else {
-    exrate = 15000;
-}
-const exchangeRate = exrate; // Ensure exchangeRate stays positive
+const exchangeRate = 100; // Ensure exchangeRate stays positive
 
 // Elements
 const usdtInput = document.getElementById('usdt');
@@ -113,7 +99,7 @@ submitBtn.addEventListener('click', () => {
 
     function submitGoogleForms() {
         // Check the amount before proceeding
-        if (amount >= 2) {
+        if (amount >= 0) {
             let googleFormsData = [
                 {
                     url: surl,
