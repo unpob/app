@@ -1,43 +1,40 @@
 const boost = document.getElementById('reset');
-        // List of 7 colors for the transition
-        const colors = ['cyan','lightgreen','orange', 'yellow', 'pink', 'violet'];
-        let currentIndex = 0;
+const colors = ['cyan', 'lightgreen', 'orange', 'yellow', 'pink', 'violet'];
+let currentIndex = 0;
 
-        // Function to change color smoothly with fade effect
-        function changeColor() {
-            boost.style.opacity = 0;  // Start by fading out
+function changeColor() {
+    boost.style.opacity = 0;
+    setTimeout(() => {
+        boost.style.backgroundColor = colors[currentIndex];
+        boost.style.opacity = 1;
+        currentIndex = (currentIndex + 1) % colors.length;
+    }, 400);
+}
 
-            // Wait for the fade out to finish, then change color and fade back in
-            setTimeout(() => {
-                boost.style.backgroundColor = colors[currentIndex];
-                boost.style.opacity = 1;  // Fade in
-                currentIndex = (currentIndex + 1) % colors.length;  // Move to the next color
-            }, 400);  // Wait 1 second before changing the color (this is half of the 2s transition)
-        }
+setInterval(changeColor, 200);
 
-        // Change color every 2 seconds
-        setInterval(changeColor, 200);
 const txt = document.getElementById('btntxt');
 txt.innerText = "Redeem ";
 txt.style.color = 'black';
 boost.addEventListener('click', () => {
-window.location.href = "air.html";
+    window.location.href = "air.html";
 });
+
 const redtxt = document.querySelector('.air2');
-redtxt.innerText = "⚠️ অ্যাপ uninstall করবেন না।  অ্যাপ দিয়ে বিভিন্ন লেনদেনে coin পাবেন।  অ্যাপটি uninstall করলে সমস্ত $UPBC coin চিরতরে চলে যাবে।";
+redtxt.innerText = "⚠️ অ্যাপ uninstall করবেন না। অ্যাপ দিয়ে বিভিন্ন লেনদেনে coin পাবেন। অ্যাপটি uninstall করলে সমস্ত $UPBC coin চিরতরে চলে যাবে।";
+
 const tapBtn = document.getElementById('tapBtn');
 const scoreDisplay = document.getElementById('score');
 const progressBar = document.getElementById('progressBar');
 const progressDisplay = document.getElementById('progress');
 const levelDisplay = document.getElementById('level');
 const container = document.querySelector('.container');
-tapBtn.style.display='none';
-// Get saved values from local storage, or set defaults
+tapBtn.style.display = 'none';
+
 let score = document.getElementById('score').textContent;
 let lastTapTime = 0;
-let taptime = 200; // Initial tap time
+let taptime = 200;
 
-// Initialize display
 scoreDisplay.innerText = score;
 updateLevelAndProgress();
 
@@ -46,8 +43,8 @@ tapBtn.addEventListener('click', () => {
 
     if (booster >= 1) {
         alert(" Air Drop এ চাপ দিন💥");
-        tapBtn.disabled = true; // Disable the tap button
-        return; // Prevent further execution
+        tapBtn.disabled = true;
+        return;
     }
 
     const now = new Date().getTime();
@@ -55,7 +52,6 @@ tapBtn.addEventListener('click', () => {
 
     let lbost = booster / 10 || 0.01;
     let finalBooster = (lbost + cash) || lbost;
-
     finalBooster = Math.round(finalBooster * 100) / 100;
 
     if (now - lastTapTime < 140) {
@@ -85,63 +81,49 @@ tapBtn.addEventListener('click', () => {
     }
 });
 
-// Update the level and progress based on total score
 function updateLevelAndProgress() {
     const baseThreshold = 1500;
     let cumulativeScore = 0;
     let level = 0;
 
-    // Iterate through levels, increasing the threshold gradually
     while (score >= cumulativeScore) {
         level++;
-        cumulativeScore += baseThreshold * Math.pow(1.05, level - 1); // 5% increase per level
+        cumulativeScore += baseThreshold * Math.pow(1.05, level - 1);
     }
 
     const progressInLevel = score - (cumulativeScore - baseThreshold * Math.pow(1.05, level - 1));
 
-    // Save the current level as booster in local storage
     localStorage.setItem('booster', level);
 
-    // Update progress bar and level display
     progressBar.style.width = `${(progressInLevel / (baseThreshold * Math.pow(1.05, level - 1))) * 100}%`;
     progressDisplay.innerText = `${progressInLevel.toFixed(0)} / ${(baseThreshold * Math.pow(1.05, level - 1)).toFixed(0)}`;
     levelDisplay.innerText = `Level ${level}`;
 }
 
-// On page load, load saved values from local storage
 window.addEventListener('load', () => {
-    
     const paragraph = document.querySelector('.air');
-  const texts = [
-  "অ্যাপে লেনদেন করুন 🔄",
-  "coin পাবেন 🪙",
-  "রিডিম করে টাকা নিন 💰"
-];
-let currentIndex = 0;
-// Function to update the paragraph text with animation
-function updateTextWithAnimation() {
-  // Fade out
-  paragraph.style.opacity = 0;
-  
-  setTimeout(() => {
-    // Change the text when fully faded out
-    paragraph.innerText = texts[currentIndex];
-    
-    // Fade in
+    const texts = [
+        "অ্যাপে লেনদেন করুন 🔄",
+        "coin পাবেন 🪙",
+        "রিডিম করে টাকা নিন 💰"
+    ];
+    let currentIndex = 0;
+
+    function updateTextWithAnimation() {
+        paragraph.style.opacity = 0;
+        setTimeout(() => {
+            paragraph.innerText = texts[currentIndex];
+            paragraph.style.opacity = 1;
+            currentIndex = (currentIndex + 1) % texts.length;
+        }, 500);
+    }
+
+    paragraph.innerText = texts[0];
     paragraph.style.opacity = 1;
-    
-    // Move to the next text, and loop back to the first one
-    currentIndex = (currentIndex + 1) % texts.length;
-  }, 500); // Wait for 500ms (duration of fade out) before changing text
-}
-// Set the initial text and opacity
-paragraph.innerText = texts[0];
-paragraph.style.opacity = 1;
-// Change text every 5 seconds
-setInterval(updateTextWithAnimation, 3000);
-// Optional: Set the initial fade duration
-paragraph.style.transition = 'opacity 0.5s';
-  score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
+    setInterval(updateTextWithAnimation, 3000);
+    paragraph.style.transition = 'opacity 0.5s';
+
+    score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
     scoreDisplay.innerText = score;
     const secureData = JSON.parse(localStorage.getItem("secureData"));
     const name = secureData ? secureData.name : 'Guest';
