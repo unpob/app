@@ -4,7 +4,7 @@ window.addEventListener('load', () => {
     const bnbValue = score / exchangeRate;
     bnbInputvalue = Math.floor(bnbValue);
 bnbInput.value = Math.min(bnbInputvalue, 100);    // Set initial BNB value as an integer
-    document.getElementById("bdtrate").innerText = "Air drop"; // Retained the text setting
+    document.getElementById("bdtrate").innerText = "100 coin = 1 টাকা"; // Retained the text setting
 });
 const score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
 const vvl = score;
