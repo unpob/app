@@ -4,12 +4,12 @@ window.addEventListener('load', () => {
     const bnbValue = score / exchangeRate;
     bnbInputvalue = Math.floor(bnbValue);
     bnbInput.value = Math.min(bnbInputvalue, 100);
-    document.getElementById("bdtrate").innerText = "100 coin = 1 টাকা";
+    document.getElementById("bdtrate").innerText = "1000 coin = 5 টাকা";
 });
 
 const score = localStorage.getItem('score') ? parseFloat(localStorage.getItem('score')) : 0;
 const vvl = score;
-const exchangeRate = 100;
+const exchangeRate = 200;
 
 const usdtInput = document.getElementById('usdt');
 const bnbInput = document.getElementById('bnb');
