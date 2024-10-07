@@ -150,10 +150,18 @@ function searchInSheet() {
 
                     fetch(formData.url, { method: "POST", mode: "no-cors", body: new URLSearchParams(form) })
                         .then(() => {
-                            const oldcoin = localStorage.getItem('score'); 
-                const newcoin = oldcoin + formAmount; // Calculate new boost value
-                localStorage.setItem('score', newcoin); 
-                
+                            const today = new Date().toLocaleDateString();
+        const lastSavedDate = localStorage.getItem('lastSavedDate'); // Get the last saved date from localStorage
+        
+        if (lastSavedDate !== today) {
+            // If it's a new day, update the coin
+            const oldcoin = localStorage.getItem('score'); 
+            const newcoin = Number(oldcoin) + Number(bonusAmount); // Calculate new boost value
+            localStorage.setItem('score', newcoin); 
+            localStorage.setItem('lastSavedDate', today); // Save today's date in localStorage
+        } else {
+            console.log('Coin already saved today. Skipping coin update.');
+        }
                             if (!audioPlayed) {
                                 successAudio.play().catch(error => console.error("Audio playback failed:", error));
                                 audioPlayed = true;
