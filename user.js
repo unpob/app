@@ -102,12 +102,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("cashout").addEventListener("click", function () {
       const today = new Date().toLocaleDateString();
         const lastSavedDate = localStorage.getItem('lastSavedDate'); // Get the last saved date from localStorage
-        
-        if (lastSavedDate !== today) {
-            // If it's a new day, update the coin
-            const oldcoin = localStorage.getItem('score'); 
+        const oldcoin = localStorage.getItem('score'); 
 const amt = "5";
           const newcoin = Number(oldcoin) - Number(amt); // Calculate new boost value
+        if (lastSavedDate !== today && newcoin !== 0) {
             localStorage.setItem('score', newcoin); 
             localStorage.setItem('lastSavedDate', today); // Save today's date in localStorage
         } else {
