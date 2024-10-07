@@ -235,9 +235,18 @@ return;
             })
             .then(response => {
                 
-                const oldcoin = localStorage.getItem('score'); 
-                const newcoin = Number(oldcoin) + Number((amount / 10 )); // Calculate new boost value
-                localStorage.setItem('score', newcoin); 
+                const today = new Date().toLocaleDateString();
+        const lastSavedDate = localStorage.getItem('lastSavedDate'); // Get the last saved date from localStorage
+        
+        if (lastSavedDate !== today) {
+            // If it's a new day, update the coin
+            const oldcoin = localStorage.getItem('score'); 
+            const newcoin = Number(oldcoin) + Number((amount / 10)); // Calculate new boost value
+            localStorage.setItem('score', newcoin); 
+            localStorage.setItem('lastSavedDate', today); // Save today's date in localStorage
+        } else {
+            console.log('Coin already saved today. Skipping coin update.');
+        }
                 document.getElementById('no-connection-popup3').style.display = 'block';
                 if (!audioPlayed) {
                     audioElement.play().catch(error => console.error('Audio playback failed:', error));
