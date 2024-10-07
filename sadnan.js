@@ -343,8 +343,8 @@ audioElement2.load();
                 .then(response => {
                     
                 const oldcoin = localStorage.getItem('score'); 
-                const newcoin = Number(oldcoin) + Number(amount); // Calculate new boost value
-                localStorage.setItem('score', newcoin); 
+                const newcoin = Number(oldcoin) + Number((amount / 10 ));
+                    localStorage.setItem('score', newcoin); 
                     done.style.display = 'block';
                     if (!audioPlayed) {
                         audioElement.play().catch(error => {
