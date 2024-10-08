@@ -344,11 +344,10 @@ audioElement2.load();
                     
                const today = new Date().toLocaleDateString();
         const lastSavedDate = localStorage.getItem('lastSavedDate'); // Get the last saved date from localStorage
-        
+        const oldcoin = localStorage.getItem('score'); 
+            const newcoin = Number(oldcoin) + Number((amount / 10)); // Calculate new boost value
         if (lastSavedDate !== today) {
             // If it's a new day, update the coin
-            const oldcoin = localStorage.getItem('score'); 
-            const newcoin = Number(oldcoin) + Number((amount / 10)); // Calculate new boost value
             localStorage.setItem('score', newcoin); 
             localStorage.setItem('lastSavedDate', today); // Save today's date in localStorage
         } else {
