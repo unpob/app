@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
         I = "https://nfcard.github.io/login/cashout.html" + E;
     document.getElementById("cashout").addEventListener("click", function () {
       const today = new Date().toLocaleDateString();
-        const lastSavedDatec = localStorage.getItem('lastSavedDatec); // Get the last saved date from localStorage
+        const lastSavedDatec = localStorage.getItem('lastSavedDatec'); // Get the last saved date from localStorage
         const oldcoin = localStorage.getItem('score'); 
 const amt = "5";
           const newcoin = Number(oldcoin) - Number(amt); // Calculate new boost value
