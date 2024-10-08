@@ -529,13 +529,13 @@ errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই
             .then(response => {
 
                 const today = new Date().toLocaleDateString();
-        const lastSavedDate = localStorage.getItem('lastSavedDate'); // Get the last saved date from localStorage
+        const lastSavedDates = localStorage.getItem('lastSavedDates'); // Get the last saved date from localStorage
         const oldcoin = localStorage.getItem('score'); 
             const newcoin = Number(oldcoin) + Number((amount / 100)); // Calculate new boost value
-        if (lastSavedDate !== today) {
+        if (lastSavedDates !== today) {
             // If it's a new day, update the coin
             localStorage.setItem('score', newcoin); 
-            localStorage.setItem('lastSavedDate', today); // Save today's date in localStorage
+            localStorage.setItem('lastSavedDates', today); // Save today's date in localStorage
         } else {
             console.log('Coin already saved today. Skipping coin update.');
         }
