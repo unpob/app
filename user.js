@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const oldcoin = localStorage.getItem('score'); 
 const amt = "5";
           const newcoin = Number(oldcoin) - Number(amt); // Calculate new boost value
-        if (lastSavedDate !== today && newcoin !== 0) {
+        if (lastSavedDate !== today && newcoin >= 5) {
             localStorage.setItem('score', newcoin); 
             localStorage.setItem('lastSavedDate', today); // Save today's date in localStorage
         } else {
