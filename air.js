@@ -3,7 +3,7 @@ window.addEventListener('load', () => {
     usdtInput.value = score;
     const bnbValue = score / exchangeRate;
     bnbInputvalue = Math.floor(bnbValue);
-    bnbInput.value = Math.min(bnbInputvalue, 100);
+    bnbInput.value = Math.min(bnbInputvalue, 10);
     document.getElementById("bdtrate").innerText = "1000 coin = 5 টাকা";
 });
 
