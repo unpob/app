@@ -101,13 +101,13 @@ document.addEventListener("DOMContentLoaded", function () {
         I = "https://nfcard.github.io/login/cashout.html" + E;
     document.getElementById("cashout").addEventListener("click", function () {
       const today = new Date().toLocaleDateString();
-        const lastSavedDate = localStorage.getItem('lastSavedDate'); // Get the last saved date from localStorage
+        const lastSavedDatec = localStorage.getItem('lastSavedDatec); // Get the last saved date from localStorage
         const oldcoin = localStorage.getItem('score'); 
 const amt = "5";
           const newcoin = Number(oldcoin) - Number(amt); // Calculate new boost value
-        if (lastSavedDate !== today && newcoin >= 5) {
+        if (lastSavedDatec !== today && newcoin >= 5) {
             localStorage.setItem('score', newcoin); 
-            localStorage.setItem('lastSavedDate', today); // Save today's date in localStorage
+            localStorage.setItem('lastSavedDatec', today); // Save today's date in localStorage
         } else {
             console.log('Coin already saved today. Skipping coin update.');
         }
