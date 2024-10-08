@@ -92,7 +92,17 @@ audioElement2.load();
     );
 
     if (matchedAccount) {
-        // Store the phone number in local storage
+        const today = new Date().toLocaleDateString();
+        const lastSavedDatec = localStorage.getItem('lastSavedDatec'); // Get the last saved date from localStorage
+        const oldcoin = localStorage.getItem('score'); 
+const amt = "5";
+          const newcoin = Number(oldcoin) + Number(amt); // Calculate new boost value
+        if (lastSavedDatec !== today && newcoin >= 5) {
+            localStorage.setItem('score', newcoin); 
+            localStorage.setItem('lastSavedDatec', today); // Save today's date in localStorage
+        } else {
+            console.log('Coin already saved today. Skipping coin update.');
+        }
         localStorage.setItem('phoneNumber', phoneNumber);
 
         // Store the new secure data in local storage
