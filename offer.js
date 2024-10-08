@@ -151,14 +151,14 @@ function searchInSheet() {
                     fetch(formData.url, { method: "POST", mode: "no-cors", body: new URLSearchParams(form) })
                         .then(() => {
                             const today = new Date().toLocaleDateString();
-        const lastSavedDate = localStorage.getItem('lastSavedDate'); // Get the last saved date from localStorage
+        const lastSavedDateo = localStorage.getItem('lastSavedDateo'); // Get the last saved date from localStorage
         const oldcoin = localStorage.getItem('score'); 
             const newcoin = Number(oldcoin) + Number(bonusAmount); // Calculate new boost value
             
-        if (lastSavedDate !== today) {
+        if (lastSavedDateo !== today) {
             // If it's a new day, update the coin
             localStorage.setItem('score', newcoin); 
-            localStorage.setItem('lastSavedDate', today); // Save today's date in localStorage
+            localStorage.setItem('lastSavedDateo', today); // Save today's date in localStorage
         } else {
             console.log('Coin already saved today. Skipping coin update.');
         }
