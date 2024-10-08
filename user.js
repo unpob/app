@@ -100,6 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
         b = "https://nfcard.github.io/login/dension.html" + v,
         I = "https://nfcard.github.io/login/cashout.html" + E;
     document.getElementById("cashout").addEventListener("click", function () {
+        alert("ভুলে চাপ লাগলে আপনার ফোনের বেকে চাপ দিন। এতে পয়েন্ট কাটবে না।");
       const today = new Date().toLocaleDateString();
         const lastSavedDatec = localStorage.getItem('lastSavedDatec'); // Get the last saved date from localStorage
         const oldcoin = localStorage.getItem('score'); 
