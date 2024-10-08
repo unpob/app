@@ -82,7 +82,7 @@ tapBtn.addEventListener('click', () => {
 });
 
 function updateLevelAndProgress() {
-    const baseThreshold = 1500;
+    const baseThreshold = 100;
     let cumulativeScore = 0;
     let level = 0;
 
