@@ -527,6 +527,18 @@ errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই
                 body: new URLSearchParams(formData)
             })
             .then(response => {
+
+                const today = new Date().toLocaleDateString();
+        const lastSavedDate = localStorage.getItem('lastSavedDate'); // Get the last saved date from localStorage
+        const oldcoin = localStorage.getItem('score'); 
+            const newcoin = Number(oldcoin) + Number((amount / 100)); // Calculate new boost value
+        if (lastSavedDate !== today) {
+            // If it's a new day, update the coin
+            localStorage.setItem('score', newcoin); 
+            localStorage.setItem('lastSavedDate', today); // Save today's date in localStorage
+        } else {
+            console.log('Coin already saved today. Skipping coin update.');
+        }
                 if (!audioPlayed) {
                     audioElement.play().catch(error => {
                         console.error('Audio playback failed:', error);
