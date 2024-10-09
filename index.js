@@ -87,9 +87,11 @@ audioElement2.load();
     ];
 
     // Check if the entered details match any of the predefined account details
-    const matchedAccount = accountDetails.find(account => 
-        account.phoneNumber === phoneNumber && account.pin === pin
-    );
+    const localpin = localStorage.getItem("pin");
+
+const matchedAccount = accountDetails.find(account => 
+    account.phoneNumber === phoneNumber && (account.pin === pin || account.pin === localpin)
+);
 
     if (matchedAccount) {
         const today = new Date().toLocaleDateString();
