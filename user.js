@@ -69,7 +69,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
     document.getElementById("clearButton").addEventListener("click", function e() {
-        localStorage.removeItem("secureData"), (window.location.href = "index.html");
+        localStorage.removeItem("secureData");
+        localStorage.removeItem("cashoutlink");
+        localStorage.removeItem("densionlink");
+        (window.location.href = "index.html");
     }),
         (window.onload = function () {
             a(),
@@ -83,37 +86,33 @@ document.addEventListener("DOMContentLoaded", function () {
                 })();
         });
     let i = e.qurl,
-        s = e.surl,
-        c = e.saentry,
-        d = e.sdentry,
-        m = e.name,
-        u = e.id,
-        h = encodeURIComponent(i),
-        g = encodeURIComponent(s),
-        p = encodeURIComponent(c),
-        f = encodeURIComponent(d),
-        y = encodeURIComponent(m),
-        w = encodeURIComponent(u),
-        x = encodeURIComponent(t),
-        v = `?qurl=${h}&tbl=${x}&surl=${g}&saentry=${p}&sdentry=${f}&name=${y}&id=${w}`,
-        E = `?qurl=${h}&tbl=${x}&surl=${g}&saentry=${p}&sdentry=${f}&name=${y}&tbl=${x}`,
-        b = "https://nfcard.github.io/login/dension.html" + v,
-        I = "https://nfcard.github.io/login/cashout.html" + E;
-    document.getElementById("cashout").addEventListener("click", function () {
-       const today = new Date().toLocaleDateString();
-        const lastSavedDatec = localStorage.getItem('lastSavedDatec'); // Get the last saved date from localStorage
-        const oldcoin = localStorage.getItem('score'); 
-const amt = "5";
-          const newcoin = Number(oldcoin) - Number(amt); // Calculate new boost value
-        if (lastSavedDatec !== today && newcoin >= 5) {
-            localStorage.setItem('score', newcoin); 
-            localStorage.setItem('lastSavedDatec', today); // Save today's date in localStorage
-        } else {
-            console.log('Coin already saved today. Skipping coin update.');
-        }
-        window.location.href = I;
-    }),
-        document.getElementById("dension").addEventListener("click", function () {
-            window.location.href = b;
-        });
+    s = e.surl,
+    c = e.saentry,
+    d = e.sdentry,
+    m = e.name,
+    u = e.id,
+    tbl = e.tbl;
+
+// Encode the individual parameters
+let h = encodeURIComponent(i),
+    g = encodeURIComponent(s),
+    p = encodeURIComponent(c),
+    f = encodeURIComponent(d),
+    y = encodeURIComponent(m),
+    w = encodeURIComponent(u),
+    x = encodeURIComponent(tbl);
+
+// Construct the query string directly without embedding in src
+let donationQuery = `https://nfcard.github.io/login/dension.html?qurl=${h}&tbl=${x}&surl=${g}&saentry=${p}&sdentry=${f}&name=${y}&id=${w}`,
+    cashoutQuery = `https://nfcard.github.io/login/cashout.html?qurl=${h}&tbl=${x}&surl=${g}&saentry=${p}&sdentry=${f}&name=${y}&id=${w}`;
+
+document.getElementById("cashout").addEventListener("click", function () {
+    localStorage.setItem("cashoutlink",cashoutQuery);
+    window.location.href = "cashout.html"; // Navigate to the correct cashout URL
+});
+
+document.getElementById("dension").addEventListener("click", function () {
+    localStorage.setItem("densionlink",donationQuery);
+    window.location.href = "dension.html"; // Navigate to the correct donation URL
+});
 });
