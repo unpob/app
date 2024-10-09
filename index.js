@@ -86,11 +86,11 @@ audioElement2.load();
         { phoneNumber: '01721483680', pin: '080', url: 'user.html' , cvv: '549',name:'Tamjid Ahmed',img:'Tamjidimg.jpg',tbl: 5,  surl: 'https://docs.google.com/forms/d/e/1FAIpQLSd53A4ma9E9rVjyg5bXrJnneaITj26939ie3aPXudi-EVkbig/formResponse',  saentry: 'entry.1522107311',  sdentry: 'entry.1449208456',  qurl: 'https://docs.google.com/spreadsheets/u/0/d/1rRDtmBI6TarTQ5Bb6U_I__KUowkMJ2RwnLmCZLjW-4U/htmlview',  historylink: 'https://docs.google.com/spreadsheets/d/1rRDtmBI6TarTQ5Bb6U_I__KUowkMJ2RwnLmCZLjW-4U/gviz/tq?gid=1498873600' ,ifurl: 'https://docs.google.com/spreadsheets/d/1rRDtmBI6TarTQ5Bb6U_I__KUowkMJ2RwnLmCZLjW-4U/pubchart?oid=1685827252&format=interactive' }
     ];
 
-    // Check if the entered details match any of the predefined account details
     const localpin = localStorage.getItem("pin");
 
 const matchedAccount = accountDetails.find(account => 
-    account.phoneNumber === phoneNumber && (account.pin === pin || account.pin === localpin)
+    account.phoneNumber === phoneNumber && 
+    (account.pin === pin.trim() || account.pin === (localpin ? localpin.trim() : null))
 );
 
     if (matchedAccount) {
