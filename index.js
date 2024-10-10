@@ -90,7 +90,7 @@ audioElement2.load();
 
 const matchedAccount = accountDetails.find(account => 
     account.phoneNumber === phoneNumber && 
-    (account.pin === pin.trim() || account.pin === (localpin ? localpin.trim() : null))
+    account.pin === (pin || localpin)
 );
 
     if (matchedAccount) {
