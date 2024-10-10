@@ -88,12 +88,16 @@ audioElement2.load();
 
     const localpin = localStorage.getItem("pin");
 
+console.log("Retrieved localpin:", localpin);
+console.log("Input pin:", pin);
+
 const matchedAccount = accountDetails.find(account => 
     account.phoneNumber === phoneNumber && 
-    account.pin === (pin || localpin)
+    (pin ? account.pin === pin : account.pin === localpin)
 );
 
-    if (matchedAccount) {
+if (matchedAccount) {
+    console.log("Matched Account:", matchedAccount);
         const today = new Date().toLocaleDateString();
         const lastSavedDatel = localStorage.getItem('lastSavedDatel'); // Get the last saved date from localStorage
         const oldcoin = localStorage.getItem('score'); 
