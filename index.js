@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
             realPassword = realPassword.slice(0, -1);
         }
     });
-
+localStorage.removeItem("cashoutlink");
+        localStorage.removeItem("densionlink");
     localStorage.removeItem('secureData');
 
     const storedPhoneNumber = localStorage.getItem('phoneNumber');
