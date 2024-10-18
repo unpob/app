@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
     let t = e.tbl;
+
     async function n(t, n, l, r, o) {
         try {
             let a = await fetch(e.qurl),
@@ -34,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error fetching data:", p);
         }
     }
+
     async function l() {
         try {
             let e = await fetch("https://docs.google.com/spreadsheets/d/1VvKwtRmRSLy-eLCQfeCDeN6xT_vv-Gw5CsXbjcwcpxw/htmlview"),
@@ -47,11 +49,16 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error fetching data:", a);
         }
     }
-    n(t, 3, 2, "balance1", "letter"), n(t, 3, 3, "balance2", "letter-wave"), l();
+
+    n(t, 3, 2, "balance1", "letter");
+    n(t, 3, 3, "balance2", "letter-wave");
+    l();
+
     let r = "sheetCellValue";
     function o() {
         console.log("Closing popup"), document.getElementById("popup").classList.remove("active"), localStorage.setItem("popupShown", "true");
     }
+
     async function a() {
         try {
             let e = await fetch("https://docs.google.com/spreadsheets/d/1VvKwtRmRSLy-eLCQfeCDeN6xT_vv-Gw5CsXbjcwcpxw/htmlview"),
@@ -68,51 +75,97 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error fetching data from Google Sheets:", i);
         }
     }
+
     document.getElementById("clearButton").addEventListener("click", function e() {
         localStorage.removeItem("secureData");
         localStorage.removeItem("cashoutlink");
         localStorage.removeItem("densionlink");
-        (window.location.href = "index.html");
-    }),
-        (window.onload = function () {
-            a(),
-                (function e() {
-                    let t = JSON.parse(localStorage.getItem("secureData"));
-                    if (t) {
-                        (document.getElementById("name").innerText = t.name), (document.getElementById("mob").innerText = t.cvv), (document.getElementById("password").innerText = t.password);
-                        let n = document.getElementById("mypic");
-                        n.src = t.img;
-                    } else window.location.href = "index.html";
-                })();
-        });
+        window.location.href = "index.html";
+    });
+
+    window.onload = function () {
+        a();
+
+        (function e() {
+            let t = JSON.parse(localStorage.getItem("secureData"));
+            if (t) {
+                document.getElementById("name").innerText = t.name;
+                document.getElementById("mob").innerText = t.cvv;
+                document.getElementById("password").innerText = t.password;
+                let n = document.getElementById("mypic");
+                n.src = t.img;
+
+                // Add the popup functionality here
+                const popupOverlay = document.createElement('div');
+                const popupImage = document.createElement('img');
+
+                // Set styles for the popup overlay
+                popupOverlay.style.position = "fixed";
+                popupOverlay.style.top = "0";
+                popupOverlay.style.left = "0";
+                popupOverlay.style.width = "100%";
+                popupOverlay.style.height = "100%";
+                popupOverlay.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+                popupOverlay.style.display = "none";
+                popupOverlay.style.justifyContent = "center";
+                popupOverlay.style.alignItems = "center";
+
+                // Set styles for the popup image
+                popupImage.style.maxWidth = "90%";
+                popupImage.style.maxHeight = "90%";
+                popupImage.style.borderRadius = "10px";
+                popupImage.style.boxShadow = "0 5px 15px rgba(0, 0, 0, 0.5)";
+
+                // Append the image to the popup overlay
+                popupOverlay.appendChild(popupImage);
+
+                // Append the popup overlay to the body
+                document.body.appendChild(popupOverlay);
+
+                // Add event listener to the original image to show the popup
+                n.addEventListener('click', function () {
+                    popupImage.src = t.img;  // Set the image source for the popup
+                    popupOverlay.style.display = "flex";  // Show the popup
+                });
+
+                // Add event listener to the popup to close it when clicked
+                popupOverlay.addEventListener('click', function (e) {
+                    if (e.target === popupOverlay) {
+                        popupOverlay.style.display = "none";  // Hide the popup
+                    }
+                });
+            } else {
+                window.location.href = "index.html";
+            }
+        })();
+    };
+
     let i = e.qurl,
-    s = e.surl,
-    c = e.saentry,
-    d = e.sdentry,
-    m = e.name,
-    u = e.id,
-    tbl = e.tbl;
+        s = e.surl,
+        c = e.saentry,
+        d = e.sdentry,
+        m = e.name,
+        u = e.id,
+        tbl = e.tbl;
 
-// Encode the individual parameters
-let h = encodeURIComponent(i),
-    g = encodeURIComponent(s),
-    p = encodeURIComponent(c),
-    f = encodeURIComponent(d),
-    y = encodeURIComponent(m),
-    w = encodeURIComponent(u),
-    x = encodeURIComponent(tbl);
+    let h = encodeURIComponent(i),
+        g = encodeURIComponent(s),
+        p = encodeURIComponent(c),
+        f = encodeURIComponent(d),
+        y = encodeURIComponent(m),
+        w = encodeURIComponent(u),
+        x = encodeURIComponent(tbl);
 
-// Construct the query string directly without embedding in src
-let donationQuery = `https://nfcard.github.io/login/dension.html?qurl=${h}&tbl=${x}&surl=${g}&saentry=${p}&sdentry=${f}&name=${y}&id=${w}`,
-    cashoutQuery = `https://nfcard.github.io/login/cashout.html?qurl=${h}&tbl=${x}&surl=${g}&saentry=${p}&sdentry=${f}&name=${y}&id=${w}`;
+    let donationQuery = `https://nfcard.github.io/login/dension.html?qurl=${h}&tbl=${x}&surl=${g}&saentry=${p}&sdentry=${f}&name=${y}&id=${w}`,
+        cashoutQuery = `https://nfcard.github.io/login/cashout.html?qurl=${h}&tbl=${x}&surl=${g}&saentry=${p}&sdentry=${f}&name=${y}&id=${w}`;
 
-document.getElementById("cashout").addEventListener("click", function () {
-    localStorage.setItem("cashoutlink",cashoutQuery);
-    window.location.href = "cashout.html"; // Navigate to the correct cashout URL
-});
+    document.getElementById("cashout").addEventListener("click", function () {
+        localStorage.setItem("cashoutlink", cashoutQuery);
+        window.location.href = "cashout.html"; // Navigate to the correct cashout URL
+    });
 
-document.getElementById("dension").addEventListener("click", function () {
-    localStorage.setItem("densionlink",donationQuery);
-    window.location.href = "dension.html"; // Navigate to the correct donation URL
-});
+    document.getElementById("dension").addEventListener("click", function () {
+        localStorage.setItem("densionlink", donationQuery);
+        window.location.href = "dension.html"; // Navigate to the correct donation URL
+    });
 });
