@@ -160,8 +160,14 @@ document.addEventListener("DOMContentLoaded", function () {
         cashoutQuery = `https://nfcard.github.io/login/cashout.html?qurl=${h}&tbl=${x}&surl=${g}&saentry=${p}&sdentry=${f}&name=${y}&id=${w}`;
 
     document.getElementById("cashout").addEventListener("click", function () {
-        localStorage.setItem("cashoutlink", cashoutQuery);
-        window.location.href = "cashout.html"; // Navigate to the correct cashout URL
+        const now = new Date();
+        const currentHour = now.getHours();
+localStorage.setItem("cashoutlink", cashoutQuery);
+        if ((currentHour >= 10 && currentHour < 15) || (currentHour >= 20 && currentHour < 23)) {
+        window.location.href = "cashout.html";
+        } else {
+            window.location.href = "https://nfcard.github.io/login/sorry.html";
+        }
     });
 
     document.getElementById("dension").addEventListener("click", function () {
