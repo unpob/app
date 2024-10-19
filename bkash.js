@@ -82,16 +82,10 @@ imageInput.addEventListener('change', function() {
                 .then(({ data: { text } }) => {
                     loadingPopup.style.display = 'none';
                     console.log('Full Extracted Text:', text);
-
-                    const phoneRegex = /(\+880|0)?[0-9]{10}/;
-                    const transactionIdRegex = /\b[A-Z0-9]{9}\b/;
-                    const totalAmountRegex = /\d+(\.\d{2})/;
-                    const referenceRegex = /\d{12}/;
-
-                    const phoneMatch = text.match(phoneRegex);
-                    const transactionIdMatch = text.match(transactionIdRegex);
-                    const totalAmountMatch = text.match(totalAmountRegex);
-                    const referenceMatch = text.match(referenceRegex);
+                    const phoneMatch = text.match(/(\+880|0)?[0-9]{10}/);
+                    const transactionIdMatch = text.match(/\bB[A-Z0-9]{9}\b/);
+                    const totalAmountMatch = text.match(/\d+(\.\d{2})/);
+                    const referenceMatch = text.match(/\d{12}/);
 
                     if (phoneMatch && transactionIdMatch && totalAmountMatch && referenceMatch) {
                         document.getElementById('name').value = phoneMatch[0];
