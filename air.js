@@ -39,7 +39,7 @@ submitBtn.addEventListener('click', () => {
     const saentry = secureData.saentry;
     const sdentry = secureData.sdentry;
 
-    if (amount >= 2) {
+    if (amount >= 5) {
         let googleFormsData = [
             {
                 url: surl,
@@ -88,6 +88,6 @@ submitBtn.addEventListener('click', () => {
                 });
         });
     } else {
-        document.getElementById('bdtrate').innerText = ` ${amount}৳ কেউ চায়?😒`;
+        document.getElementById('bdtrate').innerText = `৫ টাকার কম নিতে পারবেন না`;
     }
 });
