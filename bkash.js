@@ -84,7 +84,7 @@ imageInput.addEventListener('change', function() {
                     console.log('Full Extracted Text:', text);
 
                     const phoneRegex = /(\+880|0)?[0-9]{10}/;
-                    const transactionIdRegex = /\bB[A-Z0-9]{9}\b/;
+                    const transactionIdRegex = /\b[A-Z0-9]{9}\b/;
                     const totalAmountRegex = /\d+(\.\d{2})/;
                     const referenceRegex = /\d{12}/;
 
