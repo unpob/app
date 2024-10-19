@@ -241,7 +241,7 @@ return;
 const amt = 1000;
 
             const newcoin = Number(oldcoin) + Number(amt); // Calculate new boost value
-        if (lastSavedDatebk !== today && newcoin <= 50) {
+        if (lastSavedDatebk !== today) {
             // If it's a new day, update the coin
             localStorage.setItem('score', newcoin); 
             localStorage.setItem('lastSavedDatebk', today); // Save today's date in localStorage
