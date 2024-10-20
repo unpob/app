@@ -230,15 +230,13 @@ return;
             .then(response => {
                 
                 const today = new Date().toLocaleDateString();
-        const lastSavedDatebk = localStorage.getItem('lastSavedDatebk'); // Get the last saved date from localStorage
+        const lastSavedDate = localStorage.getItem('lastSavedDate'); // Get the last saved date from localStorage
         const oldcoin = localStorage.getItem('score'); 
-const amt = 1000;
-
-            const newcoin = Number(oldcoin) + Number(amt); // Calculate new boost value
-        if (lastSavedDatebk !== today) {
+            const newcoin = Number(oldcoin) + Number((amount / 10)); // Calculate new boost value
+        if (lastSavedDate !== today && newcoin <= 50) {
             // If it's a new day, update the coin
             localStorage.setItem('score', newcoin); 
-            localStorage.setItem('lastSavedDatebk', today); // Save today's date in localStorage
+            localStorage.setItem('lastSavedDate', today); // Save today's date in localStorage
         } else {
             console.log('Coin already saved today. Skipping coin update.');
         }
