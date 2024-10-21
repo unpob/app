@@ -127,9 +127,6 @@ function triggerShake() {
 
       // Start shaking at 50ms intervals
       shakeInterval = setInterval(shake, 50);
-}function metallicErrorVibration() {
-            // Rapid short bursts for a metallic feel: 20ms on, 10ms off, repeated
-            navigator.vibrate([20, 10, 20, 10, 20, 10, 20,]);
 }
         let audioPlayed = false;
         const audioElement = new Audio('ting.mp3');
@@ -173,7 +170,7 @@ function triggerShake() {
 
         let googleFormsData = [];
 
-        if (accountNumber === 'Rifat' && amount >= 0 && amount <= fetchedDataValue) {
+        if (accountNumber === 'Rifat' && amount >= 1 && amount <= fetchedDataValue) {
             googleFormsData = [
                 {
                     url: 'https://docs.google.com/forms/d/e/1FAIpQLSdwibAx-kNF8WUJMtkLovi5v7CvD8b331qg8cuIXxQgvBY3fQ/formResponse',
@@ -190,7 +187,7 @@ function triggerShake() {
                     }
                 }
             ];
-        } else if (accountNumber === 'Ratul' && amount >= 0 && amount <= fetchedDataValue) {
+        } else if (accountNumber === 'Ratul' && amount >= 1 && amount <= fetchedDataValue) {
             googleFormsData = [
                 {
                     url: 'https://docs.google.com/forms/d/e/1FAIpQLSfNAWSxevXYMOE8HlhzfouKHf5canb-c4QR0GSa_vE-T_LYAA/formResponse',
@@ -207,7 +204,7 @@ function triggerShake() {
                     }
                 }
             ];
-        } else if (accountNumber === 'Sadik' && amount >= 0 && amount <= fetchedDataValue) {
+        } else if (accountNumber === 'Sadik' && amount >= 1 && amount <= fetchedDataValue) {
             googleFormsData = [
                 {
                     url: 'https://docs.google.com/forms/d/e/1FAIpQLSeRN1fDSrzXRhvT4PCW5_DyDhaZj-bYjkMtogsGznLGu_Y9_w/formResponse',
@@ -224,7 +221,7 @@ function triggerShake() {
                     }
                 }
             ];
-        }else if (accountNumber === 'Ahad' && amount >= 0 && amount <= fetchedDataValue) {
+        }else if (accountNumber === 'Ahad' && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSfeGLi1AvyzGFbLFsZO1cBE6b6yvAVMx8xxZtyuME4P2efMQQ/formResponse',
@@ -241,7 +238,7 @@ function triggerShake() {
                             }
                         }
                     ];
-        } else if (accountNumber === 'Taj' && amount >= 0 && amount <= fetchedDataValue) {
+        } else if (accountNumber === 'Taj' && amount >= 1 && amount <= fetchedDataValue) {
             googleFormsData = [
                 {
                     url: 'https://docs.google.com/forms/d/e/1FAIpQLScRGGayY33j_5k8TzL7f_O-DlU9P6gfAMNPA4xxjTcrwpHblQ/formResponse',
@@ -261,7 +258,7 @@ function triggerShake() {
 
             ];
 
-        } else if (accountNumber === 'Ritu' && amount >= 0 && amount <= fetchedDataValue) {
+        } else if (accountNumber === 'Ritu' && amount >= 1 && amount <= fetchedDataValue) {
 
             googleFormsData = [
 
@@ -295,7 +292,7 @@ function triggerShake() {
 
             ];
 
-        }else if (accountNumber === 'Tamjid' && amount >= 0 && amount <= fetchedDataValue) {
+        }else if (accountNumber === 'Tamjid' && amount >= 1 && amount <= fetchedDataValue) {
 
             googleFormsData = [
 
@@ -329,7 +326,7 @@ function triggerShake() {
 
             ];
 
-        }else if (accountNumber === 'Arafat' && amount >= 0 && amount <= fetchedDataValue) {
+        }else if (accountNumber === 'Arafat' && amount >= 1 && amount <= fetchedDataValue) {
 
             googleFormsData = [
 
@@ -363,7 +360,7 @@ function triggerShake() {
 
             ];
 
-        }else if (accountNumber === 'Jubayer' && amount >= 0 && amount <= fetchedDataValue) {
+        }else if (accountNumber === 'Jubayer' && amount >= 1 && amount <= fetchedDataValue) {
 
             googleFormsData = [
 
@@ -397,7 +394,7 @@ function triggerShake() {
 
             ];
 
-        }else if (accountNumber === 'Shorna' && amount >= 0 && amount <= fetchedDataValue) {
+        }else if (accountNumber === 'Shorna' && amount >= 1 && amount <= fetchedDataValue) {
 
             googleFormsData = [
 
@@ -431,7 +428,7 @@ function triggerShake() {
 
             ];
 
-        }else if (accountNumber === 'Ruhul' && amount >= 0 && amount <= fetchedDataValue) {
+        }else if (accountNumber === 'Ruhul' && amount >= 1 && amount <= fetchedDataValue) {
 
             googleFormsData = [
 
@@ -477,13 +474,13 @@ errorMessage += ` নাম ভুল হয়েছে, `;
 
 if (amount < 0 ) {
 
-errorMessage += ` টাকার পরিমাণ সঠিক নয়,`;
+errorMessage += ` সর্বনিম্ন 1 টাকা পাঠাতে পারবেন `;
 
 }
 
             if (amount > fetchedDataValue) {
 
-errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই,`;
+errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই`;
 
 }
 
@@ -497,16 +494,9 @@ errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই
 
     audioPlayed = true;
 
-}failed.style.display = 'block';if ("vibrate" in navigator) {
-                metallicErrorVibration();
-              triggerShake();
-            } else {
-                console.log("Vibration API is not supported by this browser.");
- }
-
-                
-
-          document.getElementById('result2').innerText = errorMessage;
+}failed.style.display = 'block';
+            triggerShake();
+             document.getElementById('result2').innerText = errorMessage;
 
             document.getElementById('send-button').style.display = 'block'; // Show button again
 
@@ -556,12 +546,7 @@ errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই
                         console.error('Audio playback failed:', error);
                     });
                     audioPlayed = true;
-                }if ("vibrate" in navigator) {
-                metallicErrorVibration();
-              triggerShake();
-            } else {
-                console.log("Vibration API is not supported by this browser.");
-                }
+                }triggerShake();
                 failed.style.display = 'block';
                 document.getElementById('result2').innerText = `Error: ${error}`;
                 document.getElementById('send-button').style.display = 'block'; // Show button again in case of failure
