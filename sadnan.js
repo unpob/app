@@ -104,9 +104,6 @@ audioElement2.load();
 
       // Start shaking at 50ms intervals
       shakeInterval = setInterval(shake, 50);
-        }function metallicErrorVibration() {
-            // Rapid short bursts for a metallic feel: 20ms on, 10ms off, repeated
-            navigator.vibrate([20, 10, 20, 10, 20, 10, 20,]);
         }
         document.getElementById('description').value = updatedDescription;
 
@@ -118,7 +115,7 @@ audioElement2.load();
         const done = document.getElementById('no-connection-popup3');
 
         let googleFormsData = [];
-                               if (accountNumber === 'Md Rifat Mondol' && amount >= 0 && amount <= fetchedDataValue) {
+                               if (accountNumber === 'Md Rifat Mondol' && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSdwibAx-kNF8WUJMtkLovi5v7CvD8b331qg8cuIXxQgvBY3fQ/formResponse',
@@ -135,7 +132,7 @@ audioElement2.load();
                             }
                         }
                     ];
-                } else if (accountNumber === 'Moral Adnan' && amount >= 0 && amount <= fetchedDataValue) {
+                } else if (accountNumber === 'Moral Adnan' && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSfNAWSxevXYMOE8HlhzfouKHf5canb-c4QR0GSa_vE-T_LYAA/formResponse',
@@ -152,7 +149,7 @@ audioElement2.load();
                             }
                         }
                     ];
-                } else if (accountNumber === 'Sadik Hasan' && amount >= 0 && amount <= fetchedDataValue) {
+                } else if (accountNumber === 'Sadik Hasan' && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSeRN1fDSrzXRhvT4PCW5_DyDhaZj-bYjkMtogsGznLGu_Y9_w/formResponse',
@@ -169,7 +166,7 @@ audioElement2.load();
                             }
                         }
                     ];
-                }else if (accountNumber === 'Ahad Khandokar' && amount >= 0 && amount <= fetchedDataValue) {
+                }else if (accountNumber === 'Ahad Khandokar' && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSfeGLi1AvyzGFbLFsZO1cBE6b6yvAVMx8xxZtyuME4P2efMQQ/formResponse',
@@ -186,7 +183,7 @@ audioElement2.load();
                             }
                         }
                     ];
-                               } else if (accountNumber === 'Md Tajul Mulk' && amount >= 0 && amount <= fetchedDataValue) {
+                               } else if (accountNumber === 'Md Tajul Mulk' && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLScRGGayY33j_5k8TzL7f_O-DlU9P6gfAMNPA4xxjTcrwpHblQ/formResponse',
@@ -203,7 +200,7 @@ audioElement2.load();
                             }
                         }
                     ];
-                } else if (accountNumber === 'Mst Ritu' && amount >= 0 && amount <= fetchedDataValue) {
+                } else if (accountNumber === 'Mst Ritu' && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSdiZVekoO867RZ4Ep4fyS7QYBczYNo28eIANzzFr51VuuD2lA/formResponse',
@@ -220,7 +217,7 @@ audioElement2.load();
                             }
                         }
                     ];
-                }else if (accountNumber === 'Tamjid Ahmed' && amount >= 0 && amount <= fetchedDataValue) {
+                }else if (accountNumber === 'Tamjid Ahmed' && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSd53A4ma9E9rVjyg5bXrJnneaITj26939ie3aPXudi-EVkbig/formResponse',
@@ -237,7 +234,7 @@ audioElement2.load();
                             }
                         }
                     ];
-                }else if (accountNumber === 'Md Arafat' && amount >= 0 && amount <= fetchedDataValue) {
+                }else if (accountNumber === 'Md Arafat' && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSdpFVGyWcmC6PGs8wbFU9IihzUT1olphC-D-mdOVaJjQvNs1Q/formResponse',
@@ -254,7 +251,7 @@ audioElement2.load();
                             }
                         }
                     ];
-                }else if (accountNumber === 'Jubayer Ahmed' && amount >= 0 && amount <= fetchedDataValue) {
+                }else if (accountNumber === 'Jubayer Ahmed' && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSez19H6vm8kLmvRV33WPadkuscVBjjvku0pIeZKNSO7gpV-hA/formResponse',
@@ -271,7 +268,7 @@ audioElement2.load();
                             }
                         }
                     ];
-                }else if (accountNumber === 'Mst Shorna' && amount >= 0 && amount <= fetchedDataValue) {
+                }else if (accountNumber === 'Mst Shorna' && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSdcI8OW5HEFDIE4Vm_94aEoyrqejw18j3oGr0SXbnlveitjgw/formResponse',
@@ -288,7 +285,7 @@ audioElement2.load();
                             }
                         }
                     ];
-                }else if (accountNumber === 'Md Ruhul Amin' && amount >= 0 && amount <= fetchedDataValue) {
+                }else if (accountNumber === 'Md Ruhul Amin' && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLScuAspEw6MJNhkI8tPYKCHZhRfS6F3n15EElqu73AzMqjBhSA/formResponse',
@@ -307,11 +304,11 @@ audioElement2.load();
                     ];
                             } else {
             let errorMessage = `🚫 `;
-            if (amount < 0) {
-                errorMessage += ` টাকার পরিমাণ সঠিক নয়,`;
+            if (amount < 1) {
+                errorMessage += `সর্বনিম্ন 1 টাকা পাঠানো যাবে`;
             }
             if (amount > fetchedDataValue) {
-                errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই,`;
+                errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই `;
             }
                                    if (!audioPlayed) {
             audioElement2.play().catch(error => {
@@ -319,12 +316,7 @@ audioElement2.load();
             });
             audioPlayed = true;
         }failed.style.display = 'block';
-                if ("vibrate" in navigator) {
-                metallicErrorVibration();
-              triggerShake();
-            } else {
-                console.log("Vibration API is not supported by this browser.");
-                }      
+                triggerShake();
             document.getElementById('result2').innerText = errorMessage;
             sendButton.style.display = 'block'; // Show button again
             return;
@@ -373,12 +365,7 @@ audioElement2.load();
                         audioPlayed = true;
                     }
                     document.getElementById('result').innerText = `Send money failed`;
-                    if ("vibrate" in navigator) {
-                metallicErrorVibration();
-              triggerShake();
-            } else {
-                console.log("Vibration API is not supported by this browser.");
-                    }
+                     triggerShake();
                     sendButton.style.display = 'block'; // Show button again
                 });
         });
