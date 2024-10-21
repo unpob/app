@@ -20,10 +20,6 @@ function triggerShake() {
       // Start shaking at 50ms intervals
       shakeInterval = setInterval(shake, 50);
 }
-function metallicErrorVibration() {
-            // Rapid short bursts for a metallic feel: 20ms on, 10ms off, repeated
-            navigator.vibrate([20, 10, 20, 10, 20, 10, 20,]);
-}
 const cardMapping = { 
     243: "6001 0000 7890", 
     143: "6001 0000 3241", 
@@ -111,12 +107,7 @@ const matchedAccount = accountDetails.find(account =>
                 console.error('Audio playback failed:', error);
             });
             audioPlayed = true;
-        }if ("vibrate" in navigator) {
-                metallicErrorVibration();
-              triggerShake();
-            } else {
-                console.log("Vibration API is not supported by this browser.");
-         }
+        }     triggerShake();
                 failed.style.display = 'block';
 document.getElementById('result').innerText = 'আপনার নম্বর অথবা পিন সঠিক নয়';
     }
@@ -139,5 +130,3 @@ togglePassword.addEventListener("click", () => {
         togglePassword.classList.add("fa-eye");
     }
 });
-
-
