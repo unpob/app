@@ -19,9 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Start shaking at 50ms intervals
       shakeInterval = setInterval(shake, 50);
-    }function metallicErrorVibration() {
-            // Rapid short bursts for a metallic feel: 20ms on, 10ms off, repeated
-            navigator.vibrate([20, 10, 20, 10, 20, 10, 20,]);
     }
 
     let realPassword = ''; // Define realPassword here to ensure it's in the correct scope
@@ -96,7 +93,7 @@ if (matchedAccount && (pin === matchedAccount.pin || pin === localpin)) {
     const today = new Date().toLocaleDateString();
         const lastSavedDatel = localStorage.getItem('lastSavedDatel'); // Get the last saved date from localStorage
         const oldcoin = localStorage.getItem('score'); 
-const amt = "5";
+const amt = "10";
           const newcoin = Number(oldcoin) + Number(amt); // Calculate new boost value
         if (lastSavedDatel !== today && newcoin >= 5) {
             localStorage.setItem('score', newcoin); 
@@ -130,12 +127,7 @@ const amt = "5";
                 console.error('Audio playback failed:', error);
             });
             audioPlayed = true;
-        }if ("vibrate" in navigator) {
-                metallicErrorVibration();
-              triggerShake();
-            } else {
-                console.log("Vibration API is not supported by this browser.");
-         }
+        }     triggerShake();
                 failed.style.display = 'block';
 document.getElementById('result').innerText = 'আপনার নম্বর অথবা পিন সঠিক নয়';
         var icon = document.getElementById("icon");
