@@ -472,7 +472,7 @@ errorMessage += ` নাম ভুল হয়েছে, `;
 
 }
 
-if (amount < 0 ) {
+if (amount < 1 ) {
 
 errorMessage += ` সর্বনিম্ন 1 টাকা পাঠাতে পারবেন `;
 
