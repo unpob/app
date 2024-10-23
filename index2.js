@@ -48,6 +48,8 @@ cvvElement.addEventListener("input", () => {
 
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
+    document.body.classList.add('move-down');
+   
     const phoneNumber = document.getElementById('cvv').value;
     const pin = document.getElementById('password').value;
             let audioPlayed = false;
