@@ -101,8 +101,8 @@ const matchedAccount = accountDetails.find(account =>
         };
         localStorage.setItem('secureData', JSON.stringify(secureData));
 
-        // Redirect to the matched URL
-        window.location.href = matchedAccount.url;
+     setTimeout(function() {   // Redirect to the matched URL
+        window.location.href = matchedAccount.url;}, 400); 
     } else {
          if (!audioPlayed) {
             audioElement.play().catch(error => {
