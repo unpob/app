@@ -106,7 +106,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById('send-money-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        document.getElementById('send-button').style.display = 'none';
+        document.getElementById('send-button').style.display = 'block';
+        document.getElementById('send-button').style.opacity = '0.5';
+        document.getElementById('send-button').innerText = 'Sending......';
 function triggerShake() {
       const container = document.getElementById('send-money-form');
       let shakeInterval;
@@ -517,7 +519,7 @@ errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই
                 body: new URLSearchParams(formData)
             })
             .then(response => {
-
+document.getElementById('send-button').style.display = 'none';
                 const today = new Date().toLocaleDateString();
         const lastSavedDates = localStorage.getItem('lastSavedDates'); // Get the last saved date from localStorage
         const oldcoin = localStorage.getItem('score'); 
