@@ -55,6 +55,8 @@ localStorage.removeItem("cashoutlink");
 
     document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault();
+    document.body.classList.add('move-down');
+   
         const phoneNumber = document.getElementById('phoneNumber').value;
         const pin = realPassword; // Use realPassword here to get the actual pin
                 let audioPlayed = false;
