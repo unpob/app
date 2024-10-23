@@ -24,15 +24,15 @@ descriptionLink.addEventListener('click', () => {
 });
 
 const profiles = {
-    "Ratul": "Ratulimg.jpg",
-    "Rifat": "Rifatimg.jpg",
-    "Taj": "Tajimg.jpg",
-    "Ritu": "Rituimg.jpg",
-    "Sadik": "Sadikimg.jpg",
-    "Ruhul": "Ruhulimg.jpeg",
-    "Jubayer": "Jubayerimg.jpeg",
+    "Ratul": "https://nfcard.github.io/login/Ratulimg.jpg",
+    "Rifat": "https://nfcard.github.io/login/Rifatimg.jpg",
+    "Taj": "https://nfcard.github.io/login/Tajimg.jpg",
+    "Ritu": "https://nfcard.github.io/login/Rituimg.jpg",
+    "Sadik": "https://nfcard.github.io/login/Sadikimg.jpg",
+    "Ruhul": "https://nfcard.github.io/login/Ruhulimg.jpeg",
+    "Jubayer": "https://nfcard.github.io/login/Jubayerimg.jpeg",
     "Arafat": "uplogo.png",
-    "Tamjid": "Tamjidimg.jpg",
+    "Tamjid": "https://nfcard.github.io/login/Tamjidimg.jpg",
     "Shorna": "uplogo.png",
     "Ahad": "https://nfcard.github.io/login/Ahadimg.jpeg",
 };
