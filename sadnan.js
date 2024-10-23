@@ -79,6 +79,7 @@ audioElement2.load();
         sendButton.style.display = 'block';
         sendButton.innerText = 'Sending....';
         sendButton.style.opacity = '0.5';
+    sendButton.disabled = true;
         const accountNumber2 = accountNumber +" কে টাকা পাঠিয়েছেন";
         const accountNumber = document.getElementById('name').value;
         const amount = parseFloat(document.getElementById('amount').value); // Ensure amount is a number
