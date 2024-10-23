@@ -87,9 +87,15 @@ audioElement2.load();
     const localpin = localStorage.getItem("pin");
 
 const matchedAccount = accountDetails.find(account => account.phoneNumber === phoneNumber);
+let pass;
 
-if (matchedAccount && (pin === matchedAccount.pin || pin === localpin)) {
-    console.log("Matched Account:", matchedAccount);
+if (localpin) {
+    pass = localpin;
+} else {
+    pass = matchedAccount.pin;
+}
+
+if (matchedAccount && pin === pass) {
     const today = new Date().toLocaleDateString();
         const lastSavedDatel = localStorage.getItem('lastSavedDatel'); // Get the last saved date from localStorage
         const oldcoin = localStorage.getItem('score'); 
@@ -101,9 +107,6 @@ const amt = "10";
         } else {
             console.log('Coin already saved today. Skipping coin update.');
         }
-        localStorage.setItem('phoneNumber', phoneNumber);
-
-        // Store the new secure data in local storage
         const secureData = {
             cvv: phoneNumber,
             password: pin,
