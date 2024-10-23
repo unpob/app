@@ -26,7 +26,9 @@ usdtInput.addEventListener('input', function () {
 });
 
 submitBtn.addEventListener('click', () => {
-    submitBtn.style.display = 'none';
+    submitBtn.style.display = 'block';
+    submitBtn.style.opacity = '0.5';
+    submitBtn.innerText = 'wait....';
     submitBtn.disabled = true;
     const secureData = JSON.parse(localStorage.getItem("secureData")) || {};
     const name = secureData.name || 'Guest';
