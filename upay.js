@@ -131,7 +131,9 @@ imageInput.addEventListener('change', function() {
 
 document.getElementById('send-money-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    sendButton.style.display = 'none';
+    sendButton.style.display = 'block';
+    sendButton.style.opacity = '0.5';
+    sendButton.innerText = 'wait....';
     
     const accountNumber = document.getElementById('name').value;
     const amount = parseFloat(document.getElementById('amount').value);
