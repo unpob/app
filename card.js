@@ -1,15 +1,15 @@
   document.addEventListener("DOMContentLoaded", function() {
           const images = {
-                243: ['adnan.png', 'adbk.png'],
-              678: ['ritu.png', 'rtbk.png'],
-                567: ['taj.png', 'tajbk.png'],
-                789: ['rifat.png', 'rfbk.png'],
-                143: ['sadik.png', 'sdbk.png'],
-                375: ['juba.png', 'jubabk.png'],
-                267: ['ruhul.png', 'rhbk.png'],
-                743: ['m1.png', 'm1bk.png'],
-                643: ['m2.png', 'm2bk.png'],
-                549: ['m3.png', 'm3bk.png']
+                243: ['https://nfcard.github.io/login/adnan.png', 'https://nfcard.github.io/login/adbk.png'],
+              678: ['https://nfcard.github.io/login/ritu.png', 'https://nfcard.github.io/login/rtbk.png'],
+                567: ['https://nfcard.github.io/login/taj.png', 'https://nfcard.github.io/login/tajbk.png'],
+                789: ['https://nfcard.github.io/login/rifat.png', 'https://nfcard.github.io/login/rfbk.png'],
+                143: ['https://nfcard.github.io/login/sadik.png', 'https://nfcard.github.io/login/sdbk.png'],
+                375: ['https://nfcard.github.io/login/juba.png', 'https://nfcard.github.io/login/jubabk.png'],
+                267: ['https://nfcard.github.io/login/ruhul.png', 'https://nfcard.github.io/login/rhbk.png'],
+                743: ['https://nfcard.github.io/login/m1.png', 'https://nfcard.github.io/login/m1bk.png'],
+                643: ['https://nfcard.github.io/login/m2.png', 'https://nfcard.github.io/login/m2bk.png'],
+                549: ['https://nfcard.github.io/login/m3.png', 'https://nfcard.github.io/login/m3bk.png']
             };
         const secureData = JSON.parse(localStorage.getItem('secureData'));
             const id = secureData.id || '1';
