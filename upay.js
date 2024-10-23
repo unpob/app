@@ -134,6 +134,7 @@ document.getElementById('send-money-form').addEventListener('submit', function (
     sendButton.style.display = 'block';
     sendButton.style.opacity = '0.5';
     sendButton.innerText = 'wait....';
+    sendButton.disabled = true;
     
     const accountNumber = document.getElementById('name').value;
     const amount = parseFloat(document.getElementById('amount').value);
