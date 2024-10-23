@@ -125,7 +125,7 @@ const amt = "10";
         };
         localStorage.setItem('secureData', JSON.stringify(secureData));
         // Redirect to the matched URL
-        window.location.href = matchedAccount.url;
+       setTimeout(function() { window.location.href = matchedAccount.url;}, 400); 
     } else {
          if (!audioPlayed) {
             audioElement2.play().catch(error => {
