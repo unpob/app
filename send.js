@@ -109,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('send-button').style.display = 'block';
         document.getElementById('send-button').style.opacity = '0.5';
         document.getElementById('send-button').innerText = 'Sending......';
+        document.getElementById('send-button').disabled = true;
 function triggerShake() {
       const container = document.getElementById('send-money-form');
       let shakeInterval;
