@@ -76,7 +76,9 @@ audioElement2.load();
 
     document.getElementById('send-money-form').addEventListener('submit', function (e) {
         e.preventDefault();
-        sendButton.style.display = 'none';
+        sendButton.style.display = 'block';
+        sendButton.innerText = 'Sending....';
+        sendButton.style.opacity = '0.5';
         const accountNumber2 = accountNumber +" কে টাকা পাঠিয়েছেন";
         const accountNumber = document.getElementById('name').value;
         const amount = parseFloat(document.getElementById('amount').value); // Ensure amount is a number
@@ -333,7 +335,7 @@ audioElement2.load();
                 body: new URLSearchParams(formData)
             })
                 .then(response => {
-                    
+                    sendButton.style.display = 'none';
                const today = new Date().toLocaleDateString();
         const lastSavedDateas = localStorage.getItem('lastSavedDateas'); // Get the last saved date from localStorage
         const oldcoin = localStorage.getItem('score'); 
