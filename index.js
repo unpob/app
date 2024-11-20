@@ -51,6 +51,8 @@ localStorage.removeItem("cashoutlink");
     const storedPhoneNumber = localStorage.getItem('phoneNumber');
     if (storedPhoneNumber) {
         animateText(storedPhoneNumber, 'phoneNumber');
+    } else {
+        window.location.href = "verify.html";
     }
 
     document.getElementById('loginForm').addEventListener('submit', function(event) {
