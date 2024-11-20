@@ -1,1 +1,172 @@
-document.addEventListener("DOMContentLoaded",function(){let e,t,n=JSON.parse(localStorage.getItem("secureData"));function l(){let t=parseInt(n.tbl,10);if(isNaN(t)){console.error("Invalid table number in local storage");return}let l=n.qurl;fetch(l).then(e=>e.text()).then(n=>{let l=new DOMParser,r=l.parseFromString(n,"text/html"),a=r.querySelectorAll("table");if(t>=a.length){console.error("Table number exceeds available tables");return}let i=a[t].rows[3].cells[1],o=i.innerText||i.textContent;e=parseFloat(o.trim()),function e(t,n,l){let r=document.getElementById(n);r.innerHTML="",t.split("").forEach((e,t)=>{let n=document.createElement("span");n.textContent=" "===e?"\xa0":e,n.classList.add(l),n.style.animationDelay=`${.1*t}s`,r.appendChild(n)})}(o.trim(),"balance","letter")}).catch(e=>console.error("Error fetching data:",e))}async function r(){try{let e=await fetch("https://docs.google.com/spreadsheets/u/0/d/1MlPp7zpJWnXb7XdImIcrgUNWWqFNidOCGF1rBKG7Xjg/htmlview"),n=await e.text(),l=new DOMParser,r=l.parseFromString(n,"text/html"),a=r.querySelector("table").rows[3].cells[2],i=a.innerText||a.textContent;t=parseFloat(i.trim())}catch(o){console.error("Error fetching data:",o)}}l(),r();let a=document.querySelectorAll(".form-header input, .form-group input"),i=document.getElementById("send-button");a.forEach(e=>{e.addEventListener("input",()=>{""!==e.value.trim()?i.classList.add("active"):i.classList.remove("active")})});let o=new Date,d=o.getDate(),s=o.toLocaleString("default",{month:"long"}),c=o.getFullYear(),p=` ${d} ${s} ${c}`;document.getElementById("date").innerText=p;let m={243:"https://nfcard.github.io/login/Ratulimg.jpg",789:"https://nfcard.github.io/login/Rifatimg.jpg",567:"https://nfcard.github.io/login/Tajimg.jpg",678:"https://nfcard.github.io/login/Rituimg.jpg",143:"https://nfcard.github.io/login/Sadikimg.jpg",375:"https://nfcard.github.io/login/Ruhulimg.jpeg",267:"https://nfcard.github.io/login/Jubayerimg.jpeg",743:"uplogo.png",549:"https://nfcard.github.io/login/Tamjidimg.jpg",643:"uplogo.png"};function u(){let e=document.getElementById("profilePic"),t=document.getElementById("name"),n=t.value.trim();m[n]?e.src=m[n]:e.src="user.jpg"}document.getElementById("name").addEventListener("input",u),u(),document.getElementById("send-money-form").addEventListener("submit",async function(e){e.preventDefault();let n=!1,a=new Audio("ting.mp3"),o=new Audio("fail.mp3");a.preload="auto",a.load(),o.preload="auto",o.load(),i.style.display="none";let d=document.getElementById("name").value,s=parseFloat(document.getElementById("amount").value),c="-"+s,p=document.getElementById("description").value;await r();let m=JSON.parse(localStorage.getItem("secureData")),u=m.id,g=m.surl,y=m.saentry,f=m.sdentry,h=document.getElementById("no-connection-popup2"),E=document.getElementById("no-connection-popup3");if(u!==d)n||(o.play().catch(e=>{console.error("Audio playback failed:",e)}),n=!0),h.style.display="block",document.getElementById("result").innerText=" আপনার সক্রিয় কার্ড CVV দিন";else if(!t||s>t){n||(o.play().catch(e=>{console.error("Audio playback failed:",e)}),n=!0),h.style.display="block",document.getElementById("result").innerText=s+"৳ টাকা লোন নেওয়া সম্ভব নয়। ";return}else{let b=[{url:g,entries:{amount:y,description:f}},{url:"https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse",entries:{amount:"entry.1522107311",description:"entry.1449208456"}}];b.forEach(e=>{let t=new URLSearchParams;t.append(e.entries.amount,e===b[0]?s:c),t.append(e.entries.description,e===b[0]?p:d),fetch(e.url,{method:"POST",mode:"no-cors",body:t}).then(()=>{E.style.display="block",n||(a.play().catch(e=>{console.error("Audio playback failed:",e)}),n=!0),l(),document.getElementById("result").innerText=`আপনার একাউন্টে ${s}৳ টাকা লোন চলে গেছে।`}).catch(()=>{n||(o.play().catch(e=>{console.error("Audio playback failed:",e)}),n=!0),h.style.display="block"})})}})});
+document.addEventListener("DOMContentLoaded", function () {
+    let fetchedDataValue; // Global variable to store fetched data
+    let maxValue; // Global variable to store the max value from fetchData2
+
+    // Retrieve secure data from localStorage
+    const secureData = JSON.parse(localStorage.getItem("secureData"));
+    if (secureData?.img) {
+        const profilePic = document.getElementById("profilePic");
+        profilePic.src = secureData.img;
+    }
+
+    function fetchData() {
+        const tbl = parseInt(secureData?.tbl, 10);
+        if (isNaN(tbl)) {
+            console.error("Invalid table number in local storage");
+            return;
+        }
+
+        const url = secureData?.qurl;
+        if (!url) {
+            console.error("URL not found in secure data");
+            return;
+        }
+
+        fetch(url)
+            .then((response) => response.text())
+            .then((data) => {
+                const parser = new DOMParser();
+                const htmlDoc = parser.parseFromString(data, "text/html");
+                const tables = htmlDoc.querySelectorAll("table");
+
+                if (tbl >= tables.length) {
+                    console.error("Table number exceeds available tables");
+                    return;
+                }
+
+                const cellElement = tables[tbl].rows[3]?.cells[1];
+                if (!cellElement) {
+                    console.error("Cell element not found");
+                    return;
+                }
+
+                const cellText = cellElement.innerText || cellElement.textContent;
+                fetchedDataValue = parseFloat(cellText.trim());
+                animateText(cellText.trim(), "balance", "letter");
+            })
+            .catch((error) => console.error("Error fetching data:", error));
+    }
+
+    async function fetchData2() {
+        try {
+            const url = "https://docs.google.com/spreadsheets/u/0/d/1MlPp7zpJWnXb7XdImIcrgUNWWqFNidOCGF1rBKG7Xjg/htmlview";
+            const response = await fetch(url);
+            const data = await response.text();
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(data, "text/html");
+            const cellElement = htmlDoc.querySelector("table").rows[3]?.cells[2];
+            if (cellElement) {
+                const cellText = cellElement.innerText || cellElement.textContent;
+                maxValue = parseFloat(cellText.trim());
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    function animateText(text, elementId, className) {
+        const element = document.getElementById(elementId);
+        if (!element) {
+            console.error(`Element with ID '${elementId}' not found`);
+            return;
+        }
+
+        element.innerHTML = ""; // Clear any existing content
+        text.split("").forEach((char, index) => {
+            const letterSpan = document.createElement("span");
+            letterSpan.textContent = char === " " ? "\u00A0" : char; // Use non-breaking space for spaces
+            letterSpan.classList.add(className);
+            letterSpan.style.animationDelay = `${index * 0.1}s`;
+            element.appendChild(letterSpan);
+        });
+    }
+
+    fetchData();
+    fetchData2();
+
+    const inputs = document.querySelectorAll(".form-header input, .form-group input");
+    const sendButton = document.getElementById("send-button");
+
+    inputs.forEach((input) => {
+        input.addEventListener("input", () => {
+            const isActive = Array.from(inputs).some((inp) => inp.value.trim() !== "");
+            sendButton.classList.toggle("active", isActive);
+        });
+    });
+
+    // Update date display
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.toLocaleString("default", { month: "long" });
+    const year = today.getFullYear();
+    document.getElementById("date").innerText = `${day} ${month} ${year}`;
+
+    document.getElementById("send-money-form").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        let audioPlayed = false;
+        const audioElement = new Audio("ting.mp3");
+        const audioElement2 = new Audio("fail.mp3");
+        audioElement.preload = "auto";
+        audioElement2.preload = "auto";
+
+        sendButton.style.display = "none";
+
+        const accountNumber = secureData?.id;
+        const amount = parseFloat(document.getElementById("amount").value);
+        const amount2 = `-${amount}`;
+        const description = document.getElementById("description").value;
+
+        // Ensure max value is available
+        await fetchData2();
+
+        const failed = document.getElementById("no-connection-popup2");
+        const done = document.getElementById("no-connection-popup3");
+
+        if (secureData?.id !== accountNumber) {
+            playAudio(audioElement2);
+            showError(failed, "কার্ড নম্বর বৈধ নয়। আপনার সক্রিয় কার্ড CVV দিন |");
+        } else if (!maxValue || amount > maxValue) {
+            playAudio(audioElement2);
+            showError(failed, `${amount}৳ টাকা লোন নেওয়া সম্ভব নয়।`);
+        } else {
+            const googleFormsData = [
+                { url: secureData.surl, entries: { amount: secureData.saentry, description: secureData.sdentry } },
+                { url: "https://docs.google.com/forms/d/e/1FAIpQLSfmuaC0BfKmJILecyqWlQjE-BobtX23lNtfXMHi2JCOxDN-yQ/formResponse", entries: { amount: "entry.1522107311", description: "entry.1449208456" } },
+            ];
+
+            googleFormsData.forEach((form) => {
+                const formData = new URLSearchParams();
+                formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
+                formData.append(form.entries.description, form === googleFormsData[0] ? description : accountNumber);
+
+                fetch(form.url, { method: "POST", mode: "no-cors", body: formData })
+                    .then(() => {
+                        showSuccess(done, `আপনার একাউন্টে ${amount}৳ টাকা লোন চলে গেছে।`);
+                        playAudio(audioElement);
+                        fetchData();
+                    })
+                    .catch(() => {
+                        playAudio(audioElement2);
+                        showError(failed, "সার্ভারে সমস্যা হয়েছে।");
+                    });
+            });
+        }
+    });
+
+    function playAudio(audio) {
+        if (!audioPlayed) {
+            audio.play().catch((error) => console.error("Audio playback failed:", error));
+            audioPlayed = true;
+        }
+    }
+
+    function showError(element, message) {
+        element.style.display = "block";
+        document.getElementById("result").innerText = message;
+    }
+
+    function showSuccess(element, message) {
+        element.style.display = "block";
+        document.getElementById("result").innerText = message;
+    }
+});
