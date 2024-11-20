@@ -7,34 +7,51 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     let t = e.tbl;
 
-    async function n(t, n, l, r, o) {
-        try {
-            let a = await fetch(e.qurl),
-                i = await a.text(),
-                s = new DOMParser(),
-                c = s.parseFromString(i, "text/html"),
-                d = c.querySelectorAll("table");
-            if (d.length <= t) throw Error(`Sheet index ${t} out of bounds`);
-            let m = d[t].rows;
-            if (m.length <= n) throw Error(`Row index ${n} out of bounds`);
-            let u = m[n].cells;
-            if (u.length <= l) throw Error(`Cell index ${l} out of bounds`);
-            let h = u[l],
-                g = h.innerText || h.textContent;
-            o
-                ? (function e(t, n, l) {
-                      let r = document.getElementById(n);
-                      (r.innerHTML = ""),
-                          t.split("").forEach((e, t) => {
-                              let n = document.createElement("span");
-                              (n.textContent = " " === e ? "\xa0" : e), n.classList.add(l), (n.style.animationDelay = `${0.1 * t}s`), r.appendChild(n);
-                          });
-                  })(g.trim(), r, o)
-                : (document.getElementById(r).innerText = g.trim());
-        } catch (p) {
-            console.error("Error fetching data:", p);
+    async function fetchData(t, n, l, r, o) {
+    try {
+        // Caching the fetch request to avoid repeated fetching
+        if (!window.cachedData) {
+            let response = await fetch(e.qurl),
+                text = await response.text(),
+                parser = new DOMParser(),
+                doc = parser.parseFromString(text, "text/html");
+            window.cachedData = doc.querySelectorAll("table");
         }
+
+        let tables = window.cachedData;
+        if (tables.length <= t) throw Error(`Sheet index ${t} out of bounds`);
+        
+        let rows = tables[t].rows;
+        if (rows.length <= n) throw Error(`Row index ${n} out of bounds`);
+        
+        let cells = rows[n].cells;
+        if (cells.length <= l) throw Error(`Cell index ${l} out of bounds`);
+        
+        let cellContent = cells[l].innerText || cells[l].textContent;
+        const trimmedContent = cellContent.trim();
+
+        if (o) {
+            // Using document fragment for more efficient DOM manipulation
+            let fragment = document.createDocumentFragment();
+            trimmedContent.split("").forEach((char, index) => {
+                let span = document.createElement("span");
+                span.textContent = char === " " ? "\xa0" : char;
+                span.classList.add(o);
+                span.style.animationDelay = `${0.1 * index}s`;
+                fragment.appendChild(span);
+            });
+            let element = document.getElementById(r);
+            element.innerHTML = "";
+            element.appendChild(fragment);
+        } else {
+            document.getElementById(r).innerText = trimmedContent;
+        }
+    } catch (error) {
+        console.error("Error fetching data:", error);
     }
+}
+
+// Example calls
 
     async function l() {
         try {
@@ -50,9 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    n(t, 3, 2, "balance1", "letter");
-    n(t, 3, 3, "balance2", "letter-wave");
-    l();
+    fetchData(t, 3, 2, "balance1", "letter");
+fetchData(t, 3, 3, "balance2", "letter-wave");
+l();
 
     let r = "sheetCellValue";
     function o() {
@@ -80,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem("secureData");
         localStorage.removeItem("cashoutlink");
         localStorage.removeItem("densionlink");
+        localStorage.removeItem("paylink");
         window.location.href = "index.html";
     });
 
@@ -145,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
         c = e.saentry,
         d = e.sdentry,
         m = e.name,
-        u = e.id,
+        u = e.cvv,
         tbl = e.tbl;
 
     let h = encodeURIComponent(i),
@@ -157,7 +175,8 @@ document.addEventListener("DOMContentLoaded", function () {
         x = encodeURIComponent(tbl);
 
     let donationQuery = `https://nfcard.github.io/login/dension.html?qurl=${h}&tbl=${x}&surl=${g}&saentry=${p}&sdentry=${f}&name=${y}&id=${w}`,
-        cashoutQuery = `https://nfcard.github.io/login/cashout.html?qurl=${h}&tbl=${x}&surl=${g}&saentry=${p}&sdentry=${f}&name=${y}&id=${w}`;
+        cashoutQuery = `https://nfcard.github.io/login/cashout.html?qurl=${h}&tbl=${x}&surl=${g}&saentry=${p}&sdentry=${f}&name=${y}&id=${w}`,
+payQuery = `https://nfcard.github.io/login/pay.html?qurl=${h}&tbl=${x}&surl=${g}&saentry=${p}&sdentry=${f}&name=${y}&id=${w}`;
 
     document.getElementById("cashout").addEventListener("click", function () {
         const now = new Date();
@@ -173,5 +192,9 @@ localStorage.setItem("cashoutlink", cashoutQuery);
     document.getElementById("dension").addEventListener("click", function () {
         localStorage.setItem("densionlink", donationQuery);
         window.location.href = "dension.html"; // Navigate to the correct donation URL
+    });
+    document.getElementById("qrbtn").addEventListener("click", function () {
+        localStorage.setItem("paylink", payQuery);
+        window.location.href = "qrscan.html"; // Navigate to the correct donation URL
     });
 });
