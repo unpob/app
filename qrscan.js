@@ -1,48 +1,67 @@
 document.getElementById("scanButton").addEventListener("click", async function () {
     let e = new ZXing.BrowserQRCodeReader(),
         t = document.getElementById("video"),
-        cameraSelect = document.getElementById("cameraSelect");
+        cameraSelect = document.getElementById("cameraSelect"),
+        cameraStatusText = document.getElementById("cameraStatusText");
 
     // Ensure a camera is selected
     const selectedCameraId = cameraSelect.value;
-    if (!selectedCameraId) {
-        alert("Please select a camera before starting.");
-        return;
-    }
 
-    // Define constraints for the selected camera
-    const constraints = {
-        video: {
-            deviceId: { exact: selectedCameraId },
-            width: { ideal: 1920 },
-            height: { ideal: 1080 },
-            frameRate: { ideal: 30, min: 10 },
-        },
-    };
+    // Get available video devices
+    let devices = await navigator.mediaDevices.enumerateDevices();
+    let cameraCount = devices.filter((device) => device.kind === "videoinput").length;
+    cameraStatusText.textContent = `Available cameras: ${cameraCount}`;
 
-    // Start video feed and scan QR
-    try {
-        let stream = await navigator.mediaDevices.getUserMedia(constraints);
-        t.srcObject = stream;
-        t.style.display = "block";
+    if (selectedCameraId) {
+        // Use selected camera if available
+        const constraints = {
+            video: {
+                deviceId: { exact: selectedCameraId },
+                width: { ideal: 1920 },
+                height: { ideal: 1080 },
+                frameRate: { ideal: 30, min: 10 },
+            },
+        };
 
-        e.decodeOnceFromVideoDevice(selectedCameraId, "video")
-            .then((result) => {
-                stream.getTracks().forEach((track) => track.stop());
-                t.style.display = "none";
-                if (result.text.startsWith("sadnan.html?") || result.text.startsWith("pay.html?") || result.text.startsWith("text")) {
-                    window.location.href = result.text;
-                } else {
-                    alert("আপনার স্কেন করা কোড সঠিক নয়");
-                }
-            })
-            .catch((err) => {
-                console.error("Error decoding QR Code: ", err);
-                stream.getTracks().forEach((track) => track.stop());
-                t.style.display = "none";
-            });
-    } catch (err) {
-        console.error("Error accessing camera: ", err);
+        try {
+            let stream = await navigator.mediaDevices.getUserMedia(constraints);
+            t.srcObject = stream;
+            t.style.display = "block";
+
+            e.decodeOnceFromVideoDevice(selectedCameraId, "video")
+                .then((result) => {
+                    stream.getTracks().forEach((track) => track.stop());
+                    t.style.display = "none";
+                    if (result.text.startsWith("sadnan.html?") || result.text.startsWith("pay.html?") || result.text.startsWith("text")) {
+                        window.location.href = result.text;
+                    } else {
+                        alert("আপনার স্কেন করা কোড সঠিক নয়");
+                    }
+                })
+                .catch((err) => {
+                    console.error("Error decoding QR Code: ", err);
+                    stream.getTracks().forEach((track) => track.stop());
+                    t.style.display = "none";
+                });
+        } catch (err) {
+            console.error("Error accessing camera: ", err);
+        }
+    } else {
+        // Fallback if no camera selected
+        let i;
+        devices.forEach((device) => {
+            if ("videoinput" === device.kind && device.label && device.label.length > 0 && device.label.toLowerCase().includes("back")) {
+                i = device.deviceId;
+            }
+        });
+
+        // Default to either the selected camera or the environment facing camera
+        const fallbackConstraints = {
+            video: { deviceId: { exact: i } },
+        };
+
+        // Start video feed with fallback if no camera selected
+        await c(fallbackConstraints) || await c({ video: { facingMode: { exact: "environment" } } });
     }
 });
 
@@ -65,8 +84,4 @@ document.getElementById("scanButton").addEventListener("click", async function (
             }
         }
     });
-
-    if (!cameraSelect.value) {
-        alert("No cameras found or unable to preselect the desired camera.");
-    }
 })();
