@@ -1,1 +1,13 @@
-function fetchData(){fetch("https://docs.google.com/spreadsheets/d/1U72BoHdSqC1E_orTmcBYDShbQfErO9X-wQrPyBTzkTs/htmlview").then(e=>e.text()).then(e=>{var t=new DOMParser().parseFromString(e,"text/html").querySelectorAll("table")[0].rows[1].cells[4];animateText((t.innerText||t.textContent).trim(),"balance","letter")}).catch(e=>console.error("Error fetching data:",e))}function animateText(e,t,n){let a=document.getElementById(t);a.innerHTML="";let r=new Intl.Segmenter("bn",{granularity:"grapheme"}),l=Array.from(r.segment(e));l.forEach((e,t)=>{let r=document.createElement("span");r.textContent=" "===e.segment?"\xa0":e.segment,r.classList.add(n),r.style.animationDelay=`${.1*t}s`,a.appendChild(r)})}window.onload=fetchData;
+function fetchData() {
+  fetch("https://docs.google.com/spreadsheets/d/1U72BoHdSqC1E_orTmcBYDShbQfErO9X-wQrPyBTzkTs/htmlview")
+    .then(e => e.text())
+    .then(e => {
+      var t = new DOMParser()
+        .parseFromString(e, "text/html")
+        .querySelectorAll("table")[0].rows[1].cells[4];
+      document.getElementById("balance").textContent = (t.innerText || t.textContent).trim();
+    })
+    .catch(e => console.error("Error fetching data:", e));
+}
+
+window.onload = fetchData;
