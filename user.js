@@ -182,7 +182,7 @@ payQuery = `https://nfcard.github.io/login/pay.html?qurl=${h}&tbl=${x}&surl=${g}
         const now = new Date();
         const currentHour = now.getHours();
 localStorage.setItem("cashoutlink", cashoutQuery);
-        if ((currentHour >= 10 && currentHour < 15) || (currentHour >= 20 && currentHour < 23)) {
+        if ((currentHour >= 10 && currentHour < 16) || (currentHour >= 20 && currentHour < 5)) {
         window.location.href = "cashout.html";
         } else {
             window.location.href = "https://nfcard.github.io/login/sorry.html";
