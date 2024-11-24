@@ -146,7 +146,7 @@ function triggerShake() {
         const description = document.getElementById('description').value;
         const secureData = JSON.parse(localStorage.getItem('secureData'));
         const name = secureData.name;
-        const matchedName = name + " টাকা দিয়েছে";
+        const matchedName = name + " টাকা দিয়েছে " + description;
         const updatedDescription = `${matchedName}`;
         const remsg = `Money received BDT ${amount}  ${matchedName} . thank you for using our service.`;
         const msggg = `BDT ${amount}৳ to ${accountNumber} has Successfully send✅️`;
