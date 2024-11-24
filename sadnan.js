@@ -1,175 +1,148 @@
-    const inputs = document.querySelectorAll('.form-header input, .form-group input');
-    const sendButton = document.getElementById('send-button');
-    const descriptionLink = document.getElementById('description-link');
-    const descriptionField = document.getElementById('description-field');
-    let fetchedDataValue; // Global variable to store fetched data
-    let audioPlayed = false;
-const audioElement = new Audio('ting.mp3');
-const audioElement2 = new Audio('fail.mp3');
-// Preload the audio
-audioElement.preload = 'auto';
-audioElement.load();
-    audioElement2.preload = 'auto';
-audioElement2.load();
+const inputs = document.querySelectorAll('.form-header input, .form-group input');
+const sendButton = document.getElementById('send-button');
+const descriptionLink = document.getElementById('description-link');
+const descriptionField = document.getElementById('description-field');
+let fetchedDataValue; // Global variable to store fetched data
 
 
-    inputs.forEach(input => {
-        input.addEventListener('input', () => {
-            sendButton.classList.toggle('active', input.value.trim() !== '');
-        });
+// Toggle send button active state
+inputs.forEach(input => {
+    input.addEventListener('input', () => {
+        sendButton.classList.toggle('active', input.value.trim() !== '');
     });
+});
 
-    descriptionLink.addEventListener('click', () => {
-        const isHidden = descriptionField.style.display === 'none' || descriptionField.style.display === '';
-        descriptionField.style.display = isHidden ? 'block' : 'none';
-        descriptionLink.textContent = isHidden ? '- Remove Message' : '+ Add Message';
-    });
+// Toggle description field visibility
+descriptionLink.addEventListener('click', () => {
+    const isHidden = !descriptionField.style.display || descriptionField.style.display === 'none';
+    descriptionField.style.display = isHidden ? 'block' : 'none';
+    descriptionLink.textContent = isHidden ? '- Remove Message' : '+ Add Message';
+});
 
-    function fetchData() {
-            const secureData = JSON.parse(localStorage.getItem('secureData'));
-        const tbl = parseInt(secureData.tbl, 10); // Fetching the table number from local storage and converting to an integer
-        if (isNaN(tbl)) {
-            console.error('Invalid table number in local storage');
-            return;
-        }
+// Fetch data from Google Sheets
+function fetchData() {
+    const secureData = JSON.parse(localStorage.getItem('secureData'));
+    const tbl = parseInt(secureData.tbl, 10);
 
-        const url = secureData.qurl; // Provided Google Sheets URL
-        fetch(url)
-            .then(response => response.text())
-            .then(data => {
-                const parser = new DOMParser();
-                const htmlDoc = parser.parseFromString(data, 'text/html');
-                const tables = htmlDoc.querySelectorAll('table');
-
-                if (tbl >= tables.length) {
-                    console.error('Table number exceeds available tables');
-                    window.location.href = 'index.html';
-                    return;
-                }
-
-                const cellElement = tables[tbl].rows[3].cells[1]; // Fetching data from the specified table, row 4, column 2
-                const cellText = cellElement.innerText || cellElement.textContent;
-                fetchedDataValue = parseFloat(cellText.trim());
-                document.getElementById('balance').innerText = cellText.trim();
-            })
-            .catch(error => console.error('Error fetching data:', error));
+    if (isNaN(tbl)) {
+        console.error('Invalid table number in local storage');
+        return;
     }
 
-    window.onload = fetchData;
+    fetch(secureData.qurl)
+        .then(response => response.text())
+        .then(data => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(data, 'text/html');
+            const tables = htmlDoc.querySelectorAll('table');
 
-    function getQueryParams() {
-        return window.location.search.substring(1).split("&").reduce((params, pair) => {
-            const [key, value] = pair.split("=");
-            params[decodeURIComponent(key)] = decodeURIComponent(value);
-            return params;
-        }, {});
+            if (tbl >= tables.length) {
+                console.error('Table number exceeds available tables');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const cellElement = tables[tbl].rows[3].cells[1];
+            const cellText = cellElement.innerText || cellElement.textContent;
+            fetchedDataValue = parseFloat(cellText.trim());
+            document.getElementById('balance').innerText = cellText.trim();
+        })
+        .catch(error => console.error('Error fetching data:', error));
+}
+
+window.onload = fetchData;
+
+// Get query parameters
+function getQueryParams() {
+    return window.location.search.substring(1).split("&").reduce((params, pair) => {
+        const [key, value] = pair.split("=");
+        params[decodeURIComponent(key)] = decodeURIComponent(value);
+        return params;
+    }, {});
+}
+
+// Fill form fields from query parameters
+function fillForm() {
+    const params = getQueryParams();
+    if (params.name) {
+        document.getElementById('name').value = params.name;
     }
+}
 
-    function fillForm() {
-        const params = getQueryParams();
-        if (params.name) {
-            document.getElementById('name').value = params.name;
-        }
-    }
+fillForm();
 
-    fillForm();
-
-    document.getElementById('send-money-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        sendButton.style.display = 'block';
-        sendButton.innerText = 'Sending....';
-        sendButton.style.opacity = '0.5';
+// Handle form submission
+document.getElementById('send-money-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    sendButton.innerText = 'Sending....';
+    sendButton.style.opacity = '0.5';
     sendButton.disabled = true;
+
+    const accountNumber = document.getElementById('name').value;
         const accountNumber2 = accountNumber +" কে টাকা পাঠিয়েছেন";
-        const accountNumber = document.getElementById('name').value;
         const amount = parseFloat(document.getElementById('amount').value); // Ensure amount is a number
+        const amount2 = "-" + amount;
         const description = document.getElementById('description').value;
         const secureData = JSON.parse(localStorage.getItem('secureData'));
-        const matchedName = name + " টাকা দিয়েছে";
+        const name = secureData.name;
+        const matchedName = name + " টাকা দিয়েছে " + description;
         const updatedDescription = `${matchedName}`;
-        function triggerShake() {
-      const container = document.getElementById('send-money-form');
-      let shakeInterval;
-      let shakeTime = 0;
-      
-      // Function to create the soft left-right shake effect
-      function shake() {
-        const randomX = Math.floor(Math.random() * 6) - 3; // Small shake between -3px and 3px for X (left-right)
-        
-        container.style.transform = `translateX(${randomX}px)`; // Only translate along the X-axis
-        
-        shakeTime += 50; // Shake duration in milliseconds
-        if (shakeTime >= 300) { // Shake for 300ms (for a smoother and shorter effect)
-          clearInterval(shakeInterval);
-          container.style.transform = ''; // Reset the transform property after the shake
-        }
-      }
-
-      // Start shaking at 50ms intervals
-      shakeInterval = setInterval(shake, 50);
-        }
-        document.getElementById('description').value = updatedDescription;
-
-        // Fetch data from local storage
-        const surl = secureData.surl;
-        const saentry = secureData.saentry;
-        const sdentry = secureData.sdentry;
-        const failed = document.getElementById('no-connection-popup2');
-        const done = document.getElementById('no-connection-popup3');
-
-        let googleFormsData = [];
-                               if (accountNumber === 'Md Rifat Mondol' && amount >= 1 && amount <= fetchedDataValue) {
-                    googleFormsData = [
-                        {
-                            url: 'https://docs.google.com/forms/d/e/1FAIpQLSdwibAx-kNF8WUJMtkLovi5v7CvD8b331qg8cuIXxQgvBY3fQ/formResponse',
-                            entries: {
-                                amount: 'entry.571402887',
-                                description: 'entry.885732113'
-                            }
-                        },
-                        {
-                            url: surl,
-                            entries: {
-                                amount: saentry,
-                                description: sdentry
-                            }
-                        }
-                    ];
-                } else if (accountNumber === 'Moral Adnan' && amount >= 1 && amount <= fetchedDataValue) {
-                    googleFormsData = [
-                        {
-                            url: 'https://docs.google.com/forms/d/e/1FAIpQLSfNAWSxevXYMOE8HlhzfouKHf5canb-c4QR0GSa_vE-T_LYAA/formResponse',
-                            entries: {
-                                amount: 'entry.1522107311',
-                                description: 'entry.1449208456'
-                            }
-                        },
-                        {
-                            url: surl,
-                            entries: {
-                                amount: saentry,
-                                description: sdentry
-                            }
-                        }
-                    ];
-                } else if (accountNumber === 'Sadik Hasan' && amount >= 1 && amount <= fetchedDataValue) {
-                    googleFormsData = [
-                        {
-                            url: 'https://docs.google.com/forms/d/e/1FAIpQLSeRN1fDSrzXRhvT4PCW5_DyDhaZj-bYjkMtogsGznLGu_Y9_w/formResponse',
-                            entries: {
-                                amount: 'entry.388106005',
-                                description: 'entry.478936436'
-                            }
-                        },
-                        {
-                            url: surl,
-                            entries: {
-                                amount: saentry,
-                                description: sdentry
-                            }
-                        }
-                    ];
-                }else if (accountNumber === 'Ahad Khandokar' && amount >= 1 && amount <= fetchedDataValue) {
+        const remsg = `Money received BDT ${amount}  ${matchedName} . thank you for using our service.`;
+        const failedPopup = document.getElementById('no-connection-popup2');
+    const successPopup = document.getElementById('no-connection-popup3');
+let googleFormsData = [];
+    if (accountNumber === 'Md Rifat Mondol' && amount >= 1 && amount <= fetchedDataValue) {
+            googleFormsData = [
+                {
+                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSdwibAx-kNF8WUJMtkLovi5v7CvD8b331qg8cuIXxQgvBY3fQ/formResponse',
+                    entries: {
+                        amount: 'entry.571402887',
+                        description: 'entry.885732113'
+                    }
+                },
+                {
+                    url: surl,
+                    entries: {
+                        amount: saentry,
+                        description: sdentry
+                    }
+                }
+            ];
+        } else if (accountNumber === 'Moral Adnan' && amount >= 1 && amount <= fetchedDataValue) {
+            googleFormsData = [
+                {
+                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSfNAWSxevXYMOE8HlhzfouKHf5canb-c4QR0GSa_vE-T_LYAA/formResponse',
+                    entries: {
+                        amount: 'entry.1522107311',
+                        description: 'entry.1449208456'
+                    }
+                },
+                {
+                    url: surl,
+                    entries: {
+                        amount: saentry,
+                        description: sdentry
+                    }
+                }
+            ];
+        } else if (accountNumber === 'Sadik Hasan' && amount >= 1 && amount <= fetchedDataValue) {
+            googleFormsData = [
+                {
+                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSeRN1fDSrzXRhvT4PCW5_DyDhaZj-bYjkMtogsGznLGu_Y9_w/formResponse',
+                    entries: {
+                        amount: 'entry.388106005',
+                        description: 'entry.478936436'
+                    }
+                },
+                {
+                    url: surl,
+                    entries: {
+                        amount: saentry,
+                        description: sdentry
+                    }
+                }
+            ];
+        }else if (accountNumber === 'Habib Store' && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSfeGLi1AvyzGFbLFsZO1cBE6b6yvAVMx8xxZtyuME4P2efMQQ/formResponse',
@@ -186,191 +159,293 @@ audioElement2.load();
                             }
                         }
                     ];
-                               } else if (accountNumber === 'Md Tajul Mulk' && amount >= 1 && amount <= fetchedDataValue) {
-                    googleFormsData = [
-                        {
-                            url: 'https://docs.google.com/forms/d/e/1FAIpQLScRGGayY33j_5k8TzL7f_O-DlU9P6gfAMNPA4xxjTcrwpHblQ/formResponse',
-                            entries: {
-                                amount: 'entry.366857651',
-                                description: 'entry.2048423254'
-                            }
-                        },
-                        {
-                            url: surl,
-                            entries: {
-                                amount: saentry,
-                                description: sdentry
-                            }
-                        }
-                    ];
-                } else if (accountNumber === 'Mst Ritu' && amount >= 1 && amount <= fetchedDataValue) {
-                    googleFormsData = [
-                        {
-                            url: 'https://docs.google.com/forms/d/e/1FAIpQLSdiZVekoO867RZ4Ep4fyS7QYBczYNo28eIANzzFr51VuuD2lA/formResponse',
-                            entries: {
-                                amount: 'entry.1273386060',
-                                description: 'entry.928300410'
-                            }
-                        },
-                        {
-                            url: surl,
-                            entries: {
-                                amount: saentry,
-                                description: sdentry
-                            }
-                        }
-                    ];
-                }else if (accountNumber === 'Tamjid Ahmed' && amount >= 1 && amount <= fetchedDataValue) {
-                    googleFormsData = [
-                        {
-                            url: 'https://docs.google.com/forms/d/e/1FAIpQLSd53A4ma9E9rVjyg5bXrJnneaITj26939ie3aPXudi-EVkbig/formResponse',
-                            entries: {
-                                amount: 'entry.1522107311',
-                                description: 'entry.1449208456'
-                            }
-                        },
-                        {
-                            url: surl,
-                            entries: {
-                                amount: saentry,
-                                description: sdentry
-                            }
-                        }
-                    ];
-                }else if (accountNumber === 'Md Arafat' && amount >= 1 && amount <= fetchedDataValue) {
-                    googleFormsData = [
-                        {
-                            url: 'https://docs.google.com/forms/d/e/1FAIpQLSdpFVGyWcmC6PGs8wbFU9IihzUT1olphC-D-mdOVaJjQvNs1Q/formResponse',
-                            entries: {
-                                amount: 'entry.1522107311',
-                                description: 'entry.1449208456'
-                            }
-                        },
-                        {
-                            url: surl,
-                            entries: {
-                                amount: saentry,
-                                description: sdentry
-                            }
-                        }
-                    ];
-                }else if (accountNumber === 'Jubayer Ahmed' && amount >= 1 && amount <= fetchedDataValue) {
-                    googleFormsData = [
-                        {
-                            url: 'https://docs.google.com/forms/d/e/1FAIpQLSez19H6vm8kLmvRV33WPadkuscVBjjvku0pIeZKNSO7gpV-hA/formResponse',
-                            entries: {
-                                amount: 'entry.1522107311',
-                                description: 'entry.1449208456'
-                            }
-                        },
-                        {
-                            url: surl,
-                            entries: {
-                                amount: saentry,
-                                description: sdentry
-                            }
-                        }
-                    ];
-                }else if (accountNumber === 'Mst Shorna' && amount >= 1 && amount <= fetchedDataValue) {
-                    googleFormsData = [
-                        {
-                            url: 'https://docs.google.com/forms/d/e/1FAIpQLSdcI8OW5HEFDIE4Vm_94aEoyrqejw18j3oGr0SXbnlveitjgw/formResponse',
-                            entries: {
-                                amount: 'entry.1522107311',
-                                description: 'entry.1449208456'
-                            }
-                        },
-                        {
-                            url: surl,
-                            entries: {
-                                amount: saentry,
-                                description: sdentry
-                            }
-                        }
-                    ];
-                }else if (accountNumber === 'Md Ruhul Amin' && amount >= 1 && amount <= fetchedDataValue) {
-                    googleFormsData = [
-                        {
-                            url: 'https://docs.google.com/forms/d/e/1FAIpQLScuAspEw6MJNhkI8tPYKCHZhRfS6F3n15EElqu73AzMqjBhSA/formResponse',
-                            entries: {
-                                amount: 'entry.1522107311',
-                                description: 'entry.1449208456'
-                            }
-                        },
-                        {
-                            url: surl,
-                            entries: {
-                                amount: saentry,
-                                description: sdentry
-                            }
-                        }
-                    ];
-                            } else {
+        } else if (accountNumber === 'Md Tajul Mulk' && amount >= 1 && amount <= fetchedDataValue) {
+            googleFormsData = [
+                {
+                    url: 'https://docs.google.com/forms/d/e/1FAIpQLScRGGayY33j_5k8TzL7f_O-DlU9P6gfAMNPA4xxjTcrwpHblQ/formResponse',
+                    entries: {
+                        amount: 'entry.366857651',
+                        description: 'entry.2048423254'
+                    }
+                },
+                {
+                    url: surl,
+                    entries: {
+                        amount: saentry,
+                        description: sdentry
+                    }
+
+                }
+
+            ];
+
+        } else if (accountNumber === 'Mst Ritu' && amount >= 1 && amount <= fetchedDataValue) {
+
+            googleFormsData = [
+
+                {
+
+                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSdiZVekoO867RZ4Ep4fyS7QYBczYNo28eIANzzFr51VuuD2lA/formResponse',
+
+                    entries: {
+
+                        amount: 'entry.1273386060',
+
+                        description: 'entry.928300410'
+
+                    }
+
+                },
+
+                {
+
+                    url: surl,
+
+                    entries: {
+
+                        amount: saentry,
+
+                        description: sdentry
+
+                    }
+
+                }
+
+            ];
+
+        }else if (accountNumber === 'Tamjid Ahmed' && amount >= 1 && amount <= fetchedDataValue) {
+
+            googleFormsData = [
+
+                {
+
+                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSd53A4ma9E9rVjyg5bXrJnneaITj26939ie3aPXudi-EVkbig/formResponse',
+
+                    entries: {
+
+                        amount: 'entry.1522107311',
+
+                        description: 'entry.1449208456'
+
+                    }
+
+                },
+
+                {
+
+                    url: surl,
+
+                    entries: {
+
+                        amount: saentry,
+
+                        description: sdentry
+
+                    }
+
+                }
+
+            ];
+
+        }else if (accountNumber === 'Md Arafat' && amount >= 1 && amount <= fetchedDataValue) {
+
+            googleFormsData = [
+
+                {
+
+                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSdpFVGyWcmC6PGs8wbFU9IihzUT1olphC-D-mdOVaJjQvNs1Q/formResponse',
+
+                    entries: {
+
+                        amount: 'entry.1522107311',
+
+                        description: 'entry.1449208456'
+
+                    }
+
+                },
+
+                {
+
+                    url: surl,
+
+                    entries: {
+
+                        amount: saentry,
+
+                        description: sdentry
+
+                    }
+
+                }
+
+            ];
+
+        }else if (accountNumber === 'Jubayer Ahmed' && amount >= 1 && amount <= fetchedDataValue) {
+
+            googleFormsData = [
+
+                {
+
+                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSez19H6vm8kLmvRV33WPadkuscVBjjvku0pIeZKNSO7gpV-hA/formResponse',
+
+                    entries: {
+
+                        amount: 'entry.1522107311',
+
+                        description: 'entry.1449208456'
+
+                    }
+
+                },
+
+                {
+
+                    url: surl,
+
+                    entries: {
+
+                        amount: saentry,
+
+                        description: sdentry
+
+                    }
+
+                }
+
+            ];
+
+        }else if (accountNumber === 'Mst Shorna' && amount >= 1 && amount <= fetchedDataValue) {
+
+            googleFormsData = [
+
+                {
+
+                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSdcI8OW5HEFDIE4Vm_94aEoyrqejw18j3oGr0SXbnlveitjgw/formResponse',
+
+                    entries: {
+
+                        amount: 'entry.1522107311',
+
+                        description: 'entry.1449208456'
+
+                    }
+
+                },
+
+                {
+
+                    url: surl,
+
+                    entries: {
+
+                        amount: saentry,
+
+                        description: sdentry
+
+                    }
+
+                }
+
+            ];
+
+        }else if (accountNumber === 'Md Ruhul Amin' && amount >= 1 && amount <= fetchedDataValue) {
+
+            googleFormsData = [
+
+                {
+
+                    url: 'https://docs.google.com/forms/d/e/1FAIpQLScuAspEw6MJNhkI8tPYKCHZhRfS6F3n15EElqu73AzMqjBhSA/formResponse',
+
+                    entries: {
+
+                        amount: 'entry.1522107311',
+
+                        description: 'entry.1449208456'
+
+                    }
+
+                },
+
+                {
+
+                    url: surl,
+
+                    entries: {
+
+                        amount: saentry,
+
+                        description: sdentry
+
+                    }
+
+                }
+
+            ];
+
+                    } else {
+
             let errorMessage = `🚫 `;
-            if (amount < 1) {
-                errorMessage += `সর্বনিম্ন 1 টাকা পাঠানো যাবে`;
-            }
+
+if (accountNumber !== 'Ahad' && accountNumber !== 'Ruhul' && accountNumber !== 'Tamjid' && accountNumber !== 'Arafat' && accountNumber !== 'Shorna' && accountNumber !== 'Rifat' && accountNumber !== 'Ritu' && accountNumber !== 'Taj' && accountNumber !== 'Sadik' && accountNumber !== 'Ratul' && accountNumber !== 'Jubayer' ) {
+
+errorMessage += ` নাম ভুল হয়েছে, `;
+
+}
+
+if (amount < 1 ) {
+
+errorMessage += ` সর্বনিম্ন 1 টাকা পাঠাতে পারবেন `;
+
+}
+
             if (amount > fetchedDataValue) {
-                errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই `;
-            }
-                                   if (!audioPlayed) {
-            audioElement2.play().catch(error => {
-                console.error('Audio playback failed:', error);
-            });
-            audioPlayed = true;
-        }failed.style.display = 'block';
-                triggerShake();
-            document.getElementById('result2').innerText = errorMessage;
-            sendButton.style.display = 'block'; // Show button again
+
+errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই`;
+
+}     audioElement.play().catch(console.error);
+                        
+                        failed.style.display = 'block';
+            triggerShake();
+             document.getElementById('result2').innerText = errorMessage;
+
+            document.getElementById('send-button').style.display = 'block'; // Show button again
+
             return;
+
         }
+
 
         googleFormsData.forEach((form, index) => {
             const formData = new FormData();
-            formData.append(form.entries.amount, form === googleFormsData[0] ? amount : `-${amount}`);
-            formData.append(form.entries.description, form === googleFormsData[0] ? updatedDescription : `${accountNumber2}`);
+            formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
+            formData.append(form.entries.description, form === googleFormsData[0] ? updatedDescription : accountNumber2);
 
             fetch(form.url, {
                 method: 'POST',
                 mode: 'no-cors',
                 body: new URLSearchParams(formData)
-            })
-                .then(response => {
-                    sendButton.style.display = 'none';
-               const today = new Date().toLocaleDateString();
-        const lastSavedDateas = localStorage.getItem('lastSavedDateas'); // Get the last saved date from localStorage
-        const oldcoin = localStorage.getItem('score'); 
-            const newcoin = Number(oldcoin) + Number((amount / 100)); // Calculate new boost value
-        if (lastSavedDateas !== today) {
-            // If it's a new day, update the coin
-            localStorage.setItem('score', newcoin); 
-            localStorage.setItem('lastSavedDateas', today); // Save today's date in localStorage
-        } else {
-            console.log('Coin already saved today. Skipping coin update.');
-        }
-                    done.style.display = 'block';
-                    if (!audioPlayed) {
-                        audioElement.play().catch(error => {
-                            console.error('Audio playback failed:', error);
-                        });
-                        audioPlayed = true;
+            })  .then(() => {
+                    const today = new Date().toLocaleDateString();
+                    const lastSavedDate = localStorage.getItem('lastSavedDateas');
+                    const newCoin = Number(localStorage.getItem('score')) + (amount / 100);
+
+                    if (lastSavedDate !== today) {
+                        localStorage.setItem('score', newCoin);
+                        localStorage.setItem('lastSavedDateas', today);
                     }
+
+                    successPopup.style.display = 'block';
+                        audioElement.play().catch(console.error);
+                    
                     fetchData();
                     document.getElementById('result').innerText = `${amount}৳ to ${accountNumber} has Successfully Transferred ✅️`;
-                    sendButton.style.display = 'none';
                 })
-                .catch(error => {
-                    failed.style.display = 'block';
-                    if (!audioPlayed) {
-                        audioElement2.play().catch(error => {
-                            console.error('Audio playback failed:', error);
-                        });
-                        audioPlayed = true;
-                    }
+                .catch(() => {
+                    failedPopup.style.display = 'block';
+                        audioElement2.play().catch(console.error);
                     document.getElementById('result').innerText = `Send money failed`;
-                     triggerShake();
-                    sendButton.style.display = 'block'; // Show button again
                 });
         });
-    });
+    
 });
