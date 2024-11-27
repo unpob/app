@@ -2,6 +2,7 @@ const inputs = document.querySelectorAll('.form-header input, .form-group input'
 const sendButton = document.getElementById('send-button');
 const descriptionLink = document.getElementById('description-link');
 const descriptionField = document.getElementById('description-field');
+document.querySelector('.no-connection-popup').style.zIndex = '1001';
 let fetchedDataValue; // Global variable to store fetched data
 
 
