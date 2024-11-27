@@ -439,7 +439,7 @@ errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই
                         audioElement.play().catch(console.error);
                     
                     fetchData();
-                    document.getElementById('result').innerText = `${amount}৳ to ${accountNumber} has Successfully Transferred ✅️`;
+                    document.getElementById('result').innerText = `${amount}৳ ${accountNumber} কে প্রদান সম্পূর্ণ হয়েছে ✅️`;
                 })
                 .catch(() => {
                     failedPopup.style.display = 'block';
