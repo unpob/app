@@ -149,7 +149,7 @@ function triggerShake() {
         const matchedName = name + " টাকা দিয়েছে " + description;
         const updatedDescription = `${matchedName}`;
         const remsg = `Money received BDT ${amount}  ${matchedName} . thank you for using our service.`;
-        const msggg = `${amount}৳ ${accountNumber} কে পাঠানো হয়েছে ✅️`;
+        const msggg = `${amount}৳ ${accountNumber} কে প্রেরণ করা হয়েছে ✅️`;
         const surl = secureData.surl;
         const saentry = secureData.saentry;
         const sdentry = secureData.sdentry;
