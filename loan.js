@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const profilePic = document.getElementById("profilePic");
         profilePic.src = secureData.img;
     }
-
+document.querySelector('.no-connection-popup').style.zIndex = '1001';
     function fetchData() {
         const tbl = parseInt(secureData?.tbl, 10);
         if (isNaN(tbl)) {
