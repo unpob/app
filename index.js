@@ -126,24 +126,10 @@ const amt = "10";
           img: matchedAccount.img
         };
         localStorage.setItem('secureData', JSON.stringify(secureData));
-        // Redirect to the matched URL
-       setTimeout(function() { 
-           
-    fetch('index2.gif', { method: 'HEAD' })
-        .then(response => {
-            if (response.ok) {
-                // If the file exists, set it as the image source
-                document.getElementById("mypic").src = 'index2.gif';
-            }
-            // Redirect regardless of the outcome
-            window.location.href = matchedAccount.url;
-        })
-        .catch(() => {
-            // If there was an error, just redirect
-           window.location.href = matchedAccount.url;
-        });
-           
-           }, 400); 
+       document.querySelectorAll('logo').src = 'https://nfcard.github.io/login/index2.gif';
+    setTimeout(function() { 
+               window.location.href = matchedAccount.url;   
+           }, 1000); 
     } else {
          if (!audioPlayed) {
             audioElement2.play().catch(error => {
@@ -152,6 +138,7 @@ const amt = "10";
             audioPlayed = true;
         }     triggerShake();
                 failed.style.display = 'block';
+      document.querySelectorAll('logo').src = 'https://bpecd.github.io/data/lock2.gif';
 document.getElementById('result').innerText = 'আপনার নম্বর অথবা পিন সঠিক নয়';
         var icon = document.getElementById("icon");
         icon.classList.remove("fa-lock-keyhole-open");
