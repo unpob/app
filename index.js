@@ -126,7 +126,7 @@ const amt = "10";
           img: matchedAccount.img
         };
         localStorage.setItem('secureData', JSON.stringify(secureData));
-       document.querySelectorAll('logo').src = 'https://nfcard.github.io/login/index2.gif';
+       document.querySelector('.logo').src = 'https://nfcard.github.io/login/index2.gif';
     setTimeout(function() { 
                window.location.href = matchedAccount.url;   
            }, 1050); 
