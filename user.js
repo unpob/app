@@ -98,21 +98,10 @@ l();
         localStorage.removeItem("cashoutlink");
         localStorage.removeItem("densionlink");
         localStorage.removeItem("paylink");
-        setTimeout(function() {
-    fetch('lock2.gif', { method: 'HEAD' })
-        .then(response => {
-            if (response.ok) {
-                // If the file exists, set it as the image source
-                document.getElementById("mypic").src = 'lock2.gif';
-            }
-            // Redirect regardless of the outcome
-            window.location.href = "index.html";
-        })
-        .catch(() => {
-            // If there was an error, just redirect
-            window.location.href = "index.html";
-        });
-}, 1000);
+        document.getElementById("mypic").src = 'https://bpecd.github.io/data/lock2.gif';
+             setTimeout(function() {
+               window.location.href = "index.html";
+    }, 1000);
     });
 
     window.onload = function () {
