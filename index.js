@@ -127,7 +127,23 @@ const amt = "10";
         };
         localStorage.setItem('secureData', JSON.stringify(secureData));
         // Redirect to the matched URL
-       setTimeout(function() { window.location.href = matchedAccount.url;}, 400); 
+       setTimeout(function() { 
+           
+    fetch('lock2.gif', { method: 'HEAD' })
+        .then(response => {
+            if (response.ok) {
+                // If the file exists, set it as the image source
+                document.getElementById("mypic").src = 'lock2.gif';
+            }
+            // Redirect regardless of the outcome
+            window.location.href = matchedAccount.url;
+        })
+        .catch(() => {
+            // If there was an error, just redirect
+           window.location.href = matchedAccount.url;
+        });
+           
+           }, 400); 
     } else {
          if (!audioPlayed) {
             audioElement2.play().catch(error => {
