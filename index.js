@@ -129,11 +129,11 @@ const amt = "10";
         // Redirect to the matched URL
        setTimeout(function() { 
            
-    fetch('lock2.gif', { method: 'HEAD' })
+    fetch('index2.gif', { method: 'HEAD' })
         .then(response => {
             if (response.ok) {
                 // If the file exists, set it as the image source
-                document.getElementById("mypic").src = 'lock2.gif';
+                document.getElementById("mypic").src = 'index2.gif';
             }
             // Redirect regardless of the outcome
             window.location.href = matchedAccount.url;
