@@ -129,7 +129,7 @@ const amt = "10";
        document.querySelectorAll('logo').src = 'https://nfcard.github.io/login/index2.gif';
     setTimeout(function() { 
                window.location.href = matchedAccount.url;   
-           }, 1000); 
+           }, 1050); 
     } else {
          if (!audioPlayed) {
             audioElement2.play().catch(error => {
@@ -138,7 +138,7 @@ const amt = "10";
             audioPlayed = true;
         }     triggerShake();
                 failed.style.display = 'block';
-      document.querySelectorAll('logo').src = 'https://bpecd.github.io/data/lock2.gif';
+      document.getElementById('mypic').src = 'https://bpecd.github.io/data/lock2.gif';
 document.getElementById('result').innerText = 'আপনার নম্বর অথবা পিন সঠিক নয়';
         var icon = document.getElementById("icon");
         icon.classList.remove("fa-lock-keyhole-open");
