@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 let today = new Date();
 
                 // Parse the balance2 value to extract the date range
-                let match = trimmedContent.match(/(\d{2})-(\d{2}) (\w+) (\d{4})/);
+                let match = trimmedContent.match(/(\d{1,2})-(\d{1,2}) (\w+) (\d{4})/);
                 if (match) {
                     let dayStart = parseInt(match[1], 10);
                     let dayEnd = parseInt(match[2], 10);
@@ -66,11 +66,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Check the current date against the range
                     if (today > startDate && today < endDate) {
                         document.getElementById(r).style.color = "green"; // Before startDate
-                    
                     } else if (today > endDate) {
                         document.getElementById(r).style.color = "red"; // After endDate
-                    } else {
-                        }
+                    }
                 } else {
                     console.error("Invalid date format in balance2 value:", trimmedContent);
                 }
