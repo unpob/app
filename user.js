@@ -8,51 +8,65 @@ document.addEventListener("DOMContentLoaded", function () {
     let t = e.tbl;
 
     async function fetchData(t, n, l, r, o) {
-    try {
-        // Caching the fetch request to avoid repeated fetching
-        if (!window.cachedData) {
-            let response = await fetch(e.qurl),
-                text = await response.text(),
-                parser = new DOMParser(),
-                doc = parser.parseFromString(text, "text/html");
-            window.cachedData = doc.querySelectorAll("table");
-        }
+        try {
+            // Caching the fetch request to avoid repeated fetching
+            if (!window.cachedData) {
+                let response = await fetch(e.qurl),
+                    text = await response.text(),
+                    parser = new DOMParser(),
+                    doc = parser.parseFromString(text, "text/html");
+                window.cachedData = doc.querySelectorAll("table");
+            }
 
-        let tables = window.cachedData;
-        if (tables.length <= t) throw Error(`Sheet index ${t} out of bounds`);
-        
-        let rows = tables[t].rows;
-        if (rows.length <= n) throw Error(`Row index ${n} out of bounds`);
-        
-        let cells = rows[n].cells;
-        if (cells.length <= l) throw Error(`Cell index ${l} out of bounds`);
-        
-        let cellContent = cells[l].innerText || cells[l].textContent;
-        const trimmedContent = cellContent.trim();
+            let tables = window.cachedData;
+            if (tables.length <= t) throw Error(`Sheet index ${t} out of bounds`);
+            
+            let rows = tables[t].rows;
+            if (rows.length <= n) throw Error(`Row index ${n} out of bounds`);
+            
+            let cells = rows[n].cells;
+            if (cells.length <= l) throw Error(`Cell index ${l} out of bounds`);
+            
+            let cellContent = cells[l].innerText || cells[l].textContent;
+            const trimmedContent = cellContent.trim();
 
-        if (o) {
-            // Using document fragment for more efficient DOM manipulation
-            let fragment = document.createDocumentFragment();
-            trimmedContent.split("").forEach((char, index) => {
-                let span = document.createElement("span");
-                span.textContent = char === " " ? "\xa0" : char;
-                span.classList.add(o);
-                span.style.animationDelay = `${0.1 * index}s`;
-                fragment.appendChild(span);
-            });
-            let element = document.getElementById(r);
-            element.innerHTML = "";
-            element.appendChild(fragment);
-        } else {
-            document.getElementById(r).innerText = trimmedContent;
+            if (o) {
+                // Using document fragment for more efficient DOM manipulation
+                let fragment = document.createDocumentFragment();
+                trimmedContent.split("").forEach((char, index) => {
+                    let span = document.createElement("span");
+                    span.textContent = char === " " ? "\xa0" : char;
+                    span.classList.add(o);
+                    span.style.animationDelay = `${0.1 * index}s`;
+                    fragment.appendChild(span);
+                });
+                let element = document.getElementById(r);
+                element.innerHTML = "";
+                element.appendChild(fragment);
+            } else {
+                document.getElementById(r).innerText = trimmedContent;
+            }
+
+            // Check the date and update balance2 color
+            if (r === "balance2") {
+                let today = new Date();
+                let startDate = new Date(2024, 11, 5); // December 5, 2024
+                let endDate = new Date(2024, 11, 15); // December 15, 2024
+
+                if (today < startDate) {
+                    // Before startDate, color is green
+                    document.getElementById(r).style.color = "green";
+                } else if (today > endDate) {
+                    // After endDate, color is red
+                    document.getElementById(r).style.color = "red";
+                }
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
         }
-    } catch (error) {
-        console.error("Error fetching data:", error);
     }
-}
 
-// Example calls
-
+    // Example calls
     async function l() {
         try {
             let e = await fetch("https://docs.google.com/spreadsheets/d/1VvKwtRmRSLy-eLCQfeCDeN6xT_vv-Gw5CsXbjcwcpxw/htmlview"),
@@ -68,9 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     fetchData(t, 3, 2, "balance1", "letter");
-fetchData(t, 3, 3, "balance2", "letter-wave");
-l();
-
+    fetchData(t, 3, 3, "balance2", "letter-wave");
+    l();
     let r = "sheetCellValue";
     function o() {
         console.log("Closing popup"), document.getElementById("popup").classList.remove("active"), localStorage.setItem("popupShown", "true");
