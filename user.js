@@ -51,19 +51,28 @@ document.addEventListener("DOMContentLoaded", function () {
             if (r === "balance2") {
                 let today = new Date();
 
-                // Extract start and end dates from the balance2 value
-                let dateParts = trimmedContent.match(/(\d{2})-(\d{2}) (\w+) (\d{4})/g);
-                if (dateParts && dateParts.length === 2) {
-                    let startDate = new Date(dateParts[0]);
-                    let endDate = new Date(dateParts[1]);
+                // Parse the balance2 value to extract the date range
+                let match = trimmedContent.match(/(\d{2})-(\d{2}) (\w+) (\d{4})/);
+                if (match) {
+                    let dayStart = parseInt(match[1], 10);
+                    let dayEnd = parseInt(match[2], 10);
+                    let month = match[3];
+                    let year = parseInt(match[4], 10);
 
-                    if (today < startDate) {
-                        document.getElementById(r).style.color = "green";
+                    // Construct start and end dates
+                    let startDate = new Date(`${month} ${dayStart}, ${year}`);
+                    let endDate = new Date(`${month} ${dayEnd}, ${year}`);
+
+                    // Check the current date against the range
+                    if (today > startDate && today < endDate) {
+                        document.getElementById(r).style.color = "green"; // Before startDate
+                    
                     } else if (today > endDate) {
-                        document.getElementById(r).style.color = "red";
-                    }
+                        document.getElementById(r).style.color = "red"; // After endDate
+                    } else {
+                        }
                 } else {
-                    console.error("Invalid date range format in balance2 value");
+                    console.error("Invalid date format in balance2 value:", trimmedContent);
                 }
             }
         } catch (error) {
