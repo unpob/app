@@ -47,18 +47,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById(r).innerText = trimmedContent;
             }
 
-            // Check the date and update balance2 color
+            // Check the balance2 value and update its color based on date
             if (r === "balance2") {
                 let today = new Date();
-                let startDate = new Date(2024, 11, 5); // December 5, 2024
-                let endDate = new Date(2024, 11, 15); // December 15, 2024
 
-                if (today < startDate) {
-                    // Before startDate, color is green
-                    document.getElementById(r).style.color = "green";
-                } else if (today > endDate) {
-                    // After endDate, color is red
-                    document.getElementById(r).style.color = "red";
+                // Extract start and end dates from the balance2 value
+                let dateParts = trimmedContent.match(/(\d{2})-(\d{2}) (\w+) (\d{4})/g);
+                if (dateParts && dateParts.length === 2) {
+                    let startDate = new Date(dateParts[0]);
+                    let endDate = new Date(dateParts[1]);
+
+                    if (today < startDate) {
+                        document.getElementById(r).style.color = "green";
+                    } else if (today > endDate) {
+                        document.getElementById(r).style.color = "red";
+                    }
+                } else {
+                    console.error("Invalid date range format in balance2 value");
                 }
             }
         } catch (error) {
