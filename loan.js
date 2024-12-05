@@ -112,6 +112,7 @@ document.querySelector('.no-connection-popup').style.zIndex = '1001';
         sendButton.style.display = "none";
 
         const accountNumber = secureData?.id;
+        const xnameid = secureData.name;
         const amount = parseFloat(document.getElementById("amount").value);
         const amount2 = `-${amount}`;
         const description = document.getElementById("description").value;
@@ -137,7 +138,7 @@ document.querySelector('.no-connection-popup').style.zIndex = '1001';
             googleFormsData.forEach((form) => {
                 const formData = new URLSearchParams();
                 formData.append(form.entries.amount, form === googleFormsData[0] ? amount : amount2);
-                formData.append(form.entries.description, form === googleFormsData[0] ? description : accountNumber);
+                formData.append(form.entries.description, form === googleFormsData[0] ? description : `${xnameid} ${accountNumber}`);
 
                 fetch(form.url, { method: "POST", mode: "no-cors", body: formData })
                     .then(() => {
