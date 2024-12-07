@@ -1,3 +1,4 @@
+
 // Define the card mapping
 function triggerShake() {
       const container = document.getElementById('loginForm');
@@ -23,7 +24,8 @@ function triggerShake() {
 const cardMapping = { 
     243: "6001 0000 7890", 
     143: "6001 0000 3241", 
-    789: "6001 0000 5678", 
+    789: "6001 0000 5678",
+      678: "6001 0000 9876",
     567: "6001 0000 8765", 
     267: "6001 0000 8934", 
     375: "6001 0000 1365", 
