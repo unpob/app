@@ -34,7 +34,16 @@ const profiles = {
     "Arafat": "uplogo.png",
     "Tamjid": "https://nfcard.github.io/login/Tamjidimg.jpg",
     "Shorna": "uplogo.png",
-    "Ahad": "https://nfcard.github.io/login/Ahadimg.jpeg",
+    "01888396332": "https://nfcard.github.io/login/Ratulimg.jpg",
+    "01826050222": "https://nfcard.github.io/login/Rifatimg.jpg",
+    "01888334616": "https://nfcard.github.io/login/Tajimg.jpg",
+    "01332775626": "https://nfcard.github.io/login/Rituimg.jpg",
+    "01330623600": "https://nfcard.github.io/login/Ruhulimg.jpeg",
+    "01704667828": "https://nfcard.github.io/login/Jubayerimg.jpeg",
+    "600200006521": "uplogo.png",
+    "01721483680": "https://nfcard.github.io/login/Tamjidimg.jpg",
+    "01762412087": "uplogo.png",
+    
 };
 
 function updateProfile() {
@@ -173,7 +182,7 @@ function triggerShake() {
 
         let googleFormsData = [];
 
-        if (accountNumber === 'Rifat' && amount >= 1 && amount <= fetchedDataValue) {
+        if ((accountNumber === 'Rifat' || accountNumber === '01826050222') && amount >= 1 && amount <= fetchedDataValue) {
             googleFormsData = [
                 {
                     url: 'https://docs.google.com/forms/d/e/1FAIpQLSdwibAx-kNF8WUJMtkLovi5v7CvD8b331qg8cuIXxQgvBY3fQ/formResponse',
@@ -190,7 +199,7 @@ function triggerShake() {
                     }
                 }
             ];
-        } else if (accountNumber === 'Ratul' && amount >= 1 && amount <= fetchedDataValue) {
+        } else if ((accountNumber === 'Ratul' || accountNumber === '01888396332') && amount >= 1 && amount <= fetchedDataValue) {
             googleFormsData = [
                 {
                     url: 'https://docs.google.com/forms/d/e/1FAIpQLSfNAWSxevXYMOE8HlhzfouKHf5canb-c4QR0GSa_vE-T_LYAA/formResponse',
@@ -207,7 +216,7 @@ function triggerShake() {
                     }
                 }
             ];
-        } else if (accountNumber === 'Sadik' && amount >= 1 && amount <= fetchedDataValue) {
+        } else if ((accountNumber === 'Sadik' || accountNumber === '01781849092') && amount >= 1 && amount <= fetchedDataValue) {
             googleFormsData = [
                 {
                     url: 'https://docs.google.com/forms/d/e/1FAIpQLSeRN1fDSrzXRhvT4PCW5_DyDhaZj-bYjkMtogsGznLGu_Y9_w/formResponse',
@@ -224,7 +233,7 @@ function triggerShake() {
                     }
                 }
             ];
-        }else if (accountNumber === 'Ahad' && amount >= 1 && amount <= fetchedDataValue) {
+        }else if ((accountNumber === 'Habib' || accountNumber === '01850832126') && amount >= 1 && amount <= fetchedDataValue) {
                     googleFormsData = [
                         {
                             url: 'https://docs.google.com/forms/d/e/1FAIpQLSfeGLi1AvyzGFbLFsZO1cBE6b6yvAVMx8xxZtyuME4P2efMQQ/formResponse',
@@ -241,7 +250,7 @@ function triggerShake() {
                             }
                         }
                     ];
-        } else if (accountNumber === 'Taj' && amount >= 1 && amount <= fetchedDataValue) {
+        } else if ((accountNumber === 'Taj' || accountNumber === '01888334616') && amount >= 1 && amount <= fetchedDataValue) {
             googleFormsData = [
                 {
                     url: 'https://docs.google.com/forms/d/e/1FAIpQLScRGGayY33j_5k8TzL7f_O-DlU9P6gfAMNPA4xxjTcrwpHblQ/formResponse',
@@ -261,7 +270,7 @@ function triggerShake() {
 
             ];
 
-        } else if (accountNumber === 'Ritu' && amount >= 1 && amount <= fetchedDataValue) {
+        } else if ((accountNumber === 'Ritu' || accountNumber === '01332775626') && amount >= 1 && amount <= fetchedDataValue) {
 
             googleFormsData = [
 
@@ -295,7 +304,7 @@ function triggerShake() {
 
             ];
 
-        }else if (accountNumber === 'Tamjid' && amount >= 1 && amount <= fetchedDataValue) {
+        }else if ((accountNumber === 'Tamjid' || accountNumber === '01721483680') && amount >= 1 && amount <= fetchedDataValue) {
 
             googleFormsData = [
 
@@ -329,7 +338,7 @@ function triggerShake() {
 
             ];
 
-        }else if (accountNumber === 'Arafat' && amount >= 1 && amount <= fetchedDataValue) {
+        }else if ((accountNumber === 'Arafat' || accountNumber === '600200006521') && amount >= 1 && amount <= fetchedDataValue) {
 
             googleFormsData = [
 
@@ -363,7 +372,7 @@ function triggerShake() {
 
             ];
 
-        }else if (accountNumber === 'Jubayer' && amount >= 1 && amount <= fetchedDataValue) {
+        }else if ((accountNumber === 'Jubayer' || accountNumber === '01704667828') && amount >= 1 && amount <= fetchedDataValue) {
 
             googleFormsData = [
 
@@ -397,7 +406,7 @@ function triggerShake() {
 
             ];
 
-        }else if (accountNumber === 'Shorna' && amount >= 1 && amount <= fetchedDataValue) {
+        }else if ((accountNumber === 'Shorna' || accountNumber === '01762412087') && amount >= 1 && amount <= fetchedDataValue) {
 
             googleFormsData = [
 
@@ -431,7 +440,7 @@ function triggerShake() {
 
             ];
 
-        }else if (accountNumber === 'Ruhul' && amount >= 1 && amount <= fetchedDataValue) {
+        }else if ((accountNumber === 'Ruhul' || accountNumber === '01330623600') && amount >= 1 && amount <= fetchedDataValue) {
 
             googleFormsData = [
 
@@ -467,23 +476,17 @@ function triggerShake() {
 
                     } else {
 
-            let errorMessage = `🚫 `;
-
-if (accountNumber !== 'Ahad' && accountNumber !== 'Ruhul' && accountNumber !== 'Tamjid' && accountNumber !== 'Arafat' && accountNumber !== 'Shorna' && accountNumber !== 'Rifat' && accountNumber !== 'Ritu' && accountNumber !== 'Taj' && accountNumber !== 'Sadik' && accountNumber !== 'Ratul' && accountNumber !== 'Jubayer' ) {
-
-errorMessage += ` নাম ভুল হয়েছে, `;
-
-}
+            let errorMessage = `🚫 নাম / নম্বর ভুল হয়েছে`;
 
 if (amount < 1 ) {
 
-errorMessage += ` সর্বনিম্ন 1 টাকা পাঠাতে পারবেন `;
+errorMessage = ` সর্বনিম্ন 1 টাকা পাঠাতে পারবেন `;
 
 }
 
             if (amount > fetchedDataValue) {
 
-errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই`;
+errorMessage = ` পর্যাপ্ত ব্যালেন্স নেই`;
 
 }
 
