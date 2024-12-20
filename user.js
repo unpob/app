@@ -70,6 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         document.getElementById(r).style.color = "red"; // After endDate
                     }
                 } else {
+                            const expiryElementt = document.querySelector(".expiry");
+        if (expiryElementt) {
+          expiryElementt.style.display = 'none';
+        }
                     console.error("Invalid date format in balance2 value:", trimmedContent);
                 }
             }
