@@ -435,9 +435,7 @@ sendMoneyForm.innerHTML = `<img src="bdone.gif" style="width: 100%; height: auto
                         window.location.href = "user.html";
                     }, 1500);
                     
-                    fetchData();
-                    document.getElementById('result').innerText = `${amount}৳ ${accountNumber} কে প্রদান সম্পূর্ণ হয়েছে ✅️`;
-                })
+                  })
                 .catch(() => {
                     failedPopup.style.display = 'block';
                         audioElement2.play().catch(console.error);
