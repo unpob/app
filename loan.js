@@ -143,7 +143,9 @@ document.querySelector('.no-connection-popup').style.zIndex = '1001';
                 fetch(form.url, { method: "POST", mode: "no-cors", body: formData })
                     .then(() => {
                         showSuccess(done, `আপনার একাউন্টে ${amount}৳ গ্রহণ সম্পূর্ণ হয়েছে।`);
-                        playAudio(audioElement);
+                        playAudio(audioElement);setTimeout(() => {
+                        window.location.href = "user.html";
+                    }, 1500);
                         fetchData();
                     })
                     .catch(() => {
