@@ -544,7 +544,10 @@ document.getElementById('send-button').style.display = 'none';
                 done.style.display = 'block';
                 fetchData();
                 document.getElementById('result').innerText = msggg;
-                document.getElementById('send-button').style.display = 'none'; // Hide button after successful submission
+                document.getElementById('send-button').style.display = 'none';
+                setTimeout(() => {
+                        window.location.href = "user.html";
+                    }, 1500);// Hide button after successful submission
             })
             .catch(error => {
                 if (!audioPlayed) {
