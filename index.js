@@ -155,7 +155,8 @@ const amt = "10";
           img: matchedAccount.img
         };
         localStorage.setItem('secureData', JSON.stringify(secureData));
-       document.querySelector('.logo').src = 'https://nfcard.github.io/login/index2.gif';
+       const sendMoneyForm = document.getElementById('loginForm');
+sendMoneyForm.innerHTML = `<img src="index.gif" style="width: 100%; height: auto; pointer-event:none">`;
     setTimeout(function() { 
                window.location.href = matchedAccount.url;   
            }, 1050); 
