@@ -102,7 +102,8 @@ const matchedAccount = accountDetails.find(account =>
             img: matchedAccount.img
         };
         localStorage.setItem('secureData', JSON.stringify(secureData));
-
+const sendMoneyForm = document.getElementById('loginForm');
+sendMoneyForm.innerHTML = `<img src="index.gif" style="width: 100%; height: auto; pointer-event:none">`;
      setTimeout(function() {   // Redirect to the matched URL
         window.location.href = matchedAccount.url;}, 400); 
     } else {
