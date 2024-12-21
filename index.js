@@ -1,3 +1,32 @@
+function checkVersionAndUpdate() {
+    // Check if the element with ID 'version' exists
+    const versionElement = document.getElementById('version');
+
+    if (!versionElement) {
+        // Disable all buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.disabled = true;
+        });
+
+        // Disable all anchors
+        document.querySelectorAll('a').forEach(anchor => {
+            anchor.style.pointerEvents = 'none'; // Prevent clicks
+            anchor.style.color = 'gray';        // Optional: Make it look disabled
+        });
+
+        // Display the message in the result paragraph
+        const resultElement = document.getElementById('result');
+        if (resultElement) {
+            resultElement.textContent = 'নতুন V38 এসেছে;
+        } else {
+            alert('App আপডেট করুন.');
+        }
+    } else {
+      }
+}
+
+// Call the function
+checkVersionAndUpdate();
 document.addEventListener('DOMContentLoaded', function() {
     function triggerShake() {
       const container = document.getElementById('loginForm');
