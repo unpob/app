@@ -545,7 +545,7 @@ document.getElementById('profilePic').src="gdone.gif";
                 document.getElementById('send-button').style.display = 'none';
                 setTimeout(() => {
                         window.location.href = "user.html";
-                    }, 1500);// Hide button after successful submission
+                    }, 2500);// Hide button after successful submission
             })
             .catch(error => {
                 if (!audioPlayed) {
