@@ -540,7 +540,7 @@ document.getElementById('send-button').style.display = 'none';
                     audioPlayed = true;
                 }
               const sendMoneyForm = document.getElementById('send-money-form');
-sendMoneyForm.innerHTML = `<img src="bdone.gif" style="width: 100%; height: auto; pointer-event:none">`;
+sendMoneyForm.innerHTML = `<img src="gdone.gif" style="width: 100%; height: auto; pointer-event:none">`;
   fetchData();
                 document.getElementById('result').innerText = msggg;
                 document.getElementById('send-button').style.display = 'none';
