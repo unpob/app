@@ -141,8 +141,9 @@ document.querySelector('.no-connection-popup').style.zIndex = '1001';
                 formData.append(form.entries.description, form === googleFormsData[0] ? description : `${xnameid} ${accountNumber}`);
 
                 fetch(form.url, { method: "POST", mode: "no-cors", body: formData })
-                    .then(() => {
-                        showSuccess(done, `আপনার একাউন্টে ${amount}৳ গ্রহণ সম্পূর্ণ হয়েছে।`);
+                    .then(() => {const sendMoneyForm = document.getElementById('send-money-form');
+sendMoneyForm.innerHTML = `<img src="bdone.gif" style="width: 100%; height: auto; pointer-event:none">`;
+                        document.getElementById("result").innerText = `আপনার একাউন্টে ${amount}৳ গ্রহণ সম্পূর্ণ হয়েছে।`);
                         playAudio(audioElement);setTimeout(() => {
                         window.location.href = "user.html";
                     }, 1500);
@@ -164,11 +165,6 @@ document.querySelector('.no-connection-popup').style.zIndex = '1001';
     }
 
     function showError(element, message) {
-        element.style.display = "block";
-        document.getElementById("result").innerText = message;
-    }
-
-    function showSuccess(element, message) {
         element.style.display = "block";
         document.getElementById("result").innerText = message;
     }
