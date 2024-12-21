@@ -17,7 +17,7 @@ function checkVersionAndUpdate() {
         // Display the message in the result paragraph
         const resultElement = document.getElementById('result');
         if (resultElement) {
-            resultElement.textContent = 'নতুন V38 এসেছে;
+            resultElement.textContent = 'নতুন V38 এসেছে';
         } else {
             alert('App আপডেট করুন.');
         }
