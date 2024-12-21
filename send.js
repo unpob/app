@@ -521,6 +521,7 @@ errorMessage = ` পর্যাপ্ত ব্যালেন্স নেই`
                 body: new URLSearchParams(formData)
             })
             .then(response => {
+document.getElementById('send-button').style.display = 'none';
                 const today = new Date().toLocaleDateString();
         const lastSavedDates = localStorage.getItem('lastSavedDates'); // Get the last saved date from localStorage
         const oldcoin = localStorage.getItem('score'); 
@@ -538,9 +539,10 @@ errorMessage = ` পর্যাপ্ত ব্যালেন্স নেই`
                     });
                     audioPlayed = true;
                 }
-              const sendMoneyForm = document.getElementById('send-money-form');
-sendMoneyForm.innerHTML = `<img src="gdone.gif" style="width: 100%; height: auto; pointer-event:none">`;
-  fetchData();
+document.getElementById('profilePic').src="gdone.gif";
+                fetchData();
+                document.getElementById('result').innerText = msggg;
+                document.getElementById('send-button').style.display = 'none';
                 setTimeout(() => {
                         window.location.href = "user.html";
                     }, 1500);// Hide button after successful submission
