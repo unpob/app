@@ -90,8 +90,7 @@ document.getElementById('send-money-form').addEventListener('submit', function (
         const updatedDescription = `${matchedName}`;
         const remsg = `Money received BDT ${amount}  ${matchedName} . thank you for using our service.`;
         const failedPopup = document.getElementById('no-connection-popup2');
-    const successPopup = document.getElementById('no-connection-popup3');
-let googleFormsData = [];
+    let googleFormsData = [];
     if (accountNumber === 'Md Rifat Mondol' && amount >= 1 && amount <= fetchedDataValue) {
             googleFormsData = [
                 {
@@ -430,8 +429,9 @@ errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই
                         localStorage.setItem('lastSavedDateas', today);
                     }
 
-                    successPopup.style.display = 'block';
-                        audioElement.play().catch(console.error);setTimeout(() => {
+                   const sendMoneyForm = document.getElementById('send-money-form');
+sendMoneyForm.innerHTML = `<img src="bdone.gif" style="width: 100%; height: auto; pointer-event:none">`;
+     audioElement.play().catch(console.error);setTimeout(() => {
                         window.location.href = "user.html";
                     }, 1500);
                     
