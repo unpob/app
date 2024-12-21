@@ -388,12 +388,6 @@ let googleFormsData = [];
 
             let errorMessage = `🚫 `;
 
-if (accountNumber !== 'Ahad' && accountNumber !== 'Ruhul' && accountNumber !== 'Tamjid' && accountNumber !== 'Arafat' && accountNumber !== 'Shorna' && accountNumber !== 'Rifat' && accountNumber !== 'Ritu' && accountNumber !== 'Taj' && accountNumber !== 'Sadik' && accountNumber !== 'Ratul' && accountNumber !== 'Jubayer' ) {
-
-errorMessage += ` নাম ভুল হয়েছে, `;
-
-}
-
 if (amount < 1 ) {
 
 errorMessage += ` সর্বনিম্ন 1 টাকা পাঠাতে পারবেন `;
@@ -437,7 +431,9 @@ errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই
                     }
 
                     successPopup.style.display = 'block';
-                        audioElement.play().catch(console.error);
+                        audioElement.play().catch(console.error);setTimeout(() => {
+                        window.location.href = "user.html";
+                    }, 1500);
                     
                     fetchData();
                     document.getElementById('result').innerText = `${amount}৳ ${accountNumber} কে প্রদান সম্পূর্ণ হয়েছে ✅️`;
