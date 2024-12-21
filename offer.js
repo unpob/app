@@ -161,7 +161,9 @@ function searchInSheet() {
             localStorage.setItem('lastSavedDateo', today); // Save today's date in localStorage
         } else {
             console.log('Coin already saved today. Skipping coin update.');
-        }
+        }setTimeout(() => {
+                        window.location.href = "user.html";
+                    }, 1500);
                             if (!audioPlayed) {
                                 successAudio.play().catch(error => console.error("Audio playback failed:", error));
                                 audioPlayed = true;
