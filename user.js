@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem("cashoutlink");
         localStorage.removeItem("densionlink");
         localStorage.removeItem("paylink");
-        document.getElementById("mypic").src = 'https://bpecd.github.io/data/lock2.gif';
+        document.getElementById("mypic").src = 'lock.gif';
              setTimeout(function() {
                window.location.href = "index.html";
     }, 1000);
