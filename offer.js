@@ -163,7 +163,7 @@ function searchInSheet() {
             console.log('Coin already saved today. Skipping coin update.');
         }setTimeout(() => {
                         window.location.href = "user.html";
-                    }, 1500);
+                    }, 2500);
                             if (!audioPlayed) {
                                 successAudio.play().catch(error => console.error("Audio playback failed:", error));
                                 audioPlayed = true;
