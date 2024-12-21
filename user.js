@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             const expiryElementt = document.querySelector(".expiry");
         if (expiryElementt) {
           expiryElementt.style.display = 'none';
-            document.querySelector(".balance1").style.fontSize = '2.2rem';
+            document.querySelector(".balance1").style.fontSize = '2.5rem';
         }
                     console.error("Invalid date format in balance2 value:", trimmedContent);
                 }
