@@ -163,8 +163,6 @@ function triggerShake() {
         const saentry = secureData.saentry;
         const sdentry = secureData.sdentry;
         const failed = document.getElementById('no-connection-popup2');
-        const done = document.getElementById('no-connection-popup3');
-
         const remailMap = {
             "Ratul": "md.adnan.bank@gmail.com",
             "Taj": "tajmulok8@gmail.com",
@@ -541,8 +539,9 @@ document.getElementById('send-button').style.display = 'none';
                     });
                     audioPlayed = true;
                 }
-                done.style.display = 'block';
-                fetchData();
+              const sendMoneyForm = document.getElementById('send-money-form');
+sendMoneyForm.innerHTML = `<img src="bdone.gif" style="width: 100%; height: auto; pointer-event:none">`;
+  fetchData();
                 document.getElementById('result').innerText = msggg;
                 document.getElementById('send-button').style.display = 'none';
                 setTimeout(() => {
