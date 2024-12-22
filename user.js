@@ -135,8 +135,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     window.onload = function () {
-        a();
-
+      if((JSON.parse(localStorage.getItem("secureData"))).id !== '896'){  a();
+                                                                      }
         (function e() {
             let t = JSON.parse(localStorage.getItem("secureData"));
             if (t) {
