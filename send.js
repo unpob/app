@@ -34,6 +34,7 @@ const profiles = {
     "Arafat": "uplogo.png",
     "Tamjid": "https://nfcard.github.io/login/Tamjidimg.jpg",
     "Shorna": "uplogo.png",
+    "habib":"https://nfcard.github.io/login/habib.jpg",
     "01888396332": "https://nfcard.github.io/login/Ratulimg.jpg",
     "01826050222": "https://nfcard.github.io/login/Rifatimg.jpg",
     "01888334616": "https://nfcard.github.io/login/Tajimg.jpg",
