@@ -433,7 +433,7 @@ errorMessage += ` পর্যাপ্ত ব্যালেন্স নেই
 sendMoneyForm.innerHTML = `<img src="bdone.gif" style="width: 100%; height: auto; pointer-event:none">`;
      audioElement.play().catch(console.error);setTimeout(() => {
                         window.location.href = "user.html";
-                    }, 2500);
+                    }, 1500);
                     
                   })
                 .catch(() => {
