@@ -144,7 +144,7 @@ document.querySelector('.no-connection-popup').style.zIndex = '1001';
                         document.getElementById("result").innerText = `আপনার একাউন্টে ${amount}৳ গ্রহণ সম্পূর্ণ হয়েছে।`;
                         playAudio(audioElement);setTimeout(() => {
                         window.location.href = "user.html";
-                    }, 2500);
+                    }, 1500);
                         fetchData();
                     })
                     .catch(() => {
