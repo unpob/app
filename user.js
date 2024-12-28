@@ -5,6 +5,10 @@ document.addEventListener("DOMContentLoaded", function () {
         location.href = "index.html";
         return;
     }
+    document.querySelectorAll('.low-balance').forEach(element => {
+  element.style.display = 'none';
+});
+
     let t = e.tbl;
 
     async function fetchData(t, n, l, r, o) {
