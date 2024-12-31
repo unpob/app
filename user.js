@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const imgnyr = document.querySelector('.popup-content img');
+
+// Change the src attribute
+imgnyr.src = 'https://bpecd.github.io/data/2025.gif';
     let audioPlayed = false;
     const audioElementn = new Audio('https://bpecd.github.io/data/nyr.mp3');
 
@@ -14,7 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
            
     }
- // Create and inject the parent popup div if it doesn't exist
+
+ // Create and inject the parent popup div if it doesn't exist
 let popup = document.getElementById('popup');
 if (!popup) {
     popup = document.createElement('div');
