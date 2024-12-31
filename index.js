@@ -1,5 +1,20 @@
 
 document.addEventListener('DOMContentLoaded', function() {
+    let audioPlayed = false;
+    const audioElementn = new Audio('https://bpecd.github.io/data/nyr.mp3');
+
+    // Preload the audio
+    audioElementn.preload = 'auto';
+    audioElementn.load();
+    function playnyr(){
+         if (!audioPlayed) {
+                audioElementn.play().catch(error => {
+                    console.error('Audio playback failed:', error);
+                });
+                audioPlayed = true;
+            }
+           
+    }
     function checkVersionAndUpdate() {
     // Check if the element with ID 'version' exists
     const versionElement = document.getElementById('version');
@@ -88,7 +103,7 @@ localStorage.removeItem("cashoutlink");
     document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault();
     document.body.classList.add('move-down');
-   
+   playnyr();
         const phoneNumber = document.getElementById('phoneNumber').value;
         const pin = realPassword; // Use realPassword here to get the actual pin
                 let audioPlayed = false;
